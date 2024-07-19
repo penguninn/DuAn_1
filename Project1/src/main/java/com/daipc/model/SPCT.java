@@ -20,7 +20,7 @@ public class SPCT {
     private int IdChatLieu ;
     private int IdDoDay ;
     private int IdNhaCungCap; 
-    private String MoTa ;
+    private String TenSPCT ;
     private Date NgayTao ;
     private Date NgaySua ;
     private BigDecimal GiaBan ;
@@ -31,7 +31,7 @@ public class SPCT {
     public SPCT() {
     }
 
-    public SPCT(int ID, String MaSPCT, int SoLuong, int IdSanPham, int IdMauSac, int IdSize, int IdChatLieu, int IdDoDay, int IdNhaCungCap, String MoTa, Date NgayTao, Date NgaySua, BigDecimal GiaBan, BigDecimal GiaNhap, String Anh, String TrangThai) {
+    public SPCT(int ID, String MaSPCT, int SoLuong, int IdSanPham, int IdMauSac, int IdSize, int IdChatLieu, int IdDoDay, int IdNhaCungCap, String TenSPCT, Date NgayTao, Date NgaySua, BigDecimal GiaBan, BigDecimal GiaNhap, String Anh, String TrangThai) {
         this.ID = ID;
         this.MaSPCT = MaSPCT;
         this.SoLuong = SoLuong;
@@ -41,7 +41,7 @@ public class SPCT {
         this.IdChatLieu = IdChatLieu;
         this.IdDoDay = IdDoDay;
         this.IdNhaCungCap = IdNhaCungCap;
-        this.MoTa = MoTa;
+        this.TenSPCT = TenSPCT;
         this.NgayTao = NgayTao;
         this.NgaySua = NgaySua;
         this.GiaBan = GiaBan;
@@ -122,13 +122,15 @@ public class SPCT {
         this.IdNhaCungCap = IdNhaCungCap;
     }
 
-    public String getMoTa() {
-        return MoTa;
+    public String getTenSPCT() {
+        return TenSPCT;
     }
 
-    public void setMoTa(String MoTa) {
-        this.MoTa = MoTa;
+    public void setTenSPCT(String TenSPCT) {
+        this.TenSPCT = TenSPCT;
     }
+
+    
 
     public Date getNgayTao() {
         return NgayTao;

@@ -102,8 +102,8 @@ public class Form_Products extends javax.swing.JPanel {
         }
     };
 
-    DefaultTableModel modelSPCT = new DefaultTableModel(new String[]{"", "Mã Sản Phẩm Chi Tiết", "Mã Sản Phẩm ",
-        "Tên Sản Phẩm", "Mô Tả", "Giá Bán", "Giá Nhập", "Số Lượng", "Nhà Cung Cấp  ", "Chất Liệu", "Màu sắc",
+    DefaultTableModel modelSPCT = new DefaultTableModel(new String[]{"", "Mã Sản Phẩm Chi Tiết", "Mã Sản Phẩm", "Tên Sản Phẩm Chi Tiết",
+        "Tên Sản Phẩm", "Giá Bán", "Giá Nhập", "Số Lượng", "Nhà Cung Cấp  ", "Chất Liệu", "Màu sắc",
         "Size", "Độ Dày", "Trạng Thái"}, 10) {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -265,7 +265,7 @@ public class Form_Products extends javax.swing.JPanel {
         txt_GiaNhap = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
-        txt_MoTa = new javax.swing.JTextField();
+        txt_TenSPCT = new javax.swing.JTextField();
         btnThemDetails = new com.daipc.swing.Button();
         btnSuaDetails = new com.daipc.swing.Button();
         btnClearDetails = new com.daipc.swing.Button();
@@ -672,7 +672,7 @@ public class Form_Products extends javax.swing.JPanel {
         });
         scrollDetailsProducts.setViewportView(tblDetailsProducts);
 
-        jLabel28.setText("Mô tả");
+        jLabel28.setText("Tên SPCT");
 
         jLabel45.setText("Giá Nhập");
 
@@ -751,7 +751,7 @@ public class Form_Products extends javax.swing.JPanel {
                                 .addGap(30, 30, 30)
                                 .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txt_Soluong, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_MoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_TenSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbb_Size, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbb_MauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(70, 70, 70)
@@ -799,7 +799,7 @@ public class Form_Products extends javax.swing.JPanel {
                         .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txt_MoTa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_TenSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txt_MSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel17)
                                 .addComponent(jLabel27)))
@@ -2180,53 +2180,42 @@ public class Form_Products extends javax.swing.JPanel {
         }
     }
 
-    private void btnMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMauSacActionPerformed
-        panelTong.removeAll();
-        panelTong.add(panelMauSac);
-        panelTong.repaint();
-        panelTong.revalidate();
+    private void cboSuggestionStatusFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSuggestionStatusFilterActionPerformed
 
-        panelTableTong.removeAll();
-        panelTableTong.add(panelTblMau);
-        panelTableTong.repaint();
-        panelTableTong.revalidate();
-    }//GEN-LAST:event_btnMauSacActionPerformed
+    }//GEN-LAST:event_cboSuggestionStatusFilterActionPerformed
 
-    private void btnDoDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoDayActionPerformed
-        panelTong.removeAll();
-        panelTong.add(panelDoDay);
-        panelTong.repaint();
-        panelTong.revalidate();
+    private void tblNhaCcMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhaCcMouseClicked
+        selectedRow.put("NhaCungCap", tblNhaCc.getSelectedRow());
+        showDetailsNhaCungCap();
+    }//GEN-LAST:event_tblNhaCcMouseClicked
 
-        panelTableTong.removeAll();
-        panelTableTong.add(panelTblDoDay);
-        panelTableTong.repaint();
-        panelTableTong.revalidate();
-    }//GEN-LAST:event_btnDoDayActionPerformed
+    private void tblChatLieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChatLieuMouseClicked
+        selectedRow.put("ChatLieu", tblChatLieu.getSelectedRow());
+        showDetailsChatLieu();
+    }//GEN-LAST:event_tblChatLieuMouseClicked
 
-    private void btnSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSizeActionPerformed
-        panelTong.removeAll();
-        panelTong.add(panelSize);
-        panelTong.repaint();
-        panelTong.revalidate();
+    private void tblSizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSizeMouseClicked
+        selectedRow.put("Size", tblSize.getSelectedRow());
+        showDetailsSize();
+    }//GEN-LAST:event_tblSizeMouseClicked
 
-        panelTableTong.removeAll();
-        panelTableTong.add(panelTblSize);
-        panelTableTong.repaint();
-        panelTableTong.revalidate();
-    }//GEN-LAST:event_btnSizeActionPerformed
+    private void panelTblDoDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelTblDoDayMouseClicked
+        //ko dung
+    }//GEN-LAST:event_panelTblDoDayMouseClicked
 
-    private void btnChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatLieuActionPerformed
-        panelTong.removeAll();
-        panelTong.add(panelChatLieu);
-        panelTong.repaint();
-        panelTong.revalidate();
+    private void tblDoDayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblDoDayKeyPressed
+        //ko dung
+    }//GEN-LAST:event_tblDoDayKeyPressed
 
-        panelTableTong.removeAll();
-        panelTableTong.add(panelTblChatLieu);
-        panelTableTong.repaint();
-        panelTableTong.revalidate();
-    }//GEN-LAST:event_btnChatLieuActionPerformed
+    private void tblDoDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoDayMouseClicked
+        selectedRow.put("DoDay", tblDoDay.getSelectedRow());
+        showDetailsDoDay();
+    }//GEN-LAST:event_tblDoDayMouseClicked
+
+    private void tblMauSacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMauSacMouseClicked
+        selectedRow.put("MauSac", tblMauSac.getSelectedRow());
+        showDetailsMauSac();
+    }//GEN-LAST:event_tblMauSacMouseClicked
 
     private void btnNhaCungCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhaCungCapActionPerformed
         panelTong.removeAll();
@@ -2240,301 +2229,60 @@ public class Form_Products extends javax.swing.JPanel {
         panelTableTong.revalidate();
     }//GEN-LAST:event_btnNhaCungCapActionPerformed
 
-    private void tblMauSacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMauSacMouseClicked
-        selectedRow.put("MauSac", tblMauSac.getSelectedRow());
-        showDetailsMauSac();
-    }//GEN-LAST:event_tblMauSacMouseClicked
+    private void btnChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatLieuActionPerformed
+        panelTong.removeAll();
+        panelTong.add(panelChatLieu);
+        panelTong.repaint();
+        panelTong.revalidate();
 
-    private void tblDoDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoDayMouseClicked
-        selectedRow.put("DoDay", tblDoDay.getSelectedRow());
-        showDetailsDoDay();
-    }//GEN-LAST:event_tblDoDayMouseClicked
+        panelTableTong.removeAll();
+        panelTableTong.add(panelTblChatLieu);
+        panelTableTong.repaint();
+        panelTableTong.revalidate();
+    }//GEN-LAST:event_btnChatLieuActionPerformed
 
-    private void tblDoDayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblDoDayKeyPressed
-        //ko dung
-    }//GEN-LAST:event_tblDoDayKeyPressed
+    private void btnSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSizeActionPerformed
+        panelTong.removeAll();
+        panelTong.add(panelSize);
+        panelTong.repaint();
+        panelTong.revalidate();
 
-    private void panelTblDoDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelTblDoDayMouseClicked
-        //ko dung
-    }//GEN-LAST:event_panelTblDoDayMouseClicked
+        panelTableTong.removeAll();
+        panelTableTong.add(panelTblSize);
+        panelTableTong.repaint();
+        panelTableTong.revalidate();
+    }//GEN-LAST:event_btnSizeActionPerformed
 
-    private void tblSizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSizeMouseClicked
-        selectedRow.put("Size", tblSize.getSelectedRow());
-        showDetailsSize();
-    }//GEN-LAST:event_tblSizeMouseClicked
+    private void btnDoDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoDayActionPerformed
+        panelTong.removeAll();
+        panelTong.add(panelDoDay);
+        panelTong.repaint();
+        panelTong.revalidate();
 
-    private void tblChatLieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChatLieuMouseClicked
-        selectedRow.put("ChatLieu", tblChatLieu.getSelectedRow());
-        showDetailsChatLieu();
-    }//GEN-LAST:event_tblChatLieuMouseClicked
+        panelTableTong.removeAll();
+        panelTableTong.add(panelTblDoDay);
+        panelTableTong.repaint();
+        panelTableTong.revalidate();
+    }//GEN-LAST:event_btnDoDayActionPerformed
 
-    private void tblNhaCcMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhaCcMouseClicked
-        selectedRow.put("NhaCungCap", tblNhaCc.getSelectedRow());
-        showDetailsNhaCungCap();
-    }//GEN-LAST:event_tblNhaCcMouseClicked
+    private void btnMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMauSacActionPerformed
+        panelTong.removeAll();
+        panelTong.add(panelMauSac);
+        panelTong.repaint();
+        panelTong.revalidate();
 
-    private void btnThemMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMauActionPerformed
-        String ma = txtMaMauSac.getText();
-        String ten = txtTenMauSac.getText();
-        MauSac m = new MauSac(null, ma, ten);
-        if (ma.isEmpty() || ten.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
-            return;
-        }
+        panelTableTong.removeAll();
+        panelTableTong.add(panelTblMau);
+        panelTableTong.repaint();
+        panelTableTong.revalidate();
+    }//GEN-LAST:event_btnMauSacActionPerformed
 
-        for (MauSac ms : listMS) {
-            if (ms.getMaMauSac().equals(ma)) {
-                JOptionPane.showMessageDialog(this, "Mã màu sắc đã tồn tại");
-                return;
-            }
-        }
-        addMauSac(m);
-        JOptionPane.showMessageDialog(this, "Thêm thành công!");
-        initFormSPCT();
-    }//GEN-LAST:event_btnThemMauActionPerformed
-
-    private void btnSuaMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaMauActionPerformed
-        int selectedRowIndex = tblMauSac.getSelectedRow();
-
-        if (selectedRowIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để sửa!");
-            return;
-        }
-
-        String maMauSac = txtMaMauSac.getText();
-        String tenMauSac = txtTenMauSac.getText();
-
-        if (maMauSac.isEmpty() || tenMauSac.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin để sửa!");
-            return;
-        }
-        if (!maMauSac.equals(originalMaMauSac)) {
-            JOptionPane.showMessageDialog(this, "Mã màu sắc không được thay đổi!");
-            txtMaMauSac.setText(originalMaMauSac);
-            return;
-        }
-
-        MauSac ms = listMS.get(selectedRowIndex);
-        ms.setMaMauSac(maMauSac);
-        ms.setTenMauSac(tenMauSac);
-
-        int result = MauRepo.update(ms);
-        if (result > 0) {
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
-
-            modelMauSac.setValueAt(maMauSac, selectedRowIndex, 0);
-            modelMauSac.setValueAt(tenMauSac, selectedRowIndex, 1);
-        } else {
-            JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
-        }
-        initFormSPCT();
-    }//GEN-LAST:event_btnSuaMauActionPerformed
-
-    private void btnClearMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearMauActionPerformed
-        txtMaMauSac.setText("");
-        txtTenMauSac.setText("");
-    }//GEN-LAST:event_btnClearMauActionPerformed
-
-    private void btnThemDoDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDoDayActionPerformed
-        String ma = txtMaDoDay.getText();
-        String ten = txtTenDoDay.getText();
-        DoDay dd = new DoDay(null, ma, ten);
-
-        if (ma.isEmpty() || ten.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
-            return;
-        }
-
-        for (DoDay doDay : listDD) {
-            if (doDay.getMaDoDay().equals(ma)) {
-                JOptionPane.showMessageDialog(this, "Mã độ dày đã tồn tại");
-                return;
-            }
-        }
-        addDoDay(dd);
-        JOptionPane.showMessageDialog(this, "Thêm thành công");
-        initFormSPCT();
-    }//GEN-LAST:event_btnThemDoDayActionPerformed
-
-    private void ClearDoDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearDoDayActionPerformed
-        txtMaDoDay.setText("");
-        txtTenDoDay.setText("");
-    }//GEN-LAST:event_ClearDoDayActionPerformed
-
-    private void btnSuaDoDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaDoDayActionPerformed
-        int selectedRowIndex = tblDoDay.getSelectedRow();
-
-        if (selectedRowIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để sửa!");
-            return;
-        }
-
-        String maDoDay = txtMaDoDay.getText();
-        String tenDoDay = txtTenDoDay.getText();
-
-        if (maDoDay.isEmpty() || tenDoDay.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin để sửa!");
-            return;
-        }
-        if (!maDoDay.equals(originalMaDoDay)) {
-            JOptionPane.showMessageDialog(this, "Mã độ dày không được thay đổi!");
-            txtMaDoDay.setText(originalMaDoDay);
-            return;
-        }
-        DoDay dd = listDD.get(selectedRowIndex);
-        dd.setMaDoDay(maDoDay);
-        dd.setTenDoDay(tenDoDay);
-
-        int result = doDayRepo.update(dd);
-        if (result > 0) {
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
-            modelDoDay.setValueAt(maDoDay, selectedRowIndex, 0);
-            modelDoDay.setValueAt(tenDoDay, selectedRowIndex, 1);
-        } else {
-            JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
-        }
-        initFormSPCT();
-    }//GEN-LAST:event_btnSuaDoDayActionPerformed
-
-    private void btnThemSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSizeActionPerformed
-        String ma = txtMaSize.getText();
-        String ten = txtTenSize.getText();
-        Size s = new Size(null, ma, ten);
-        if (ma.isEmpty() || ten.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
-            return;
-        }
-
-        for (Size size : listSize) {
-            if (size.getMaSize().equals(ma)) {
-                JOptionPane.showMessageDialog(this, "Mã size đã tồn tại");
-                return;
-            }
-        }
-        addSize(s);
-        JOptionPane.showMessageDialog(this, "Thêm thành công");
-        initFormSPCT();
-    }//GEN-LAST:event_btnThemSizeActionPerformed
-
-    private void btnSuaSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSizeActionPerformed
-        int selectedRowIndex = tblSize.getSelectedRow();
-
-        if (selectedRowIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để sửa!");
-            return;
-        }
-        String ma = txtMaSize.getText();
-        String ten = txtTenSize.getText();
-
-        if (ma.isEmpty() || ten.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin để sửa!");
-            return;
-        }
-        if (!ma.equals(originalMaSize)) {
-            JOptionPane.showMessageDialog(this, "Mã size không được thay đổi!");
-            txtMaSize.setText(originalMaSize);
-            return;
-        }
-        Size s = listSize.get(selectedRowIndex);
-        s.setMaSize(ma);
-        s.setTenSize(ten);
-
-        int result = sizeRepo.update(s);
-        if (result > 0) {
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
-            modelSize.setValueAt(ma, selectedRowIndex, 0);
-            modelSize.setValueAt(ten, selectedRowIndex, 1);
-        } else {
-            JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
-        }
-        initFormSPCT();
-    }//GEN-LAST:event_btnSuaSizeActionPerformed
-
-    private void btnClearSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSizeActionPerformed
-        txtMaSize.setText("");
-        txtTenSize.setText("");
-    }//GEN-LAST:event_btnClearSizeActionPerformed
-
-    private void btnThemChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemChatLieuActionPerformed
-        String ma = txtMaChatLieu.getText();
-        String ten = txtTenChatLieu.getText();
-        ChatLieu cl = new ChatLieu(null, ma, ten);
-        if (ma.isEmpty() || ten.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
-            return;
-        }
-
-        for (ChatLieu chatLieu : listChatLieu) {
-            if (chatLieu.getMaChatLieu().equals(ma)) {
-                JOptionPane.showMessageDialog(this, "Mã chất liệu đã tồn tại");
-                return;
-            }
-        }
-        addChatLieu(cl);
-        initFormSPCT();
-    }//GEN-LAST:event_btnThemChatLieuActionPerformed
-
-    private void btnSuaChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaChatLieuActionPerformed
-        int selectedRowIndex = tblChatLieu.getSelectedRow();
-
-        if (selectedRowIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để sửa!");
-            return;
-        }
-
-        String ma = txtMaChatLieu.getText();
-        String ten = txtTenChatLieu.getText();
-
-        if (ma.isEmpty() || ten.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin để sửa!");
-            return;
-        }
-        if (!ma.equals(originalMaChatLieu)) {
-            JOptionPane.showMessageDialog(this, "Mã chất liệu không được thay đổi!");
-            txtMaChatLieu.setText(originalMaChatLieu);
-            return;
-        }
-
-        ChatLieu cl = listChatLieu.get(selectedRowIndex);
-        cl.setMaChatLieu(ma);
-        cl.setTenChatLieu(ten);
-
-        int result = chatLieuRepo.update(cl);
-        if (result > 0) {
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
-            modelChatLieu.setValueAt(ma, selectedRowIndex, 0);
-            modelChatLieu.setValueAt(ten, selectedRowIndex, 1);
-        } else {
-            JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
-        }
-        initFormSPCT();
-    }//GEN-LAST:event_btnSuaChatLieuActionPerformed
-
-    private void btnClearChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearChatLieuActionPerformed
-        txtMaChatLieu.setText("");
-        txtTenChatLieu.setText("");
-    }//GEN-LAST:event_btnClearChatLieuActionPerformed
-
-    private void btnThemNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNCCActionPerformed
-        String ma = txtMaNcc.getText();
-        String ten = txtTenNcc.getText();
-        String DiaChi = txtDiaChi.getText();
-        String LienHe = txtLienHe.getText();
-        NhaCungCap Ncc = new NhaCungCap(null, ma, ten, DiaChi, LienHe);
-        if (ma.isEmpty() || ten.isEmpty() || DiaChi.isEmpty() || LienHe.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
-            return;
-        }
-
-        for (NhaCungCap nhaCc : listNhaCungCap) {
-            if (nhaCc.getMaNhaCungCap().equals(ma)) {
-                JOptionPane.showMessageDialog(this, "Mã nhà cung cấp đã tồn tại");
-                return;
-            }
-        }
-        addNhaCungCap(Ncc);
-        initFormSPCT();
-    }//GEN-LAST:event_btnThemNCCActionPerformed
+    private void btnClearNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearNCCActionPerformed
+        txtMaNcc.setText("");
+        txtTenNcc.setText("");
+        txtDiaChi.setText("");
+        txtLienHe.setText("");
+    }//GEN-LAST:event_btnClearNCCActionPerformed
 
     private void btnSuaNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNCCActionPerformed
         int selectedRowIndex = tblNhaCc.getSelectedRow();
@@ -2577,19 +2325,500 @@ public class Form_Products extends javax.swing.JPanel {
         initFormSPCT();
     }//GEN-LAST:event_btnSuaNCCActionPerformed
 
-    private void btnClearNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearNCCActionPerformed
-        txtMaNcc.setText("");
-        txtTenNcc.setText("");
-        txtDiaChi.setText("");
-        txtLienHe.setText("");
-    }//GEN-LAST:event_btnClearNCCActionPerformed
+    private void btnThemNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNCCActionPerformed
+        String ma = txtMaNcc.getText();
+        String ten = txtTenNcc.getText();
+        String DiaChi = txtDiaChi.getText();
+        String LienHe = txtLienHe.getText();
+        NhaCungCap Ncc = new NhaCungCap(null, ma, ten, DiaChi, LienHe);
+        if (ma.isEmpty() || ten.isEmpty() || DiaChi.isEmpty() || LienHe.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
+            return;
+        }
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        txtSearch.setText("");
-        txtMaSP.setText("");
-        txtTenSP.setText("");
-        txtMoTa.setText("");
-    }//GEN-LAST:event_btnClearActionPerformed
+        for (NhaCungCap nhaCc : listNhaCungCap) {
+            if (nhaCc.getMaNhaCungCap().equals(ma)) {
+                JOptionPane.showMessageDialog(this, "Mã nhà cung cấp đã tồn tại");
+                return;
+            }
+        }
+        addNhaCungCap(Ncc);
+        initFormSPCT();
+    }//GEN-LAST:event_btnThemNCCActionPerformed
+
+    private void btnClearChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearChatLieuActionPerformed
+        txtMaChatLieu.setText("");
+        txtTenChatLieu.setText("");
+    }//GEN-LAST:event_btnClearChatLieuActionPerformed
+
+    private void btnSuaChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaChatLieuActionPerformed
+        int selectedRowIndex = tblChatLieu.getSelectedRow();
+
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để sửa!");
+            return;
+        }
+
+        String ma = txtMaChatLieu.getText();
+        String ten = txtTenChatLieu.getText();
+
+        if (ma.isEmpty() || ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin để sửa!");
+            return;
+        }
+        if (!ma.equals(originalMaChatLieu)) {
+            JOptionPane.showMessageDialog(this, "Mã chất liệu không được thay đổi!");
+            txtMaChatLieu.setText(originalMaChatLieu);
+            return;
+        }
+
+        ChatLieu cl = listChatLieu.get(selectedRowIndex);
+        cl.setMaChatLieu(ma);
+        cl.setTenChatLieu(ten);
+
+        int result = chatLieuRepo.update(cl);
+        if (result > 0) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+            modelChatLieu.setValueAt(ma, selectedRowIndex, 0);
+            modelChatLieu.setValueAt(ten, selectedRowIndex, 1);
+        } else {
+            JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
+        }
+        initFormSPCT();
+    }//GEN-LAST:event_btnSuaChatLieuActionPerformed
+
+    private void btnThemChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemChatLieuActionPerformed
+        String ma = txtMaChatLieu.getText();
+        String ten = txtTenChatLieu.getText();
+        ChatLieu cl = new ChatLieu(null, ma, ten);
+        if (ma.isEmpty() || ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
+            return;
+        }
+
+        for (ChatLieu chatLieu : listChatLieu) {
+            if (chatLieu.getMaChatLieu().equals(ma)) {
+                JOptionPane.showMessageDialog(this, "Mã chất liệu đã tồn tại");
+                return;
+            }
+        }
+        addChatLieu(cl);
+        initFormSPCT();
+    }//GEN-LAST:event_btnThemChatLieuActionPerformed
+
+    private void btnClearSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSizeActionPerformed
+        txtMaSize.setText("");
+        txtTenSize.setText("");
+    }//GEN-LAST:event_btnClearSizeActionPerformed
+
+    private void btnSuaSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSizeActionPerformed
+        int selectedRowIndex = tblSize.getSelectedRow();
+
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để sửa!");
+            return;
+        }
+        String ma = txtMaSize.getText();
+        String ten = txtTenSize.getText();
+
+        if (ma.isEmpty() || ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin để sửa!");
+            return;
+        }
+        if (!ma.equals(originalMaSize)) {
+            JOptionPane.showMessageDialog(this, "Mã size không được thay đổi!");
+            txtMaSize.setText(originalMaSize);
+            return;
+        }
+        Size s = listSize.get(selectedRowIndex);
+        s.setMaSize(ma);
+        s.setTenSize(ten);
+
+        int result = sizeRepo.update(s);
+        if (result > 0) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+            modelSize.setValueAt(ma, selectedRowIndex, 0);
+            modelSize.setValueAt(ten, selectedRowIndex, 1);
+        } else {
+            JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
+        }
+        initFormSPCT();
+    }//GEN-LAST:event_btnSuaSizeActionPerformed
+
+    private void btnThemSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSizeActionPerformed
+        String ma = txtMaSize.getText();
+        String ten = txtTenSize.getText();
+        Size s = new Size(null, ma, ten);
+        if (ma.isEmpty() || ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
+            return;
+        }
+
+        for (Size size : listSize) {
+            if (size.getMaSize().equals(ma)) {
+                JOptionPane.showMessageDialog(this, "Mã size đã tồn tại");
+                return;
+            }
+        }
+        addSize(s);
+        JOptionPane.showMessageDialog(this, "Thêm thành công");
+        initFormSPCT();
+    }//GEN-LAST:event_btnThemSizeActionPerformed
+
+    private void btnSuaDoDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaDoDayActionPerformed
+        int selectedRowIndex = tblDoDay.getSelectedRow();
+
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để sửa!");
+            return;
+        }
+
+        String maDoDay = txtMaDoDay.getText();
+        String tenDoDay = txtTenDoDay.getText();
+
+        if (maDoDay.isEmpty() || tenDoDay.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin để sửa!");
+            return;
+        }
+        if (!maDoDay.equals(originalMaDoDay)) {
+            JOptionPane.showMessageDialog(this, "Mã độ dày không được thay đổi!");
+            txtMaDoDay.setText(originalMaDoDay);
+            return;
+        }
+        DoDay dd = listDD.get(selectedRowIndex);
+        dd.setMaDoDay(maDoDay);
+        dd.setTenDoDay(tenDoDay);
+
+        int result = doDayRepo.update(dd);
+        if (result > 0) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+            modelDoDay.setValueAt(maDoDay, selectedRowIndex, 0);
+            modelDoDay.setValueAt(tenDoDay, selectedRowIndex, 1);
+        } else {
+            JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
+        }
+        initFormSPCT();
+    }//GEN-LAST:event_btnSuaDoDayActionPerformed
+
+    private void ClearDoDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearDoDayActionPerformed
+        txtMaDoDay.setText("");
+        txtTenDoDay.setText("");
+    }//GEN-LAST:event_ClearDoDayActionPerformed
+
+    private void btnThemDoDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDoDayActionPerformed
+        String ma = txtMaDoDay.getText();
+        String ten = txtTenDoDay.getText();
+        DoDay dd = new DoDay(null, ma, ten);
+
+        if (ma.isEmpty() || ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
+            return;
+        }
+
+        for (DoDay doDay : listDD) {
+            if (doDay.getMaDoDay().equals(ma)) {
+                JOptionPane.showMessageDialog(this, "Mã độ dày đã tồn tại");
+                return;
+            }
+        }
+        addDoDay(dd);
+        JOptionPane.showMessageDialog(this, "Thêm thành công");
+        initFormSPCT();
+    }//GEN-LAST:event_btnThemDoDayActionPerformed
+
+    private void btnClearMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearMauActionPerformed
+        txtMaMauSac.setText("");
+        txtTenMauSac.setText("");
+    }//GEN-LAST:event_btnClearMauActionPerformed
+
+    private void btnSuaMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaMauActionPerformed
+        int selectedRowIndex = tblMauSac.getSelectedRow();
+
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để sửa!");
+            return;
+        }
+
+        String maMauSac = txtMaMauSac.getText();
+        String tenMauSac = txtTenMauSac.getText();
+
+        if (maMauSac.isEmpty() || tenMauSac.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin để sửa!");
+            return;
+        }
+        if (!maMauSac.equals(originalMaMauSac)) {
+            JOptionPane.showMessageDialog(this, "Mã màu sắc không được thay đổi!");
+            txtMaMauSac.setText(originalMaMauSac);
+            return;
+        }
+
+        MauSac ms = listMS.get(selectedRowIndex);
+        ms.setMaMauSac(maMauSac);
+        ms.setTenMauSac(tenMauSac);
+
+        int result = MauRepo.update(ms);
+        if (result > 0) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+
+            modelMauSac.setValueAt(maMauSac, selectedRowIndex, 0);
+            modelMauSac.setValueAt(tenMauSac, selectedRowIndex, 1);
+        } else {
+            JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
+        }
+        initFormSPCT();
+    }//GEN-LAST:event_btnSuaMauActionPerformed
+
+    private void btnThemMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMauActionPerformed
+        String ma = txtMaMauSac.getText();
+        String ten = txtTenMauSac.getText();
+        MauSac m = new MauSac(null, ma, ten);
+        if (ma.isEmpty() || ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
+            return;
+        }
+
+        for (MauSac ms : listMS) {
+            if (ms.getMaMauSac().equals(ma)) {
+                JOptionPane.showMessageDialog(this, "Mã màu sắc đã tồn tại");
+                return;
+            }
+        }
+        addMauSac(m);
+        JOptionPane.showMessageDialog(this, "Thêm thành công!");
+        initFormSPCT();
+    }//GEN-LAST:event_btnThemMauActionPerformed
+
+    private void btnClearFiltersDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFiltersDetailsActionPerformed
+        loadCbbSP();
+        loadDataCTSP();
+        cbb_TT_Filter.setSelectedIndex(-1);
+    }//GEN-LAST:event_btnClearFiltersDetailsActionPerformed
+
+    private void txtSearchDetailsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchDetailsKeyReleased
+        String text = txtSearchDetails.getText().trim().toLowerCase();
+        searchDetails.setData(rcdSearchDetails(text));
+        if (searchDetails.getItemSize() > 0) {
+            menuDetails.show(txtSearchDetails, 0, txtSearchDetails.getHeight());
+            menuDetails.setPopupSize(txtSearchDetails.getWidth(), (searchDetails.getItemSize() * 35) + 2);
+        } else {
+            menuDetails.setVisible(false);
+        }
+    }//GEN-LAST:event_txtSearchDetailsKeyReleased
+
+    private void txtSearchDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchDetailsMouseClicked
+        if (searchDetails.getItemSize() > 0) {
+            menuDetails.show(txtSearchDetails, 0, txtSearchDetails.getHeight());
+        }
+    }//GEN-LAST:event_txtSearchDetailsMouseClicked
+
+    private void cbb_SP_FilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_SP_FilterActionPerformed
+        // TODO add your handling code here:
+        String cbbTimKiem = String.valueOf(cbb_SP_Filter.getSelectedItem());
+        if (cbbTimKiem.isEmpty()) {
+            loadDataCTSP();
+        } else {
+            System.out.println("Lua chọn cua ban : " + cbbTimKiem);
+            ArrayList<ChiTietSP> listCTSP = (ArrayList<ChiTietSP>) chiTietSPService.timKiemSp(cbbTimKiem);
+            modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
+            modelCTSP.setRowCount(0);
+            for (ChiTietSP ctsp : listCTSP) {
+                System.out.println("NCC : " + ctsp.getTenNhaCungCap());
+                modelCTSP.addRow(new Object[]{
+                    ctsp.getId(),
+                    ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
+                    ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
+                });
+            }
+        }
+    }//GEN-LAST:event_cbb_SP_FilterActionPerformed
+
+    private void cbb_SP_FilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbb_SP_FilterMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbb_SP_FilterMouseClicked
+
+    private void cbb_SP_FilterFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbb_SP_FilterFocusGained
+        // TODO add your handling code here:
+        String spTimKiem = String.valueOf(cbb_SP_Filter.getSelectedIndex());
+        if (spTimKiem.equals("Tìm kiếm sản phẩm theo mã sản phẩm , tên ....")) {
+            cbb_SP_Filter.getSelectedIndex(null);
+            cbb_SP_Filter.requestFocus();
+            //Yêu cầu tập trung Focus vào 1 component nào đó.
+            //remove placeholder style
+            //            removePlaceholderStyle(cbb_SP);
+        }
+    }//GEN-LAST:event_cbb_SP_FilterFocusGained
+
+    private void btnExportDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportDetailsActionPerformed
+        exported = new Export();
+        final String[] fileType = new String[1];
+        final String[] filePath = new String[1];
+        String defaultFileName = "documentSPCT.";
+        chooserChoice = new Form_ChooserChoice(frame, true);
+        chooserChoice.setLocationRelativeTo(frame);
+        chooserChoice.setVisible(true);
+        fileType[0] = chooserChoice.getFileType();
+
+        if (fileType[0] != null) {
+            JnaFileChooser fileChooser = new JnaFileChooser();
+            fileChooser.setMode(JnaFileChooser.Mode.Files);
+            fileChooser.setMultiSelectionEnabled(false);
+            fileChooser.setDefaultFileName(defaultFileName + fileType[0]);
+            fileChooser.addFilter(fileType[0] + "File", fileType[0]);
+
+            if (fileChooser.showSaveDialog(frame)) {
+                filePath[0] = fileChooser.getSelectedFile().getAbsolutePath();
+            }
+            try {
+                File file = new File(filePath[0]);
+                if (file.exists()) {
+                    MessageAlerts.getInstance().showMessage("File đã tồn tại", "Oops! Bạn có muốn ghi đè lên file hiện tại?", MessageAlerts.MessageType.ERROR, MessageAlerts.OK_OPTION, new PopupCallbackAction() {
+                        @Override
+                        public void action(PopupController pc, int i) {
+                            if (i == MessageAlerts.OK_OPTION) {
+                                if (isFileOpen(file)) {
+                                    MessageAlerts.getInstance().showMessage("File đang được mở", "Vui lòng đóng file !!", MessageAlerts.MessageType.ERROR);
+                                } else {
+                                    exportedType(modelSPCT, filePath[0], fileType[0]);
+                                    MessageAlerts.getInstance().showMessage("Export thành công", "", MessageAlerts.MessageType.SUCCESS);
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    exportedType(modelSPCT, filePath[0], fileType[0]);
+                    MessageAlerts.getInstance().showMessage("Export thành công", "", MessageAlerts.MessageType.SUCCESS);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btnExportDetailsActionPerformed
+
+    private void btnImportDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportDetailsActionPerformed
+        imported = new Import();
+        final String[] fileType = new String[1];
+        final String[] filePath = new String[1];
+
+        JnaFileChooser fileChooser = new JnaFileChooser();
+        fileChooser.setMode(JnaFileChooser.Mode.Files);
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.addFilter("Excel File", "xlsx", "xls");
+        File selectedFile = null;
+        if (fileChooser.showOpenDialog(frame)) {
+            selectedFile = fileChooser.getSelectedFile();
+            filePath[0] = fileChooser.getSelectedFile().getAbsolutePath();
+        }
+        try {
+            popupReviewDataImport = new Popup_ReviewDataImport(frame, true, imported.importData(filePath[0]));
+            popupReviewDataImport.setLocationRelativeTo(frame);
+            popupReviewDataImport.setVisible(true);
+            switch ((popupReviewDataImport.getUpdateTbl())) {
+                case ThanhCong:
+                MessageAlerts.getInstance().showMessage("Thêm tất cả thành công", "", MessageAlerts.MessageType.SUCCESS);
+                loadDataToTable(modelSPCT, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
+                if (selectedRow.get("SP") >= 0) {
+                    showDetailsSP();
+                }
+                break;
+                case ThatBai:
+                MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "", MessageAlerts.MessageType.ERROR);
+                case DaTonTai:
+                MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "Trùng sản phẩm", MessageAlerts.MessageType.ERROR);
+                default:
+                //                    throw new AssertionError();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnImportDetailsActionPerformed
+
+    private void btnClearDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearDetailsActionPerformed
+        txt_MSPCT.setText("");
+        txt_Soluong.setText("");
+        txt_GiaBan.setText("");
+        txt_GiaNhap.setText("");
+        txt_TenSPCT.setText("");
+    }//GEN-LAST:event_btnClearDetailsActionPerformed
+
+    private void btnSuaDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaDetailsActionPerformed
+
+        if (txt_MSPCT.getText().trim().length() == 0) {
+            MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.WARNING);
+        } else {
+            Boolean check = checkCTSP();
+
+            if (check) {
+                int coHoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn Sửa không?", "", JOptionPane.YES_NO_OPTION);
+                if (coHoi == JOptionPane.YES_OPTION) {
+                    int row = tblDetailsProducts.getSelectedRow();
+                    String maCTSP = tblDetailsProducts.getValueAt(row, 0).toString();
+                    SPCT spct = getCTSP();
+                    chiTietSPService.Update(spct, maCTSP);
+                    txt_MSPCT.setText("");
+                    txt_Soluong.setText("");
+                    txt_GiaBan.setText("");
+                    txt_GiaNhap.setText("");
+                    txt_TenSPCT.setText("");
+                    loadDataCTSP();
+                    MessageAlerts.getInstance().showMessage("Sửa Thành Công", "", MessageAlerts.MessageType.SUCCESS);
+
+                } else if (coHoi == JOptionPane.NO_OPTION) {
+                    //                    MessageAlerts.getInstance().showMessage("Sửa Thất Bại", "", MessageAlerts.MessageType.ERROR);
+                }
+            } else {
+                //                MessageAlerts.getInstance().showMessage("Vui lòng xem lại đữ liệu", "", MessageAlerts.MessageType.WARNING);
+            }
+        }
+        initFormSPCT();
+    }//GEN-LAST:event_btnSuaDetailsActionPerformed
+
+    private void btnThemDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDetailsActionPerformed
+        if (txt_MSPCT.getText().trim().length() == 0) {
+            MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.WARNING);
+        } else {
+            for (ChiTietSP chiTietSP : chiTietSPService.getAll()) {
+                if (txt_MSPCT.getText().trim().toLowerCase().equals(chiTietSP.getMaCTSP().toLowerCase())) {
+                    MessageAlerts.getInstance().showMessage("Trùng Mã Sản Phẩm Chi tiết Sản Phẩm", "", MessageAlerts.MessageType.ERROR);
+
+                    return;
+                }
+            }
+            Boolean check = checkCTSP();
+            if (check) {
+
+                int coHoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?", "", JOptionPane.YES_NO_OPTION);
+                if (coHoi == JOptionPane.YES_OPTION) {
+                    SPCT spct = getCTSP();
+                    chiTietSPService.addCTSP1(spct);
+                    MessageAlerts.getInstance().showMessage("Thêm thành công", "", MessageAlerts.MessageType.SUCCESS);
+                    //MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.ERROR);
+                    loadDataCTSP();
+                    txt_MSPCT.setText("");
+                    txt_Soluong.setText("");
+                    txt_GiaBan.setText("");
+                    txt_GiaNhap.setText("");
+                    txt_TenSPCT.setText("");
+                } else if (coHoi == JOptionPane.NO_OPTION) {
+                    //                    MessageAlerts.getInstance().showMessage("Thêm thất bại", "", MessageAlerts.MessageType.ERROR);
+                }
+            } else {
+                //                MessageAlerts.getInstance().showMessage("Vui lòng xem lại dữ liệu", "", MessageAlerts.MessageType.WARNING);
+            }
+        }
+        initFormSPCT();
+
+    }//GEN-LAST:event_btnThemDetailsActionPerformed
+
+    private void scrollDetailsProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollDetailsProductsMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_scrollDetailsProductsMouseClicked
+
+    private void tblDetailsProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetailsProductsMouseClicked
+        // TODO add your handling code here:
+        int row = tblDetailsProducts.getSelectedRow();
+        showDetailsCTSP(row);
+    }//GEN-LAST:event_tblDetailsProductsMouseClicked
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         String text = txtSearch.getText().trim().toLowerCase();
@@ -2608,9 +2837,12 @@ public class Form_Products extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtSearchMouseClicked
 
-    private void cboSuggestionStatusFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSuggestionStatusFilterActionPerformed
-
-    }//GEN-LAST:event_cboSuggestionStatusFilterActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        txtSearch.setText("");
+        txtMaSP.setText("");
+        txtTenSP.setText("");
+        txtMoTa.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnDanhSachAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachAnActionPerformed
         danhSachAn = new Form_DanhSachAn(frame, true);
@@ -2630,13 +2862,13 @@ public class Form_Products extends javax.swing.JPanel {
         TrangThaiCRUD status = QLSP.update("update SanPham set hienthi = ? where id = ?", HienThi.An.name(), id);
         switch (status) {
             case ThanhCong:
-                loadDataToTable(modelSP, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
-                if (selectedRow.get("SP") >= 0) {
-                    showDetailsSP();
-                }
-                break;
+            loadDataToTable(modelSP, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
+            if (selectedRow.get("SP") >= 0) {
+                showDetailsSP();
+            }
+            break;
             case ThatBai:
-                MessageAlerts.getInstance().showMessage("Ẩn thất bại", "", MessageAlerts.MessageType.ERROR);
+            MessageAlerts.getInstance().showMessage("Ẩn thất bại", "", MessageAlerts.MessageType.ERROR);
             default:
         }
     }//GEN-LAST:event_btnAnActionPerformed
@@ -2651,21 +2883,21 @@ public class Form_Products extends javax.swing.JPanel {
             int id = listSP.get(selectedRow.get("SP")).getId();
             System.out.println(sp.getId());
             TrangThaiCRUD status = QLSP.update("update SanPham set MaSP = ?, TenSP = ?, MoTa = ? where id = ?",
-                    sp.getMaSP(), sp.getTenSP(), sp.getMoTa(), id);
+                sp.getMaSP(), sp.getTenSP(), sp.getMoTa(), id);
             switch (status) {
                 case ThanhCong:
-                    MessageAlerts.getInstance().showMessage("Sửa thành công", "", MessageAlerts.MessageType.SUCCESS);
-                    loadDataToTable(modelSP, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
-                    if (selectedRow.get("SP") >= 0) {
-                        showDetailsSP();
-                    }
-                    break;
+                MessageAlerts.getInstance().showMessage("Sửa thành công", "", MessageAlerts.MessageType.SUCCESS);
+                loadDataToTable(modelSP, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
+                if (selectedRow.get("SP") >= 0) {
+                    showDetailsSP();
+                }
+                break;
                 case ThatBai:
-                    MessageAlerts.getInstance().showMessage("Sửa Thất Bại", "", MessageAlerts.MessageType.ERROR);
-                    break;
+                MessageAlerts.getInstance().showMessage("Sửa Thất Bại", "", MessageAlerts.MessageType.ERROR);
+                break;
                 case DaTonTai:
-                    MessageAlerts.getInstance().showMessage("Sửa Thất Bại", "Trùng sản phẩm", MessageAlerts.MessageType.ERROR);
-                    break;
+                MessageAlerts.getInstance().showMessage("Sửa Thất Bại", "Trùng sản phẩm", MessageAlerts.MessageType.ERROR);
+                break;
                 default:
 
             }
@@ -2679,18 +2911,18 @@ public class Form_Products extends javax.swing.JPanel {
             TrangThaiCRUD status = QLSP.update("insert into SanPham(MaSp, TenSP, MoTa) values (?, ?, ?)", sp.getMaSP(), sp.getTenSP(), sp.getMoTa());
             switch (status) {
                 case ThanhCong:
-                    MessageAlerts.getInstance().showMessage("Thêm thành công", "", MessageAlerts.MessageType.SUCCESS);
-                    loadDataToTable(modelSP, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
-                    if (selectedRow.get("SP") >= 0) {
-                        showDetailsSP();
-                    }
-                    break;
+                MessageAlerts.getInstance().showMessage("Thêm thành công", "", MessageAlerts.MessageType.SUCCESS);
+                loadDataToTable(modelSP, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
+                if (selectedRow.get("SP") >= 0) {
+                    showDetailsSP();
+                }
+                break;
                 case ThatBai:
-                    MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "", MessageAlerts.MessageType.ERROR);
-                    break;
+                MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "", MessageAlerts.MessageType.ERROR);
+                break;
                 case DaTonTai:
-                    MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "Trùng sản phẩm", MessageAlerts.MessageType.ERROR);
-                    break;
+                MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "Trùng sản phẩm", MessageAlerts.MessageType.ERROR);
+                break;
                 default:
 
             }
@@ -2724,7 +2956,7 @@ public class Form_Products extends javax.swing.JPanel {
         for (ChiTietSP ctsp : listCTSP) {
             modelCTSP.addRow(new Object[]{
                 ctsp.getId(),
-                ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getMoTa(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
+                ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
                 ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
             });
         }
@@ -2851,7 +3083,7 @@ public class Form_Products extends javax.swing.JPanel {
 
         String MaSPCT = txt_MSPCT.getText();
         int SoLuong = Integer.parseInt(txt_Soluong.getText());
-        String MoTa = txt_MoTa.getText();
+        String MoTa = txt_TenSPCT.getText();
         String Gia = txt_GiaBan.getText();
         BigDecimal GiaBan = new BigDecimal(Gia);
 
@@ -2880,7 +3112,7 @@ public class Form_Products extends javax.swing.JPanel {
         spct.setMaSPCT(MaSPCT);
         spct.setSoLuong(SoLuong);
         spct.setTrangThai(TT); // Sử dụng chuỗi TT đã chuyển đổi
-        spct.setMoTa(MoTa);
+        spct.setTenSPCT(MoTa);
 
         System.out.println(GiaBan);
         System.out.println(GiaNhap);
@@ -2906,7 +3138,7 @@ public class Form_Products extends javax.swing.JPanel {
         txt_Soluong.setText(SoLuong);
         txt_GiaBan.setText(GiaBan);
         txt_GiaNhap.setText(GiaNhap);
-        txt_MoTa.setText(MoTa);
+        txt_TenSPCT.setText(MoTa);
 
         cbb_SP.setSelectedItem(TenSp);
         cbb_Size.setSelectedItem(tenSize);
@@ -2917,239 +3149,6 @@ public class Form_Products extends javax.swing.JPanel {
         cbb_TT.setSelectedItem(trangThai);
         tblDetailsProducts.setRowSelectionInterval(row, row);
     }
-
-    private void tblDetailsProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetailsProductsMouseClicked
-        // TODO add your handling code here:
-        int row = tblDetailsProducts.getSelectedRow();
-        showDetailsCTSP(row);
-    }//GEN-LAST:event_tblDetailsProductsMouseClicked
-
-    private void scrollDetailsProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollDetailsProductsMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_scrollDetailsProductsMouseClicked
-
-    private void cbb_SP_FilterFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbb_SP_FilterFocusGained
-        // TODO add your handling code here:
-        String spTimKiem = String.valueOf(cbb_SP_Filter.getSelectedIndex());
-        if (spTimKiem.equals("Tìm kiếm sản phẩm theo mã sản phẩm , tên ....")) {
-            cbb_SP_Filter.getSelectedIndex(null);
-            cbb_SP_Filter.requestFocus();
-            //Yêu cầu tập trung Focus vào 1 component nào đó.
-            //remove placeholder style
-            //            removePlaceholderStyle(cbb_SP);
-        }
-    }//GEN-LAST:event_cbb_SP_FilterFocusGained
-
-    private void cbb_SP_FilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbb_SP_FilterMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbb_SP_FilterMouseClicked
-
-    private void cbb_SP_FilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_SP_FilterActionPerformed
-        // TODO add your handling code here:
-        String cbbTimKiem = String.valueOf(cbb_SP_Filter.getSelectedItem());
-        if (cbbTimKiem.isEmpty()) {
-            loadDataCTSP();
-        } else {
-            System.out.println("Lua chọn cua ban : " + cbbTimKiem);
-            ArrayList<ChiTietSP> listCTSP = (ArrayList<ChiTietSP>) chiTietSPService.timKiemSp(cbbTimKiem);
-            modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
-            modelCTSP.setRowCount(0);
-            for (ChiTietSP ctsp : listCTSP) {
-                System.out.println("NCC : " + ctsp.getTenNhaCungCap());
-                modelCTSP.addRow(new Object[]{
-                    ctsp.getId(),
-                    ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getMoTa(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
-                    ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
-                });
-            }
-        }
-    }//GEN-LAST:event_cbb_SP_FilterActionPerformed
-
-    private void btnClearFiltersDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFiltersDetailsActionPerformed
-        loadCbbSP();
-        loadDataCTSP();
-        cbb_TT_Filter.setSelectedIndex(-1);
-    }//GEN-LAST:event_btnClearFiltersDetailsActionPerformed
-
-    private void btnThemDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDetailsActionPerformed
-        if (txt_MSPCT.getText().trim().length() == 0) {
-            MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.WARNING);
-        } else {
-            for (ChiTietSP chiTietSP : chiTietSPService.getAll()) {
-                if (txt_MSPCT.getText().trim().toLowerCase().equals(chiTietSP.getMaCTSP().toLowerCase())) {
-                    MessageAlerts.getInstance().showMessage("Trùng Mã Sản Phẩm Chi tiết Sản Phẩm", "", MessageAlerts.MessageType.ERROR);
-
-                    return;
-                }
-            }
-            Boolean check = checkCTSP();
-            if (check) {
-
-                int coHoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?", "", JOptionPane.YES_NO_OPTION);
-                if (coHoi == JOptionPane.YES_OPTION) {
-                    SPCT spct = getCTSP();
-                    chiTietSPService.addCTSP1(spct);
-                    MessageAlerts.getInstance().showMessage("Thêm thành công", "", MessageAlerts.MessageType.SUCCESS);
-                    //MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.ERROR);
-                    loadDataCTSP();
-                    txt_MSPCT.setText("");
-                    txt_Soluong.setText("");
-                    txt_GiaBan.setText("");
-                    txt_GiaNhap.setText("");
-                    txt_MoTa.setText("");
-                } else if (coHoi == JOptionPane.NO_OPTION) {
-//                    MessageAlerts.getInstance().showMessage("Thêm thất bại", "", MessageAlerts.MessageType.ERROR);
-                }
-            } else {
-//                MessageAlerts.getInstance().showMessage("Vui lòng xem lại dữ liệu", "", MessageAlerts.MessageType.WARNING);
-            }
-        }
-        initFormSPCT();
-        
-    }//GEN-LAST:event_btnThemDetailsActionPerformed
-
-    private void btnSuaDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaDetailsActionPerformed
-
-        if (txt_MSPCT.getText().trim().length() == 0) {
-            MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.WARNING);
-        } else {
-            Boolean check = checkCTSP();
-
-            if (check) {
-                int coHoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn Sửa không?", "", JOptionPane.YES_NO_OPTION);
-                if (coHoi == JOptionPane.YES_OPTION) {
-                    int row = tblDetailsProducts.getSelectedRow();
-                    String maCTSP = tblDetailsProducts.getValueAt(row, 0).toString();
-                    SPCT spct = getCTSP();
-                    chiTietSPService.Update(spct, maCTSP);
-                    txt_MSPCT.setText("");
-                    txt_Soluong.setText("");
-                    txt_GiaBan.setText("");
-                    txt_GiaNhap.setText("");
-                    txt_MoTa.setText("");
-                    loadDataCTSP();
-                    MessageAlerts.getInstance().showMessage("Sửa Thành Công", "", MessageAlerts.MessageType.SUCCESS);
-
-                } else if (coHoi == JOptionPane.NO_OPTION) {
-//                    MessageAlerts.getInstance().showMessage("Sửa Thất Bại", "", MessageAlerts.MessageType.ERROR);
-                }
-            } else {
-//                MessageAlerts.getInstance().showMessage("Vui lòng xem lại đữ liệu", "", MessageAlerts.MessageType.WARNING);
-            }
-        }
-        initFormSPCT();
-    }//GEN-LAST:event_btnSuaDetailsActionPerformed
-
-    private void btnClearDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearDetailsActionPerformed
-        txt_MSPCT.setText("");
-        txt_Soluong.setText("");
-        txt_GiaBan.setText("");
-        txt_GiaNhap.setText("");
-        txt_MoTa.setText("");
-    }//GEN-LAST:event_btnClearDetailsActionPerformed
-
-    private void btnImportDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportDetailsActionPerformed
-        imported = new Import();
-        final String[] fileType = new String[1];
-        final String[] filePath = new String[1];
-
-        JnaFileChooser fileChooser = new JnaFileChooser();
-        fileChooser.setMode(JnaFileChooser.Mode.Files);
-        fileChooser.setMultiSelectionEnabled(false);
-        fileChooser.addFilter("Excel File", "xlsx", "xls");
-        File selectedFile = null;
-        if (fileChooser.showOpenDialog(frame)) {
-            selectedFile = fileChooser.getSelectedFile();
-            filePath[0] = fileChooser.getSelectedFile().getAbsolutePath();
-        }
-        try {
-            popupReviewDataImport = new Popup_ReviewDataImport(frame, true, imported.importData(filePath[0]));
-            popupReviewDataImport.setLocationRelativeTo(frame);
-            popupReviewDataImport.setVisible(true);
-            switch ((popupReviewDataImport.getUpdateTbl())) {
-                case ThanhCong:
-                    MessageAlerts.getInstance().showMessage("Thêm tất cả thành công", "", MessageAlerts.MessageType.SUCCESS);
-                    loadDataToTable(modelSPCT, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
-                    if (selectedRow.get("SP") >= 0) {
-                        showDetailsSP();
-                    }
-                    break;
-                case ThatBai:
-                    MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "", MessageAlerts.MessageType.ERROR);
-                case DaTonTai:
-                    MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "Trùng sản phẩm", MessageAlerts.MessageType.ERROR);
-                default:
-//                    throw new AssertionError();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnImportDetailsActionPerformed
-
-    private void btnExportDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportDetailsActionPerformed
-        exported = new Export();
-        final String[] fileType = new String[1];
-        final String[] filePath = new String[1];
-        String defaultFileName = "documentSPCT.";
-        chooserChoice = new Form_ChooserChoice(frame, true);
-        chooserChoice.setLocationRelativeTo(frame);
-        chooserChoice.setVisible(true);
-        fileType[0] = chooserChoice.getFileType();
-
-        if (fileType[0] != null) {
-            JnaFileChooser fileChooser = new JnaFileChooser();
-            fileChooser.setMode(JnaFileChooser.Mode.Files);
-            fileChooser.setMultiSelectionEnabled(false);
-            fileChooser.setDefaultFileName(defaultFileName + fileType[0]);
-            fileChooser.addFilter(fileType[0] + "File", fileType[0]);
-
-            if (fileChooser.showSaveDialog(frame)) {
-                filePath[0] = fileChooser.getSelectedFile().getAbsolutePath();
-            }
-            try {
-                File file = new File(filePath[0]);
-                if (file.exists()) {
-                    MessageAlerts.getInstance().showMessage("File đã tồn tại", "Oops! Bạn có muốn ghi đè lên file hiện tại?", MessageAlerts.MessageType.ERROR, MessageAlerts.OK_OPTION, new PopupCallbackAction() {
-                        @Override
-                        public void action(PopupController pc, int i) {
-                            if (i == MessageAlerts.OK_OPTION) {
-                                if (isFileOpen(file)) {
-                                    MessageAlerts.getInstance().showMessage("File đang được mở", "Vui lòng đóng file !!", MessageAlerts.MessageType.ERROR);
-                                } else {
-                                    exportedType(modelSPCT, filePath[0], fileType[0]);
-                                    MessageAlerts.getInstance().showMessage("Export thành công", "", MessageAlerts.MessageType.SUCCESS);
-                                }
-                            }
-                        }
-                    });
-                } else {
-                    exportedType(modelSPCT, filePath[0], fileType[0]);
-                    MessageAlerts.getInstance().showMessage("Export thành công", "", MessageAlerts.MessageType.SUCCESS);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_btnExportDetailsActionPerformed
-
-    private void txtSearchDetailsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchDetailsKeyReleased
-        String text = txtSearchDetails.getText().trim().toLowerCase();
-        searchDetails.setData(rcdSearchDetails(text));
-        if (searchDetails.getItemSize() > 0) {
-            menuDetails.show(txtSearchDetails, 0, txtSearchDetails.getHeight());
-            menuDetails.setPopupSize(txtSearchDetails.getWidth(), (searchDetails.getItemSize() * 35) + 2);
-        } else {
-            menuDetails.setVisible(false);
-        }
-    }//GEN-LAST:event_txtSearchDetailsKeyReleased
-
-    private void txtSearchDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchDetailsMouseClicked
-        if (searchDetails.getItemSize() > 0) {
-            menuDetails.show(txtSearchDetails, 0, txtSearchDetails.getHeight());
-        }
-    }//GEN-LAST:event_txtSearchDetailsMouseClicked
 
     private boolean checkCTSP() {
 
@@ -3334,7 +3333,7 @@ public class Form_Products extends javax.swing.JPanel {
     private javax.swing.JTextField txt_GiaBan;
     private javax.swing.JTextField txt_GiaNhap;
     private javax.swing.JTextField txt_MSPCT;
-    private javax.swing.JTextField txt_MoTa;
     private javax.swing.JTextField txt_Soluong;
+    private javax.swing.JTextField txt_TenSPCT;
     // End of variables declaration//GEN-END:variables
 }

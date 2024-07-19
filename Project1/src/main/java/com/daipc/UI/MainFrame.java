@@ -140,9 +140,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     public void login() {
-        if (loginForm == null) {
-            loginForm = new Login(this);
-        }
+        loginForm = new Login(this);
         loginForm.applyComponentOrientation(getComponentOrientation());
         setContentPane(loginForm);
         revalidate();

@@ -524,7 +524,7 @@
                                           <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="txt_Soluong" min="-2" pref="202" max="-2" attributes="0"/>
-                                              <Component id="txt_MoTa" min="-2" pref="200" max="-2" attributes="0"/>
+                                              <Component id="txt_TenSPCT" min="-2" pref="200" max="-2" attributes="0"/>
                                               <Component id="cbb_Size" min="-2" pref="200" max="-2" attributes="0"/>
                                               <Component id="cbb_MauSac" min="-2" pref="200" max="-2" attributes="0"/>
                                           </Group>
@@ -584,7 +584,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel28" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="txt_MoTa" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt_TenSPCT" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="txt_MSPCT" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -841,7 +841,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel28">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="M&#xf4; t&#x1ea3;"/>
+                    <Property name="text" type="java.lang.String" value="T&#xea;n SPCT"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel45">
@@ -849,7 +849,7 @@
                     <Property name="text" type="java.lang.String" value="Gi&#xe1; Nh&#x1ead;p"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txt_MoTa">
+                <Component class="javax.swing.JTextField" name="txt_TenSPCT">
                 </Component>
                 <Component class="com.daipc.swing.Button" name="btnThemDetails">
                   <Properties>

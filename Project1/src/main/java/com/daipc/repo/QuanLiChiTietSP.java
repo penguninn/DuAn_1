@@ -34,7 +34,7 @@ public class QuanLiChiTietSP {
                 + "    A.MaSPCT,\n"
                 + "    B.MaSP,\n"
                 + "    B.TenSP,\n"
-                + "    A.MoTa,\n"
+                + "    A.TenSPCT,\n"
                 + "    A.GiaBan,\n"
                 + "    A.SoLuong,\n"
                 + "    G.TenDoDay,\n"
@@ -67,7 +67,7 @@ public class QuanLiChiTietSP {
                 String MaSPCT = rs.getString(2);
                 String MaSP = rs.getString(3);
                 String TenSP = rs.getString(4);
-                String MoTa = rs.getString(5);
+                String TenSPCT = rs.getString(5);
                 BigDecimal GiaBan = rs.getBigDecimal(6);
                 BigDecimal GiaNhap = rs.getBigDecimal(14);
                 int Soluong = rs.getInt(7);
@@ -78,7 +78,7 @@ public class QuanLiChiTietSP {
                 String tenNCC = rs.getString(11);
                 String trangThai = rs.getString(13);
 
-                ChiTietSP chiTietSP = new ChiTietSP(id, MaSPCT, MaSP, TenSP, MoTa, GiaBan, GiaNhap, Soluong,
+                ChiTietSP chiTietSP = new ChiTietSP(id, MaSPCT, MaSP, TenSP, TenSPCT, GiaBan, GiaNhap, Soluong,
                         tenMS, tenNCC, tenSize, tenCL, tenDoDay, trangThai);
                 list.add(chiTietSP);
             }
@@ -91,7 +91,7 @@ public class QuanLiChiTietSP {
     public void Update(SPCT spct, String ma) {
         String sql = "UPDATE SanPhamChiTiet SET MaSPCT = ?,SoLuong  = ?, IdSanPham = ?, "
                 + "IdMauSac = ?, IdSize = ?, IdChatLieu = ?,IdDoDay=?, IdNhaCungCap = ?, GiaBan = ?,"
-                + " GiaNhap = ?, TrangThai = ?,MoTa=?  WHERE MaSPCT = ?";
+                + " GiaNhap = ?, TrangThai = ?,TenSPCT=?  WHERE MaSPCT = ?";
         try {
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setObject(1, spct.getMaSPCT());
@@ -105,7 +105,7 @@ public class QuanLiChiTietSP {
             stm.setObject(9, spct.getGiaBan());
             stm.setObject(10, spct.getGiaNhap());
             stm.setObject(11, spct.getTrangThai());
-            stm.setObject(12, spct.getMoTa());
+            stm.setObject(12, spct.getTenSPCT());
             stm.setObject(13, spct.getMaSPCT());
             stm.executeUpdate();
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public class QuanLiChiTietSP {
                 + "    A.MaSPCT,\n"
                 + "    B.MaSP,\n"
                 + "    B.TenSP,\n"
-                + "    A.MoTa,\n"
+                + "    A.TenSPCT,\n"
                 + "    A.GiaBan,\n"
                 + "    A.SoLuong,\n"
                 + "    G.TenDoDay,\n"
@@ -157,7 +157,7 @@ public class QuanLiChiTietSP {
                 chiTietSP.setMaCTSP(rs.getString(2));
                 chiTietSP.setMaSP(rs.getString(3));
                 chiTietSP.setTenSP(rs.getString(4));
-                chiTietSP.setMoTa(rs.getString(5));
+                chiTietSP.setTenSPCT(rs.getString(5));
                 chiTietSP.setGiaBan(rs.getBigDecimal(6));
                 chiTietSP.setSoLuong(rs.getInt(7));
                 chiTietSP.setTenDoDay(rs.getString(8));
@@ -198,7 +198,7 @@ public class QuanLiChiTietSP {
     }
 
     public void addCTSP1(SPCT spct) {
-        String sql = "INSERT INTO SanPhamChiTiet (MaSPCT, SoLuong, IdSanPham, IdMauSac, IdSize, IdChatLieu, IdDoDay, IdNhaCungCap, GiaNhap, GiaBan, TrangThai, MoTa) "
+        String sql = "INSERT INTO SanPhamChiTiet (MaSPCT, SoLuong, IdSanPham, IdMauSac, IdSize, IdChatLieu, IdDoDay, IdNhaCungCap, GiaNhap, GiaBan, TrangThai, TenSPCT) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         try {
@@ -214,7 +214,7 @@ public class QuanLiChiTietSP {
             stm.setObject(9, spct.getGiaNhap());
             stm.setObject(10, spct.getGiaBan());
             stm.setObject(11, spct.getTrangThai());
-            stm.setObject(12, spct.getMoTa());
+            stm.setObject(12, spct.getTenSPCT());
             stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

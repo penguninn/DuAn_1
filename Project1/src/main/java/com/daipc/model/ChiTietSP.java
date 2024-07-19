@@ -15,7 +15,7 @@ public class ChiTietSP {
      private String maCTSP;
     private String MaSP;
     private String tenSP;
-    private String moTa;
+    private String tenSPCT;
     private BigDecimal giaBan;
     private BigDecimal giaNhap;
     private int soLuong;
@@ -29,12 +29,12 @@ public class ChiTietSP {
     public ChiTietSP() {
     }
 
-    public ChiTietSP(int id, String maCTSP, String MaSP, String tenSP, String moTa, BigDecimal giaBan, BigDecimal giaNhap, int soLuong, String tenNhaCungCap, String tenMauSac, String tenSize, String tenChatLieu, String tenDoDay, String trangThai) {
+    public ChiTietSP(int id, String maCTSP, String MaSP, String tenSP, String tenSPCT, BigDecimal giaBan, BigDecimal giaNhap, int soLuong, String tenNhaCungCap, String tenMauSac, String tenSize, String tenChatLieu, String tenDoDay, String trangThai) {
         this.id = id;
         this.maCTSP = maCTSP;
         this.MaSP = MaSP;
         this.tenSP = tenSP;
-        this.moTa = moTa;
+        this.tenSPCT = tenSPCT;
         this.giaBan = giaBan;
         this.giaNhap = giaNhap;
         this.soLuong = soLuong;
@@ -78,12 +78,12 @@ public class ChiTietSP {
         this.tenSP = tenSP;
     }
 
-    public String getMoTa() {
-        return moTa;
+    public String getTenSPCT() {
+        return tenSPCT;
     }
 
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
+    public void setTenSPCT(String tenSPCT) {
+        this.tenSPCT = tenSPCT;
     }
 
     public BigDecimal getGiaBan() {
