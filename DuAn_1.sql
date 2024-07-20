@@ -86,6 +86,7 @@ TrangThai nvarchar(max)
 CREATE TABLE SanPhamChiTiet (
     ID INT PRIMARY KEY IDENTITY(1,1),
     MaSPCT varchar(max),
+	TenSPCT nvarchar(max),
     SoLuong INT,
     IdSanPham INT,
     IdMauSac INT,
@@ -93,7 +94,6 @@ CREATE TABLE SanPhamChiTiet (
     IdChatLieu INT,
     IdDoDay INT,
     IdNhaCungCap INT,
-    MoTa nvarchar(max),
     NgayTao DATE,
     NgaySua DATE,
 	GiaNhap DECIMAL(10, 2),
@@ -261,18 +261,19 @@ VALUES
     ('DD010', N'Phổ thông', 'ConHang');
 
 -- Insert data into SanPhamChiTiet
-INSERT INTO SanPhamChiTiet (MaSPCT, SoLuong, IdSanPham, IdMauSac, IdSize, IdChatLieu, IdDoDay, IdNhaCungCap, MoTa, NgayTao, NgaySua, GiaNhap, GiaBan, TrangThai, HienThi)
+INSERT INTO SanPhamChiTiet (MaSPCT, TenSPCT, SoLuong, IdSanPham, IdMauSac, IdSize, IdChatLieu, IdDoDay, IdNhaCungCap, NgayTao, NgaySua, GiaNhap, GiaBan, TrangThai, HienThi)
 VALUES 
-    ('SPCT001', 50, 1, 1, 1, 1, 1, 1, N'Mô tả sản phẩm chi tiết 1', '2023-01-01', '2023-01-01', 200000,200000,  'KinhDoanh', 'Hien'),
-    ('SPCT002', 30, 2, 2, 2, 2, 2, 2, N'Mô tả sản phẩm chi tiết 2', '2023-01-01', '2023-01-01', 300000,300000,  'KinhDoanh', 'Hien'),
-    ('SPCT003', 20, 3, 3, 3, 3, 3, 3, N'Mô tả sản phẩm chi tiết 3', '2023-01-01', '2023-01-01', 150000,150000,  'KinhDoanh', 'Hien'),
-    ('SPCT004', 40, 4, 4, 4, 4, 4, 4, N'Mô tả sản phẩm chi tiết 4', '2023-01-01', '2023-01-01', 250000,250000,  'KinhDoanh', 'Hien'),
-    ('SPCT005', 10, 5, 5, 5, 5, 5, 5, N'Mô tả sản phẩm chi tiết 5', '2023-01-01', '2023-01-01', 500000,500000, 'NgungKinhDoanh', 'Hien'),
-    ('SPCT006', 60, 6, 6, 6, 6, 6, 6, N'Mô tả sản phẩm chi tiết 6', '2023-01-01', '2023-01-01', 220000,220000,  'NgungKinhDoanh', 'An'),
-    ('SPCT007', 70, 7, 7, 7, 7, 7, 7, N'Mô tả sản phẩm chi tiết 7', '2023-01-01', '2023-01-01', 330000,330000,  'NgungKinhDoanh', 'An'),
-    ('SPCT008', 25, 8, 8, 8, 8, 8, 8, N'Mô tả sản phẩm chi tiết 8', '2023-01-01', '2023-01-01', 400000,400000,  'NgungKinhDoanh', 'An'),
-    ('SPCT009', 35, 9, 9, 9, 9, 9, 9, N'Mô tả sản phẩm chi tiết 9', '2023-01-01', '2023-01-01', 120000,120000,  'NgungKinhDoanh', 'An'),
-    ('SPCT010', 45, 10, 10, 10, 10, 10, 10, N'Mô tả sản phẩm chi tiết 10', '2023-01-01', '2023-01-01', 280000,280000,  'KinhDoanh', 'An');
+    ('SPCT001', N'Áo thun nam đen', 100, 1, 1, 1, 1, 1, 1, '2024-07-01', '2024-07-01', 50000, 100000, N'Còn hàng', N'Hien'),
+    ('SPCT002', N'Áo sơ mi nữ trắng', 150, 2, 2, 2, 2, 2, 2, '2024-07-01', '2024-07-01', 75000, 150000, N'Còn hàng', N'An'),
+    ('SPCT003', N'Quần jeans nam xanh', 200, 3, 3, 3, 4, 3, 3, '2024-07-01', '2024-07-01', 120000, 250000, N'Còn hàng', N'An'),
+    ('SPCT004', N'Váy đầm dạo phố hồng', 80, 4, 5, 2, 2, 3, 4, '2024-07-01', '2024-07-01', 200000, 400000, N'Còn hàng', N'Hien'),
+    ('SPCT005', N'Túi xách da thật nâu', 60, 5, 10, 1, 3, 3, 5, '2024-07-01', '2024-07-01', 300000, 600000, N'Còn hàng', N'Hien'),
+    ('SPCT006', N'Giày thể thao nam đỏ', 120, 6, 4, 3, 6, 2, 6, '2024-07-01', '2024-07-01', 150000, 300000, N'Còn hàng', N'An'),
+    ('SPCT007', N'Đồng hồ nữ xám', 90, 7, 7, 1, 7, 4, 7, '2024-07-01', '2024-07-01', 500000, 1000000, N'Còn hàng', N'Hien'),
+    ('SPCT008', N'Balo học sinh cam', 110, 8, 8, 4, 8, 5, 8, '2024-07-01', '2024-07-01', 100000, 200000, N'Còn hàng', N'An'),
+    ('SPCT009', N'Phụ kiện tóc nữ tím', 50, 9, 9, 1, 9, 3, 9, '2024-07-01', '2024-07-01', 25000, 50000, N'Còn hàng', N'Hien'),
+    ('SPCT010', N'Áo khoác nam đen', 70, 10, 1, 4, 10, 2, 10, '2024-07-01', '2024-07-01', 200000, 400000, N'Còn hàng', N'An');
+
 
 
 INSERT INTO KhachHang (MaKhachHang, HoTen, GioiTinh, SoDT, DiaChi, NgayTao, NgaySua, NguoiTao, NguoiSua)
@@ -312,7 +313,3 @@ VALUES
     ('QL001', N'Nguyễn Thị An', '0909123457', '001234567895', '1985-06-06', N'ql', 0, N'303 Đường Điện Biên Phủ, Quận Bình Thạnh, TP.HCM', 'nta', '456', '2023-01-01', GETDATE(), 1),
     ('QL001', N'Bùi Thị Huyền', '0309123999', '001234567333', '1996-03-29', N'ql', 0, N'123 Đường Lê Lợi, Quận 10, TP.HN', 'bth', '456', '2020-01-01', GETDATE(), 0),
     ('QL002', N'Trần Văn Long', '0909765432', '001234567896', '1986-07-07', N'ql', 1, N'404 Đường Nguyễn Tri Phương, Quận 10, TP.HCM', 'tvl', '456', '2020-09-01', GETDATE(), 1);
-
-UPDATE NhanVien
-SET HoTen = 'Lê Văn Minh'
-WHERE MaNhanVien = 'NV001'
