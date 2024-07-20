@@ -51,6 +51,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Form_History Form_History;
     private Form_Profile Form_Profile;
     public static MainFrame mainFrame;
+    private String role = "";
     private Login loginForm;
 
     public MainFrame() {
@@ -66,7 +67,12 @@ public class MainFrame extends javax.swing.JFrame {
         mlayout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         layerPane.setLayout(mlayout);
 
-        menu = new Menu();
+        if(!role.equals("ql")) {
+            menu = new Menu(5);
+        } else {
+            menu = new Menu(-1);
+        }
+        
         header = new Header(this);
         Form_Home = new Form_Home();
         Form_Products = new Form_Products(this);
@@ -147,7 +153,8 @@ public class MainFrame extends javax.swing.JFrame {
         repaint();
     }
 
-    public void showMainForm() {
+    public void showMainForm(String role) {
+        this.role = role;
         layerPane.removeAll();
         init();
         setContentPane(layerPane);

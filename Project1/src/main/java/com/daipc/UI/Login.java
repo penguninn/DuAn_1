@@ -25,15 +25,24 @@ import net.miginfocom.swing.MigLayout;
 
 public class Login extends JPanel {
 
-    JFrame frame;
-    List<NhanVien> listAccount;
-    QuanLiTaiKhoan QLTK = new QuanLiTaiKhoan();
-    JLabel description;
+    private JFrame frame;
+    private List<NhanVien> listAccount;
+    private QuanLiTaiKhoan QLTK = new QuanLiTaiKhoan();
+    private JLabel description;
+    private String role = " ";
 
     public Login(JFrame frame) {
         init();
         this.frame = frame;
         listAccount = QLTK.getAccount("select * from NhanVien");
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void init() {
@@ -54,17 +63,17 @@ public class Login extends JPanel {
             }
         });
 
-        panel.putClientProperty(FlatClientProperties.STYLE, ""
+        panel.putClientProperty(FlatClientProperties.STYLE, " "
                 + "arc:20;"
                 + "[light]background:darken(@background,3%);"
                 + "[dark]background:lighten(@background,3%)");
-        panelButton.putClientProperty(FlatClientProperties.STYLE, ""
+        panelButton.putClientProperty(FlatClientProperties.STYLE, " "
                 + "arc:20;"
                 + "[light]background:darken(@background,3%);"
                 + "[dark]background:lighten(@background,3%)");
-        txtPassword.putClientProperty(FlatClientProperties.STYLE, ""
+        txtPassword.putClientProperty(FlatClientProperties.STYLE, " "
                 + "showRevealButton:true");
-        cmdLogin.putClientProperty(FlatClientProperties.STYLE, ""
+        cmdLogin.putClientProperty(FlatClientProperties.STYLE, " "
                 + "[light]background:darken(@background,10%);"
                 + "[dark]background:lighten(@background,10%);"
                 + "margin:4,6,4,6;"
@@ -77,9 +86,9 @@ public class Login extends JPanel {
 
         JLabel lbTitle = new JLabel("Chào Mừng Quay Lại !");
         description = new JLabel("Vui lòng đăng nhập để sử dụng phần mềm !");
-        lbTitle.putClientProperty(FlatClientProperties.STYLE, ""
+        lbTitle.putClientProperty(FlatClientProperties.STYLE, " "
                 + "font:bold +10");
-        description.putClientProperty(FlatClientProperties.STYLE, ""
+        description.putClientProperty(FlatClientProperties.STYLE, " "
                 + "[light]foreground:lighten(@foreground,30%);"
                 + "[dark]foreground:darken(@foreground,30%)");
 
@@ -103,7 +112,7 @@ public class Login extends JPanel {
                     txtUsername.setBorder(compoundBorderRed);
                     if (!txtUsername.getText().isEmpty()) {
                         txtUsername.setBorder(compoundBorderBlue);
-                        description.setText("");
+                        description.setText(" ");
                     }
                 }
 
@@ -129,7 +138,7 @@ public class Login extends JPanel {
                     txtPassword.setBorder(compoundBorderRed);
                     if (!new String(txtPassword.getPassword()).trim().isEmpty()) {
                         txtPassword.setBorder(compoundBorderBlue);
-                        description.setText("");
+                        description.setText(" ");
                     }
                 }
 
@@ -146,11 +155,11 @@ public class Login extends JPanel {
             public void keyTyped(KeyEvent e) {
                 if (!checkBorder[1]) {
                     txtUsername.setBorder(compoundBorderBlue);
-                    description.setText("");
+                    description.setText(" ");
                 }
-                if(!checkBorder[0]) {
+                if (!checkBorder[0]) {
                     txtUsername.setBorder(compoundBorderBlue);
-                    description.setText("");
+                    description.setText(" ");
                 }
             }
 
@@ -168,11 +177,11 @@ public class Login extends JPanel {
             public void keyTyped(KeyEvent e) {
                 if (!checkBorder[1]) {
                     txtPassword.setBorder(compoundBorderBlue);
-                    description.setText("");
+                    description.setText(" ");
                 }
-                if(!checkBorder[0]) {
+                if (!checkBorder[0]) {
                     txtPassword.setBorder(compoundBorderBlue);
-                    description.setText("");
+                    description.setText(" ");
                 }
             }
 
@@ -188,7 +197,7 @@ public class Login extends JPanel {
         cmdLogin.addActionListener((e) -> {
             if (checkNull()) {
                 if (checkLogin(txtUsername.getText(), txtPassword.getPassword())) {
-                    MainFrame.mainFrame.showMainForm();
+                    MainFrame.mainFrame.showMainForm(role);
                 } else {
                     description.setText("Sai tên đăng nhập hoặc mật khẩu !!!");
                     description.setForeground(Color.red);
@@ -219,9 +228,8 @@ public class Login extends JPanel {
         for (NhanVien nv : listAccount) {
             if (username.equals(nv.getTaiKhoan())) {
                 if (new String(password).equals(nv.getMatKhau())) {
-                    if ("ql".equalsIgnoreCase(nv.getChucVu())) {
-                        return true;
-                    }
+                    role = nv.getChucVu();
+                    return true;
                 }
             }
         }
