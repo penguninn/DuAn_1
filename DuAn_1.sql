@@ -161,8 +161,9 @@ CREATE TABLE HoaDon (
     LoaiHoaDon nvarchar(max),
     TongGiaTriHoaDon DECIMAL(10, 2),
     ThanhToan INT,
+	NguoiTao nvarchar(max),
     NgayTao DATE,
-    NgaySua DATE,
+	TrangThai bit default 0,
     FOREIGN KEY (IDKhachHang) REFERENCES KhachHang(ID),
     FOREIGN KEY (IDNhanVien) REFERENCES NhanVien(ID),
     FOREIGN KEY (IDVoucher) REFERENCES Voucher(ID)
@@ -171,10 +172,10 @@ CREATE TABLE HoaDon (
 -- Create table HoaDonCT
 CREATE TABLE HoaDonCT (
     ID INT PRIMARY KEY IDENTITY(1,1),
-    Id_HoaDon INT,
-    Id_CTSP INT,
+    IDHoaDon INT,
+    IDCTSP INT,
     DonGia DECIMAL(10, 2),
-TrangThai nvarchar(max),
+	TrangThai bit,
     SoLuong INT,
     FOREIGN KEY (Id_HoaDon) REFERENCES HoaDon(ID),
     FOREIGN KEY (Id_CTSP) REFERENCES SanPhamChiTiet(ID)
