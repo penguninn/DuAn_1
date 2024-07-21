@@ -1,7 +1,6 @@
 com\daipc\form\Form_Products$15.class
 com\daipc\form\Form_Products$35.class
 com\daipc\enumm\HienThi.class
-com\daipc\form\NewJPanel.class
 com\daipc\combobox\Combobox$ComboUI$2.class
 com\daipc\repo\SizeRepo.class
 com\daipc\form\Form_Products$22.class
@@ -36,7 +35,6 @@ com\daipc\form\Form_Products.class
 com\daipc\form\Form_ChooserChoice$3$1.class
 com\daipc\form\Form_History.class
 com\daipc\form\Form_Products$30.class
-com\daipc\form\NewJPanel$5.class
 com\daipc\radiobutton\RadioButtonCustom.class
 com\daipc\form\Form_Products$54.class
 com\daipc\form\Form_Profile.class
@@ -54,7 +52,6 @@ com\daipc\form\Form_Profile$1.class
 com\daipc\form\Form_Products$14.class
 com\daipc\form\Form_Products$49.class
 com\daipc\form\Form_Sell.class
-com\daipc\form\NewJPanel$6.class
 com\daipc\IO\Export.class
 com\daipc\event\EventMenuSelected.class
 com\daipc\repo\QuanLiBanHang.class
@@ -81,7 +78,6 @@ com\daipc\searchbar\EventClick.class
 com\daipc\chart\LabelColor.class
 com\daipc\form\Form_DanhSachAn$5.class
 com\daipc\form\Form_Products$44.class
-com\daipc\form\NewJPanel$1.class
 com\daipc\combobox\Combobox$ComboUI$3.class
 com\daipc\form\Form_Products$16.class
 com\daipc\ScrollBar\ScrollbarCustom.class
@@ -90,7 +86,6 @@ com\daipc\table\TableCustom$1.class
 com\daipc\form\Form_Sell$1.class
 com\daipc\ScrollBar\ModernScrollBarUI$ScrollBarButton.class
 com\daipc\form\Form_Products$47.class
-com\daipc\form\NewJPanel$4.class
 com\daipc\form\Form_Products$21.class
 com\daipc\form\Form_Products$39.class
 com\daipc\swing\ListMenu$1.class
@@ -99,7 +94,6 @@ com\daipc\form\Form_Products$24.class
 com\daipc\blankchart\BlankPlotChatRender.class
 com\daipc\form\Popup_ReviewDataImport$6.class
 com\daipc\table\BooleanCellRenderer.class
-com\daipc\form\NewJPanel$2.class
 com\daipc\combo_suggestion\ComboBoxSuggestion.class
 com\daipc\form\Form_ChooserChoice$2.class
 com\daipc\form\Form_Products$17.class
@@ -117,7 +111,6 @@ com\daipc\form\Form_Products$46.class
 com\daipc\model\HoaDonChiTiet.class
 com\daipc\form\Form_ChooserChoice$1.class
 com\daipc\ScrollBar\ModernScrollBarUI.class
-com\daipc\form\NewJPanel$3.class
 com\daipc\table\TableCustom$2.class
 com\daipc\combobox\Combobox$ComboUI$1.class
 com\daipc\form\Form_Products$51.class
@@ -130,7 +123,7 @@ com\daipc\UI\Login.class
 com\daipc\form\Form_Products$45.class
 com\daipc\model\NhaCungCap.class
 com\daipc\UI\MainFrame.class
-com\daipc\form\Form_Sell$5.class
+com\daipc\UI\Login$6.class
 com\daipc\form\Form_Products$12.class
 com\daipc\UI\PanelChart$2.class
 com\daipc\form\Form_Products$18.class
@@ -192,6 +185,7 @@ com\daipc\blankchart\BlankPlotChart.class
 com\daipc\repo\DatabaseHelper.class
 com\daipc\table\TextAreaCellRenderer.class
 com\daipc\form\Form_Products$36.class
+com\daipc\UI\Login$7.class
 com\daipc\table\TableCustom$TableType.class
 com\daipc\customTable\QuantityCellEditor$2.class
 com\daipc\form\Form_Products$56.class

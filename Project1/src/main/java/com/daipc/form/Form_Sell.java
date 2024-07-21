@@ -6,12 +6,8 @@ import com.daipc.customTable.PanelEvent;
 import com.daipc.customTable.QuantityCellEditor;
 import com.daipc.model.HoaDonCho;
 import com.daipc.table.TableCustom;
-import java.awt.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class Form_Sell extends javax.swing.JPanel {
@@ -59,14 +55,6 @@ public class Form_Sell extends javax.swing.JPanel {
         tblGioHang.getColumnModel().getColumn(5).setCellRenderer(new PanelButtonCellRender(tblGioHang));
         tblGioHang.getColumnModel().getColumn(5).setCellEditor(new PanelButtonCellEditor(event));
         tblGioHang.getColumnModel().getColumn(3).setCellEditor(new QuantityCellEditor());
-        tblGioHang.getColumnModel().getColumn(3).setCellRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                setHorizontalAlignment(SwingConstants.CENTER);
-                return this;
-            }
-        });   
     }
 
 //    @SuppressWarnings("unchecked");
@@ -167,7 +155,9 @@ public class Form_Sell extends javax.swing.JPanel {
         tblGioHang.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         tblGioHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, "1", null, null},
+                {null, null, null, "2", null, null},
+                {null, null, null, "3", null, null}
             },
             new String [] {
                 "Mã Sản Phẩm", "Tên Sản Phẩm", "Đơn Giá", "Số Lượng", "Thành Tiền", "Thao Tác"
@@ -188,21 +178,17 @@ public class Form_Sell extends javax.swing.JPanel {
         panelBorder6.setLayout(panelBorder6Layout);
         panelBorder6Layout.setHorizontalGroup(
             panelBorder6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 990, Short.MAX_VALUE)
-            .addGroup(panelBorder6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelBorder6Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(scrollGioHang, javax.swing.GroupLayout.DEFAULT_SIZE, 978, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(panelBorder6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollGioHang)
+                .addContainerGap())
         );
         panelBorder6Layout.setVerticalGroup(
             panelBorder6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 285, Short.MAX_VALUE)
-            .addGroup(panelBorder6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelBorder6Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(scrollGioHang, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(panelBorder6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollGioHang, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panelBorder7.setBackground(new java.awt.Color(255, 255, 255));
@@ -251,9 +237,6 @@ public class Form_Sell extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.daipc.swing.PanelBorder panelBorder1;
-    private com.daipc.swing.PanelBorder panelBorder2;
-    private com.daipc.swing.PanelBorder panelBorder3;
-    private com.daipc.swing.PanelBorder panelBorder4;
     private com.daipc.swing.PanelBorder panelBorder6;
     private com.daipc.swing.PanelBorder panelBorder7;
     private com.daipc.swing.PanelBorder panelBorder8;

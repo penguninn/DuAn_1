@@ -40,7 +40,7 @@ public class QuantityCellEditor extends DefaultCellEditor {
         spinnerModel.setMinimum(0);
         JSpinner.NumberEditor numEditor = (JSpinner.NumberEditor) spinner.getEditor();
         JFormattedTextField formatTextField = (JFormattedTextField) numEditor.getTextField();
-        formatTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        formatTextField.setHorizontalAlignment(SwingConstants.LEFT);
         DefaultFormatter f = (DefaultFormatter) formatTextField.getFormatter();
         f.setCommitsOnValidEdit(true);
 

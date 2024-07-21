@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
@@ -153,6 +154,9 @@ public class Login extends JPanel {
         txtUsername.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                if (e.getKeyChar() == '\n') {
+                    return;
+                }
                 if (!checkBorder[1]) {
                     txtUsername.setBorder(compoundBorderBlue);
                     description.setText(" ");
@@ -175,6 +179,9 @@ public class Login extends JPanel {
         txtPassword.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                if (e.getKeyChar() == '\n') {
+                    return;
+                }
                 if (!checkBorder[1]) {
                     txtPassword.setBorder(compoundBorderBlue);
                     description.setText(" ");
@@ -194,9 +201,27 @@ public class Login extends JPanel {
             }
         });
 
+        txtUsername.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    cmdLogin.doClick(); 
+                }
+            }
+        });
+        
+        txtPassword.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    cmdLogin.doClick(); 
+                }
+            }
+        });
+
         cmdLogin.addActionListener((e) -> {
-            if (!checkNull()) {
-                if (!checkLogin(txtUsername.getText(), txtPassword.getPassword())) {
+            if (checkNull()) {
+                if (checkLogin(txtUsername.getText(), txtPassword.getPassword())) {
                     MainFrame.mainFrame.showMainForm(role);
                 } else {
                     description.setText("Sai tên đăng nhập hoặc mật khẩu !!!");

@@ -59,7 +59,7 @@ public class MainFrame extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0, 0));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        login();
+        //login();
         init();
     }
 
