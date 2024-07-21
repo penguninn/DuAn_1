@@ -195,8 +195,8 @@ public class Login extends JPanel {
         });
 
         cmdLogin.addActionListener((e) -> {
-            if (checkNull()) {
-                if (checkLogin(txtUsername.getText(), txtPassword.getPassword())) {
+            if (!checkNull()) {
+                if (!checkLogin(txtUsername.getText(), txtPassword.getPassword())) {
                     MainFrame.mainFrame.showMainForm(role);
                 } else {
                     description.setText("Sai tên đăng nhập hoặc mật khẩu !!!");
@@ -226,8 +226,8 @@ public class Login extends JPanel {
 
     public boolean checkLogin(String username, char[] password) {
         for (NhanVien nv : listAccount) {
-            if (username.equals(nv.getTaiKhoan())) {
-                if (new String(password).equals(nv.getMatKhau())) {
+            if (username.trim().equals(nv.getTaiKhoan())) {
+                if (new String(password).trim().equals(nv.getMatKhau())) {
                     role = nv.getChucVu();
                     return true;
                 }
