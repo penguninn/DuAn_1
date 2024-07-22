@@ -163,7 +163,7 @@ CREATE TABLE HoaDon (
     ThanhToan INT,
 	NguoiTao nvarchar(max),
     NgayTao DATE,
-	TrangThai bit default 0,
+	TrangThai bit default 0
     FOREIGN KEY (IDKhachHang) REFERENCES KhachHang(ID),
     FOREIGN KEY (IDNhanVien) REFERENCES NhanVien(ID),
     FOREIGN KEY (IDVoucher) REFERENCES Voucher(ID)
@@ -177,8 +177,8 @@ CREATE TABLE HoaDonCT (
     DonGia DECIMAL(10, 2),
 	TrangThai bit,
     SoLuong INT,
-    FOREIGN KEY (Id_HoaDon) REFERENCES HoaDon(ID),
-    FOREIGN KEY (Id_CTSP) REFERENCES SanPhamChiTiet(ID)
+    FOREIGN KEY (IDHoaDon) REFERENCES HoaDon(ID),
+    FOREIGN KEY (IDCTSP) REFERENCES SanPhamChiTiet(ID)
 );
 
 -- Insert data into tables
@@ -274,9 +274,6 @@ VALUES
     ('SPCT008', N'Balo học sinh cam', 110, 8, 8, 4, 8, 5, 8, '2024-07-01', '2024-07-01', 100000, 200000, N'Còn hàng', N'An'),
     ('SPCT009', N'Phụ kiện tóc nữ tím', 50, 9, 9, 1, 9, 3, 9, '2024-07-01', '2024-07-01', 25000, 50000, N'Còn hàng', N'Hien'),
     ('SPCT010', N'Áo khoác nam đen', 70, 10, 1, 4, 10, 2, 10, '2024-07-01', '2024-07-01', 200000, 400000, N'Còn hàng', N'An');
-
-
-
 INSERT INTO KhachHang (MaKhachHang, HoTen, GioiTinh, SoDT, DiaChi, NgayTao, NgaySua, NguoiTao, NguoiSua)
 VALUES 
     ('KH001', N'Nguyễn Văn Khánh', 0, '0901234567', N'123 Đường ABC, Quận 1, TP. HCM', '2023-01-01', '2023-01-01', N'admin', N'admin'),
@@ -289,7 +286,6 @@ VALUES
     ('KH008', N'Hoàng Thị Mai', 1, '0965874123', N'357 Đường LMN, Quận 8, TP. HCM', '2023-01-01', '2023-01-01', N'admin', N'admin'),
     ('KH009', N'Lê Văn Hưng', 0, '0956321478', N'753 Đường OPQ, Quận 9, TP. HCM', '2023-01-01', '2023-01-01', N'admin', N'admin'),
     ('KH010', N'Nguyễn Thị Bảo', 1, '0914785632', N'951 Đường STU, Quận 10, TP. HCM', '2023-01-01', '2023-01-01', N'admin', N'admin');
-
 INSERT INTO Voucher (MaVoucher, GiaTriVoucher, NgayBatDau, NgayKetThuc, SoLuong, MoTa)
 VALUES 
     ('VC002', 200000, '2023-01-01', '2023-12-31', 150, N'Giảm giá 200,000đ cho đơn hàng từ 500,000đ trở lên'),
@@ -301,7 +297,6 @@ VALUES
     ('VC008', 80000, '2023-01-01', '2023-12-31', 150, N'Giảm giá 80,000đ cho đơn hàng từ 250,000đ trở lên'),
     ('VC009', 400000, '2023-01-01', '2023-12-31', 90, N'Giảm giá 400,000đ cho đơn hàng từ 1,500,000đ trở lên'),
     ('VC010', 120000, '2023-01-01', '2023-12-31', 110, N'Giảm giá 120,000đ cho đơn hàng từ 350,000đ trở lên');
-
 -- Insert data into NhanVien table
 INSERT INTO NhanVien (MaNhanVien, HoTen, SoDT, CCCD, NgaySinh, ChucVu, GioiTinh, DiaChi, TaiKhoan, MatKhau, NgayTao, NgaySua, TrangThai)
 VALUES 
@@ -314,3 +309,34 @@ VALUES
     ('QL001', N'Nguyễn Thị An', '0909123457', '001234567895', '1985-06-06', N'ql', 0, N'303 Đường Điện Biên Phủ, Quận Bình Thạnh, TP.HCM', 'nta', '456', '2023-01-01', GETDATE(), 1),
     ('QL001', N'Bùi Thị Huyền', '0309123999', '001234567333', '1996-03-29', N'ql', 0, N'123 Đường Lê Lợi, Quận 10, TP.HN', 'bth', '456', '2020-01-01', GETDATE(), 0),
     ('QL002', N'Trần Văn Long', '0909765432', '001234567896', '1986-07-07', N'ql', 1, N'404 Đường Nguyễn Tri Phương, Quận 10, TP.HCM', 'tvl', '456', '2020-09-01', GETDATE(), 1);
+go
+select hd.MaHD, kh.HoTen, hd.NguoiTao, hd.NgayTao from hoadon hd 
+inner join KhachHang kh on hd.IDKhachHang = kh.ID
+
+SELECT 
+    spct.MaSPCT,
+    spct.TenSPCT,
+    spct.GiaBan,
+    ms.TenMauSac,
+    s.TenSize,
+    cl.TenChatLieu,
+    dd.TenDoDay,
+    ncc.TenNhaCungCap,
+    spct.SoLuong
+FROM 
+    SanPhamChiTiet spct
+LEFT JOIN 
+    SanPham sp ON spct.IdSanPham = sp.ID
+LEFT JOIN 
+    MauSac ms ON spct.IdMauSac = ms.ID
+LEFT JOIN 
+    Size s ON spct.IdSize = s.ID
+LEFT JOIN 
+    ChatLieu cl ON spct.IdChatLieu = cl.ID
+LEFT JOIN 
+    DoDay dd ON spct.IdDoDay = dd.ID
+LEFT JOIN 
+    NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID;
+go
+delete Size where MaSize = 'SZ001'
+update Size(
