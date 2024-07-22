@@ -46,6 +46,22 @@ public class ChiTietSP {
         this.trangThai = trangThai;
     }
 
+    public ChiTietSP(String maCTSP, String tenSPCT, BigDecimal giaBan, String tenNhaCungCap, String tenMauSac, String tenSize, String tenChatLieu, String tenDoDay, int soLuong) {
+        this.maCTSP = maCTSP;
+        this.tenSPCT = tenSPCT;
+        this.giaBan = giaBan;
+        this.soLuong = soLuong;
+        this.tenNhaCungCap = tenNhaCungCap;
+        this.tenMauSac = tenMauSac;
+        this.tenSize = tenSize;
+        this.tenChatLieu = tenChatLieu;
+        this.tenDoDay = tenDoDay;
+    }
+    
+    public Object[] getSPCT() {
+        return new Object[] {maCTSP, tenSPCT, giaBan, tenMauSac, tenSize, tenChatLieu, tenDoDay, tenNhaCungCap, soLuong};
+    }
+    
     public int getId() {
         return id;
     }

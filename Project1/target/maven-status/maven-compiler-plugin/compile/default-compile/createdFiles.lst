@@ -3,6 +3,7 @@ com\daipc\form\Form_Products$35.class
 com\daipc\enumm\HienThi.class
 com\daipc\combobox\Combobox$ComboUI$2.class
 com\daipc\repo\SizeRepo.class
+com\daipc\customTable\TableEvent.class
 com\daipc\form\Form_Products$22.class
 com\daipc\form\Form_Products$28.class
 com\daipc\form\Form_DanhSachAn.class
@@ -66,7 +67,6 @@ com\daipc\swing\MenuItem.class
 com\daipc\form\Form_Bill.class
 com\daipc\form\Popup_ReviewDataImport$4.class
 com\daipc\repo\MauSacRepo.class
-com\daipc\customTable\PanelEvent.class
 com\daipc\enumm\TrangThai.class
 com\daipc\repo\JDBCHelper.class
 com\daipc\form\Form_ChooserChoice$3.class
@@ -82,6 +82,7 @@ com\daipc\combobox\Combobox$ComboUI$3.class
 com\daipc\form\Form_Products$16.class
 com\daipc\ScrollBar\ScrollbarCustom.class
 com\daipc\form\Form_Products$6.class
+com\daipc\model\GioHang.class
 com\daipc\table\TableCustom$1.class
 com\daipc\form\Form_Sell$1.class
 com\daipc\ScrollBar\ModernScrollBarUI$ScrollBarButton.class
@@ -108,7 +109,6 @@ com\daipc\model\NhanVien.class
 com\daipc\swing\PanelBorder.class
 com\daipc\form\Form_Products$4.class
 com\daipc\form\Form_Products$46.class
-com\daipc\model\HoaDonChiTiet.class
 com\daipc\form\Form_ChooserChoice$1.class
 com\daipc\ScrollBar\ModernScrollBarUI.class
 com\daipc\table\TableCustom$2.class
@@ -117,12 +117,14 @@ com\daipc\form\Form_Products$51.class
 com\daipc\form\Form_Sell$3.class
 com\daipc\form\Form_Products$25.class
 com\daipc\model\DoDay.class
+com\daipc\customTable\QuantityCellEditor$3.class
 com\daipc\model\MauSac.class
 com\daipc\form\Form_ChooserChoice.class
 com\daipc\UI\Login.class
 com\daipc\form\Form_Products$45.class
 com\daipc\model\NhaCungCap.class
 com\daipc\UI\MainFrame.class
+com\daipc\form\Form_Sell$5.class
 com\daipc\UI\Login$6.class
 com\daipc\form\Form_Products$12.class
 com\daipc\UI\PanelChart$2.class
@@ -161,6 +163,7 @@ com\daipc\form\Form_Products$60.class
 com\daipc\form\Form_Products$13.class
 com\daipc\form\Form_Products$8.class
 com\daipc\form\Form_Products$20.class
+com\daipc\form\Form_Sell$6.class
 com\daipc\model\ChatLieu.class
 com\daipc\repo\DB_connect.class
 com\daipc\UI\Header$6.class

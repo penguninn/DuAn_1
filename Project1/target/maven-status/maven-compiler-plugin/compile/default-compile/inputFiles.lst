@@ -2,6 +2,7 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Form_Products
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\JDBCHelper.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Form_Sell.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\ScrollBar\ScrollbarCustom.java
+C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\customTable\TableEvent.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\component\Card.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\searchbar\Search_Item.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\ChatLieuRepo.java
@@ -31,8 +32,8 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Form_Promotio
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\table\HoverIndex.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Form_Bill.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\ChiTietSP.java
+C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\GioHang.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\MauSac.java
-C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\customTable\PanelEvent.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\ChatLieu.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\SanPham.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Form_ChooserChoice.java
@@ -54,7 +55,6 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\HoaDon.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\searchbar\EventClick.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\HoaDonCho.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\DoDayRepo.java
-C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\HoaDonChiTiet.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\NhanVien.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\NhaCungCap.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\enumm\TrangThaiCRUD.java

@@ -7,8 +7,6 @@ package com.daipc.customTable;
 import java.awt.Component;
 import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultCellEditor;
@@ -32,10 +30,13 @@ import javax.swing.text.DefaultFormatter;
 public class QuantityCellEditor extends DefaultCellEditor {
 
     private JSpinner spinner;
+    private JFormattedTextField formatTextField;
+    private TableEvent event;
 
-    public QuantityCellEditor() {
+    public QuantityCellEditor(TableEvent event) {
         super(new JCheckBox());
         spinner = new JSpinner();
+        this.event = event;
         SpinnerNumberModel spinnerModel = (SpinnerNumberModel) spinner.getModel();
         spinnerModel.setMinimum(0);
         JSpinner.NumberEditor numEditor = (JSpinner.NumberEditor) spinner.getEditor();
@@ -48,30 +49,33 @@ public class QuantityCellEditor extends DefaultCellEditor {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    e.consume(); // Ngăn chặn hành động mặc định của phím Enter
+                    e.consume();
                     if (commitEdit(formatTextField)) {
-                        // Chấp nhận giá trị và chuyển focus sang ô tiếp theo nếu giá trị hợp lệ
                         KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
                     } else {
-                        // Không chuyển sang ô tiếp theo nếu giá trị không hợp lệ
-                        Toolkit.getDefaultToolkit().beep(); // Âm báo hiệu lỗi
+                        Toolkit.getDefaultToolkit().beep();
                     }
                 }
             }
         });
 
-        // Thiết lập InputVerifier để kiểm tra đầu vào khi focus thay đổi
         formatTextField.setInputVerifier(new InputVerifier() {
             @Override
             public boolean verify(JComponent input) {
                 return commitEdit((JFormattedTextField) input);
             }
         });
+
+        
     }
 
     private boolean commitEdit(JFormattedTextField textField) {
         try {
-            textField.commitEdit(); // Cố gắng cam kết chỉnh sửa để kiểm tra tính hợp lệ
+            if(Integer.parseInt(textField.getText()) < 0) {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên lớn hơn 0 !", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            textField.commitEdit();
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập một số nguyên!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
@@ -85,6 +89,17 @@ public class QuantityCellEditor extends DefaultCellEditor {
         Component com = super.getTableCellEditorComponent(table, value, isSelected, row, column);
         int qty = Integer.parseInt(value.toString());
         spinner.setValue(qty);
+        spinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int value = (int) spinner.getValue();
+                if (value == 0) {
+                    if (JOptionPane.showConfirmDialog(null, "Xóa sản phẩm ? ", "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        event.onDelete(row);
+                    }
+                }
+            }
+        });
         return spinner;
     }
 

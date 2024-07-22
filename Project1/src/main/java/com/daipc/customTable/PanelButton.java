@@ -20,7 +20,7 @@ public class PanelButton extends javax.swing.JPanel {
         initComponents();
     }
     
-    public void initEvent(PanelEvent event, int row) {
+    public void initEvent(TableEvent event, int row) {
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

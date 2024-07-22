@@ -15,9 +15,9 @@ import javax.swing.JTable;
  */
 public class PanelButtonCellEditor extends DefaultCellEditor{
     
-    private PanelEvent event;
+    private TableEvent event;
 
-    public PanelButtonCellEditor(PanelEvent event) {
+    public PanelButtonCellEditor(TableEvent event) {
         super(new JCheckBox());
         this.event = event;
     }

@@ -8,6 +8,6 @@ package com.daipc.customTable;
  *
  * @author DaiPc
  */
-public interface PanelEvent {
+public interface TableEvent {
     public void onDelete(int row);
 }
