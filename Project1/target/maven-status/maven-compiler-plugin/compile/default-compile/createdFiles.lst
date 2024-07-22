@@ -163,7 +163,6 @@ com\daipc\form\Form_Products$60.class
 com\daipc\form\Form_Products$13.class
 com\daipc\form\Form_Products$8.class
 com\daipc\form\Form_Products$20.class
-com\daipc\form\Form_Sell$6.class
 com\daipc\model\ChatLieu.class
 com\daipc\repo\DB_connect.class
 com\daipc\UI\Header$6.class
