@@ -15,7 +15,7 @@ public class DatabaseHelper {
       private static final String DB_SERVER = "localhost";
     private static final String DB_NAME = "DuAn1_Final";
     private static final String DB_USERNAME = "sa";
-    private static final String DB_PASSWORD = "Dai1082005@";
+    private static final String DB_PASSWORD = "123";
 
     private static java.sql.Connection conn;
 

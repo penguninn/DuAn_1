@@ -9,6 +9,7 @@ package com.daipc.model;
  * @author DaiPc
  */
 public class GioHang {
+
     private String maSPCT;
     private String tenSPCT;
     private double donGia;
@@ -19,6 +20,14 @@ public class GioHang {
     public GioHang() {
     }
 
+    public GioHang(String maSPCT, String tenSPCT, double donGia, int soLuong, double thanhTien) {
+        this.maSPCT = maSPCT;
+        this.tenSPCT = tenSPCT;
+        this.donGia = donGia;
+        this.soLuong = soLuong;
+        this.thanhTien = thanhTien;
+    }
+
     public GioHang(String maCTSP, String tenSPCT, double donGia, int soLuong) {
         this.maSPCT = maCTSP;
         this.tenSPCT = tenSPCT;
@@ -26,9 +35,9 @@ public class GioHang {
         this.donGia = donGia;
         this.thanhTien = this.soLuong * this.donGia;
     }
-    
+
     public Object[] getGioHang() {
-        return new Object[] {maSPCT, tenSPCT, donGia, soLuong, thanhTien};
+        return new Object[]{maSPCT, tenSPCT, donGia, soLuong, thanhTien};
     }
 
     public String getMaCTSP() {
@@ -78,6 +87,21 @@ public class GioHang {
     public void setTongTien(double tongTien) {
         this.thanhTien = tongTien;
     }
-    
-    
+
+    public String getMaSPCT() {
+        return maSPCT;
+    }
+
+    public void setMaSPCT(String maSPCT) {
+        this.maSPCT = maSPCT;
+    }
+
+    public double getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(double thanhTien) {
+        this.thanhTien = thanhTien;
+    }
+
 }

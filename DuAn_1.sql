@@ -363,4 +363,7 @@ LEFT JOIN
 LEFT JOIN 
     NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID;
 go
-
+select hd.MaHD , spct.MaSPCT, spct.TenSPCT, spct.GiaBan, hdct.SoLuong, spct.GiaBan * hdct.SoLuong from HoaDonCT hdct 
+join SanPhamChiTiet spct on hdct.IDCTSP = spct.id 
+join HoaDon hd on hdct.IDHoaDon = hd.ID
+where hdct.ID = 1

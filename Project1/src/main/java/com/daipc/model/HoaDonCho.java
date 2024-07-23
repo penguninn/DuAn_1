@@ -9,6 +9,7 @@ package com.daipc.model;
  * @author DaiPc
  */
 public class HoaDonCho {
+    private int id;
     private String maHD;
     private String tenKhachHang;
     private String nguoiTao;
@@ -17,6 +18,16 @@ public class HoaDonCho {
     private double tong;
 
     public HoaDonCho() {
+    }
+
+    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String ngayTao, int TrangThai, double tong) {
+        this.id = id;
+        this.maHD = maHD;
+        this.tenKhachHang = tenKhachHang;
+        this.nguoiTao = nguoiTao;
+        this.ngayTao = ngayTao;
+        this.TrangThai = TrangThai;
+        this.tong = tong;
     }
 
     public HoaDonCho(String maHD, String tenKhachHang, String nguoiTao, String ngayTao, int TrangThai, double tong) {
@@ -86,6 +97,14 @@ public class HoaDonCho {
 
     public void setTong(double tong) {
         this.tong = tong;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     

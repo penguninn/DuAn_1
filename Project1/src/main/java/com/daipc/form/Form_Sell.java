@@ -44,7 +44,7 @@ public class Form_Sell extends javax.swing.JPanel {
         modelHD = (DefaultTableModel) tblHoaDonCho.getModel();
         modelGH = (DefaultTableModel) tblGioHang.getModel();
         modelSP = (DefaultTableModel) tblDanhSachSanPham.getModel();
-        
+
         scrollMoTa.setVerticalScrollBar(new ScrollbarCustom());
         ScrollbarCustom sp = new ScrollbarCustom();
         sp.setOrientation(JScrollBar.HORIZONTAL);
@@ -60,13 +60,26 @@ public class Form_Sell extends javax.swing.JPanel {
         listHDC.addAll(
                 QLBH.selectAllHDC(
                         """
-                            select hd.MaHD, kh.HoTen, hd.NguoiTao, hd.NgayTao, hd.TongGiaTriHoaDon, hd.TrangThai from hoadon hd 
+                            select hd.id, hd.MaHD, kh.HoTen, hd.NguoiTao, hd.NgayTao, hd.TongGiaTriHoaDon, hd.TrangThai from hoadon hd 
                             inner join KhachHang kh on hd.IDKhachHang = kh.ID WHERE hd.TrangThai = ?
                         """, 0));
         for (HoaDonCho hd : listHDC) {
             modelHD.addRow(hd.getHDC());
         }
         selectedRowHD = listHDC.size() - 1;
+        tblHoaDonCho.setRowSelectionInterval(selectedRowHD, selectedRowHD);
+    }
+
+    public void selectionRowGH(int id) {
+        listGH.clear();
+        listGH.addAll(
+                QLBH.selectAllGH(
+                        """
+                            select spct.MaSPCT, spct.TenSPCT, spct.GiaBan, hdct.SoLuong, spct.GiaBan * hdct.SoLuong from HoaDonCT hdct 
+                            join SanPhamChiTiet spct on hdct.IDCTSP = spct.id
+                            where hdct.IDHoaDon = ?        
+                        """, id));
+        loadDataGH();
     }
 
     public void loadDataGH() {
@@ -75,6 +88,7 @@ public class Form_Sell extends javax.swing.JPanel {
             modelGH.addRow(gh.getGioHang());
         }
         selectedRowGH = listGH.size() - 1;
+        tblGioHang.setRowSelectionInterval(selectedRowGH, selectedRowGH);
     }
 
     public void loadDataSP() {
@@ -84,12 +98,14 @@ public class Form_Sell extends javax.swing.JPanel {
             modelSP.addRow(sp.getSPCT());
         }
         selectedRowSP = listSP.size() - 1;
+//        tblDanhSachSanPham.setRowSelectionInterval(selectedRowSP, selectedRowSP);
     }
 
     public void initTableGH() {
 
         TableEvent event = new TableEvent() {
-            int rowGH  = 0;
+            int rowGH = 0;
+
             @Override
             public void onDelete(int row) {
                 rowGH = row;
@@ -99,11 +115,9 @@ public class Form_Sell extends javax.swing.JPanel {
 
             @Override
             public void quantity(int qty) {
-                listGH.get(rowGH).setSoLuong(qty);
-                System.out.println(qty);
-                loadDataGH();
+              
             }
-            
+
         };
 
         tblGioHang.getColumnModel().getColumn(5).setCellRenderer(new PanelButtonCellRender(tblGioHang));
@@ -178,6 +192,11 @@ public class Form_Sell extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblHoaDonCho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHoaDonChoMouseClicked(evt);
             }
         });
         scrollHoaDonCho.setViewportView(tblHoaDonCho);
@@ -316,7 +335,7 @@ public class Form_Sell extends javax.swing.JPanel {
         textField2.setLabelText("SĐT Khách Hàng");
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel13.setText("Mã Khách Hàng");
+        jLabel13.setText("Tên Khách Hàng");
 
         jLabel1.setText("Nguyen Van A");
 
@@ -543,26 +562,33 @@ public class Form_Sell extends javax.swing.JPanel {
                     soLuong = Integer.parseInt(inputValue);
                     if (soLuong < 0) {
                         JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    } 
+                    }
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Lỗi định dạng. Nhấp số nguyên lớn hơn 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            if(soLuong > 0) {
+            if (soLuong > 0) {
                 ChiTietSP sp = listSP.get(selectedRowSP);
                 listGH.add(new GioHang(sp.getMaCTSP(), sp.getTenSPCT(), sp.getGiaBan().doubleValue(), soLuong));
                 loadDataGH();
             }
-            
+
         }
     }//GEN-LAST:event_tblDanhSachSanPhamMouseClicked
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
         listHDC.add(new HoaDonCho());
-        if(listHDC.size() != 0) {
-            
+        if (listHDC.size() != 0) {
+
         }
     }//GEN-LAST:event_btnTaoHDActionPerformed
+
+    private void tblHoaDonChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChoMouseClicked
+        selectedRowHD = tblHoaDonCho.getSelectedRow();
+        int id = listHDC.get(selectedRowHD).getId();
+        System.out.println(id);
+        selectionRowGH(id);
+    }//GEN-LAST:event_tblHoaDonChoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,6 +5,7 @@
 package com.daipc.repo;
 
 import com.daipc.model.ChiTietSP;
+import com.daipc.model.GioHang;
 import com.daipc.model.HoaDon;
 import com.daipc.model.HoaDonCho;
 import com.daipc.model.SanPham;
@@ -29,6 +30,7 @@ public class QuanLiBanHang {
             while (rs.next()) {
                 listHD.add(
                     new HoaDonCho(
+                            rs.getInt("id"),
                             rs.getString("mahd"),
                             rs.getString("HoTen"),
                             rs.getString("nguoitao"),
@@ -43,6 +45,29 @@ public class QuanLiBanHang {
             e.printStackTrace();
         }
         return listHD;
+    }
+    
+    public List<GioHang> selectAllGH(String sqlQuery, Object... params) {
+        dBHelper = new JDBCHelper();
+        List<GioHang> listGH = new ArrayList<>();
+        try {
+            ResultSet rs = dBHelper.executeQuery(sqlQuery, params);
+            while (rs.next()) {
+                listGH.add(
+                    new GioHang(
+                            rs.getString(1),
+                            rs.getString(2),
+                            rs.getDouble(3),
+                            rs.getInt(4),
+                            rs.getDouble(5)
+                    )
+                );
+            }
+            dBHelper.closeResultSet(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listGH;
     }
 
     public List<ChiTietSP> selectAllSPCT() {
