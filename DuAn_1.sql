@@ -1,4 +1,11 @@
-﻿CREATE DATABASE DuAn1_Final
+﻿USE master;
+GO
+ALTER DATABASE DuAn1_Final SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
+DROP DATABASE DuAn1_Final;
+GO
+
+CREATE DATABASE DuAn1_Final
 GO
 USE DuAn1_Final
 GO
@@ -163,7 +170,7 @@ CREATE TABLE HoaDon (
     ThanhToan INT,
 	NguoiTao nvarchar(max),
     NgayTao DATE,
-	TrangThai bit default 0
+	TrangThai int
     FOREIGN KEY (IDKhachHang) REFERENCES KhachHang(ID),
     FOREIGN KEY (IDNhanVien) REFERENCES NhanVien(ID),
     FOREIGN KEY (IDVoucher) REFERENCES Voucher(ID)
@@ -310,8 +317,26 @@ VALUES
     ('QL001', N'Bùi Thị Huyền', '0309123999', '001234567333', '1996-03-29', N'ql', 0, N'123 Đường Lê Lợi, Quận 10, TP.HN', 'bth', '456', '2020-01-01', GETDATE(), 0),
     ('QL002', N'Trần Văn Long', '0909765432', '001234567896', '1986-07-07', N'ql', 1, N'404 Đường Nguyễn Tri Phương, Quận 10, TP.HCM', 'tvl', '456', '2020-09-01', GETDATE(), 1);
 go
-select hd.MaHD, kh.HoTen, hd.NguoiTao, hd.NgayTao from hoadon hd 
-inner join KhachHang kh on hd.IDKhachHang = kh.ID
+INSERT INTO HoaDon (MaHD, IDKhachHang, IDNhanVien, IDVoucher, LoaiHoaDon, TongGiaTriHoaDon, ThanhToan, NguoiTao, NgayTao, TrangThai)
+VALUES 
+    ('HD001', 1, 1, 1, N'Bán lẻ', 500000, 500000, N'Nguyễn Văn Minh', '2024-07-01', 1),
+    ('HD002', 2, 2, 2, N'Bán lẻ', 750000, 550000, N'Trần Thị Lan', '2024-07-02', 0),
+    ('HD003', 3, 3, NULL, N'Bán lẻ', 300000, 0, N'Hoàng Minh Khánh', '2024-07-03', 2),
+    ('HD004', 4, 4, 3, N'Bán lẻ', 1200000, 1150000, N'Lê Thị Hằng', '2024-07-04', 1),
+    ('HD005', 5, 5, NULL, N'Bán lẻ', 600000, 0, N'Phạm Văn Đức', '2024-07-05', 0);
+go
+-- Insert data into HoaDonCT table
+INSERT INTO HoaDonCT (IDHoaDon, IDCTSP, DonGia, TrangThai, SoLuong)
+VALUES 
+    (1, 1, 100000, 1, 2),
+    (1, 2, 150000, 1, 2),
+    (2, 3, 250000, 1, 3),
+    (3, 4, 300000, 0, 1),
+    (4, 5, 600000, 1, 1),
+    (4, 6, 300000, 1, 2),
+    (5, 7, 300000, 1, 2);
+select hd.MaHD, kh.HoTen, hd.NguoiTao, hd.NgayTao, hd.TongGiaTriHoaDon, hd.TrangThai from hoadon hd 
+inner join KhachHang kh on hd.IDKhachHang = kh.ID WHERE hd.TrangThai = 0
 
 SELECT 
     spct.MaSPCT,
@@ -338,5 +363,4 @@ LEFT JOIN
 LEFT JOIN 
     NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID;
 go
-delete Size where MaSize = 'SZ001'
-update Size(
+

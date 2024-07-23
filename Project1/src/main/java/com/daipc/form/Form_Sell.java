@@ -56,7 +56,17 @@ public class Form_Sell extends javax.swing.JPanel {
     }
 
     public void loadDataHDC() {
-        modelHD.setRowCount(5);
+        modelHD.setRowCount(0);
+        listHDC.addAll(
+                QLBH.selectAllHDC(
+                        """
+                            select hd.MaHD, kh.HoTen, hd.NguoiTao, hd.NgayTao, hd.TongGiaTriHoaDon, hd.TrangThai from hoadon hd 
+                            inner join KhachHang kh on hd.IDKhachHang = kh.ID WHERE hd.TrangThai = ?
+                        """, 0));
+        for (HoaDonCho hd : listHDC) {
+            modelHD.addRow(hd.getHDC());
+        }
+        selectedRowHD = listHDC.size() - 1;
     }
 
     public void loadDataGH() {
@@ -69,7 +79,7 @@ public class Form_Sell extends javax.swing.JPanel {
 
     public void loadDataSP() {
         modelSP.setRowCount(0);
-        listSP.addAll(QLBH.selectSPCT());
+        listSP.addAll(QLBH.selectAllSPCT());
         for (ChiTietSP sp : listSP) {
             modelSP.addRow(sp.getSPCT());
         }

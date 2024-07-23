@@ -13,9 +13,19 @@ public class HoaDonCho {
     private String tenKhachHang;
     private String nguoiTao;
     private String ngayTao;
+    private int TrangThai;
     private double tong;
 
     public HoaDonCho() {
+    }
+
+    public HoaDonCho(String maHD, String tenKhachHang, String nguoiTao, String ngayTao, int TrangThai, double tong) {
+        this.maHD = maHD;
+        this.tenKhachHang = tenKhachHang;
+        this.nguoiTao = nguoiTao;
+        this.ngayTao = ngayTao;
+        this.TrangThai = TrangThai;
+        this.tong = tong;
     }
 
     public HoaDonCho(String maHD, String tenKhachHang, String nguoiTao, String ngayTao, double tong) {
@@ -26,8 +36,8 @@ public class HoaDonCho {
         this.tong = tong;
     }
     
-    public Object[] getObjects() {
-        return new Object[] {maHD, tenKhachHang, nguoiTao, ngayTao, tong};
+    public Object[] getHDC() {
+        return new Object[]{maHD, tenKhachHang, nguoiTao, ngayTao, tong};
     }
 
     public String getMaHD() {
@@ -62,6 +72,14 @@ public class HoaDonCho {
         this.ngayTao = ngayTao;
     }
 
+    public int getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(int TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+
     public double getTong() {
         return tong;
     }
@@ -69,6 +87,6 @@ public class HoaDonCho {
     public void setTong(double tong) {
         this.tong = tong;
     }
-    
+
     
 }

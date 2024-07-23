@@ -21,14 +21,21 @@ public class QuanLiBanHang {
 
     JDBCHelper dBHelper;
 
-    public List<HoaDonCho> selectHDC(String sqlQuery, Object... params) {
+    public List<HoaDonCho> selectAllHDC(String sqlQuery, Object... params) {
         dBHelper = new JDBCHelper();
         List<HoaDonCho> listHD = new ArrayList<>();
         try {
             ResultSet rs = dBHelper.executeQuery(sqlQuery, params);
             while (rs.next()) {
                 listHD.add(
-                        new HoaDonCho()
+                    new HoaDonCho(
+                            rs.getString("mahd"),
+                            rs.getString("HoTen"),
+                            rs.getString("nguoitao"),
+                            rs.getString("NgayTao"),
+                            rs.getInt("TrangThai"),
+                            rs.getDouble("TongGiaTriHoaDon")
+                    )
                 );
             }
             dBHelper.closeResultSet(rs);
@@ -38,7 +45,7 @@ public class QuanLiBanHang {
         return listHD;
     }
 
-    public List<ChiTietSP> selectSPCT() {
+    public List<ChiTietSP> selectAllSPCT() {
         dBHelper = new JDBCHelper();
         String sqlQuery = """
                             SELECT 
@@ -90,5 +97,57 @@ public class QuanLiBanHang {
         }
         return listSPCT;
     }
-
+    
+    public List<ChiTietSP> getSPCT() {
+        dBHelper = new JDBCHelper();
+        String sqlQuery = """
+                            SELECT 
+                                spct.MaSPCT,
+                                spct.TenSPCT,
+                                spct.GiaBan,
+                                ms.TenMauSac,
+                                s.TenSize,
+                                cl.TenChatLieu,
+                                dd.TenDoDay,
+                                ncc.TenNhaCungCap,
+                                spct.SoLuong
+                            FROM 
+                                SanPhamChiTiet spct
+                            LEFT JOIN 
+                                SanPham sp ON spct.IdSanPham = sp.ID
+                            LEFT JOIN 
+                                MauSac ms ON spct.IdMauSac = ms.ID
+                            LEFT JOIN 
+                                Size s ON spct.IdSize = s.ID
+                            LEFT JOIN 
+                                ChatLieu cl ON spct.IdChatLieu = cl.ID
+                            LEFT JOIN 
+                                DoDay dd ON spct.IdDoDay = dd.ID
+                            LEFT JOIN 
+                                NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID;
+                         """;
+        List<ChiTietSP> listSPCT = new ArrayList<>();
+        try {
+            ResultSet rs = dBHelper.executeQuery(sqlQuery);
+            while (rs.next()) {
+                listSPCT.add(
+                        new ChiTietSP(
+                                rs.getString(1),
+                                rs.getString(2),
+                                rs.getBigDecimal(3),
+                                rs.getString(4),
+                                rs.getString(5),
+                                rs.getString(6),
+                                rs.getString(7),
+                                rs.getString(8),
+                                rs.getInt(9)
+                        )
+                );
+            }
+            dBHelper.closeResultSet(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listSPCT;
+    }
 }
