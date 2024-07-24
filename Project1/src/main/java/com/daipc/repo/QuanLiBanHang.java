@@ -39,8 +39,11 @@ public class QuanLiBanHang {
                                 rs.getString(3),
                                 rs.getString(4),
                                 rs.getString(5),
-                                rs.getInt(6),
-                                rs.getDouble(7)
+                                rs.getDouble(6),
+                                rs.getString(7),
+                                rs.getInt(8),
+                                rs.getDouble(9),
+                                rs.getString(10)
                         )
                 );
             }
@@ -103,7 +106,8 @@ public class QuanLiBanHang {
                                 rs.getString(2),
                                 rs.getDouble(3),
                                 rs.getInt(4),
-                                rs.getDouble(5)
+                                rs.getDouble(5),
+                                rs.getBoolean(6)
                         )
                 );
             }
@@ -118,6 +122,7 @@ public class QuanLiBanHang {
         dBHelper = new JDBCHelper();
         String sqlQuery = """
                             SELECT 
+                                spct.id,
                                 spct.MaSPCT,
                                 spct.TenSPCT,
                                 spct.GiaBan,
@@ -148,15 +153,16 @@ public class QuanLiBanHang {
             while (rs.next()) {
                 listSPCT.add(
                         new ChiTietSP(
-                                rs.getString(1),
+                                rs.getInt(1),
                                 rs.getString(2),
-                                rs.getBigDecimal(3),
-                                rs.getString(4),
+                                rs.getString(3),
+                                rs.getBigDecimal(4),
                                 rs.getString(5),
                                 rs.getString(6),
                                 rs.getString(7),
                                 rs.getString(8),
-                                rs.getInt(9)
+                                rs.getString(9),
+                                rs.getInt(10)
                         )
                 );
             }
@@ -192,58 +198,58 @@ public class QuanLiBanHang {
         return listKH;
     }
 
-    public List<ChiTietSP> getSPCT() {
-        dBHelper = new JDBCHelper();
-        String sqlQuery = """
-                            SELECT 
-                                spct.MaSPCT,
-                                spct.TenSPCT,
-                                spct.GiaBan,
-                                ms.TenMauSac,
-                                s.TenSize,
-                                cl.TenChatLieu,
-                                dd.TenDoDay,
-                                ncc.TenNhaCungCap,
-                                spct.SoLuong
-                            FROM 
-                                SanPhamChiTiet spct
-                            LEFT JOIN 
-                                SanPham sp ON spct.IdSanPham = sp.ID
-                            LEFT JOIN 
-                                MauSac ms ON spct.IdMauSac = ms.ID
-                            LEFT JOIN 
-                                Size s ON spct.IdSize = s.ID
-                            LEFT JOIN 
-                                ChatLieu cl ON spct.IdChatLieu = cl.ID
-                            LEFT JOIN 
-                                DoDay dd ON spct.IdDoDay = dd.ID
-                            LEFT JOIN 
-                                NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID;
-                         """;
-        List<ChiTietSP> listSPCT = new ArrayList<>();
-        try {
-            ResultSet rs = dBHelper.executeQuery(sqlQuery);
-            while (rs.next()) {
-                listSPCT.add(
-                        new ChiTietSP(
-                                rs.getString(1),
-                                rs.getString(2),
-                                rs.getBigDecimal(3),
-                                rs.getString(4),
-                                rs.getString(5),
-                                rs.getString(6),
-                                rs.getString(7),
-                                rs.getString(8),
-                                rs.getInt(9)
-                        )
-                );
-            }
-            dBHelper.closeResultSet(rs);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listSPCT;
-    }
+//    public List<ChiTietSP> getSPCT() {
+//        dBHelper = new JDBCHelper();
+//        String sqlQuery = """
+//                            SELECT 
+//                                spct.MaSPCT,
+//                                spct.TenSPCT,
+//                                spct.GiaBan,
+//                                ms.TenMauSac,
+//                                s.TenSize,
+//                                cl.TenChatLieu,
+//                                dd.TenDoDay,
+//                                ncc.TenNhaCungCap,
+//                                spct.SoLuong
+//                            FROM 
+//                                SanPhamChiTiet spct
+//                            LEFT JOIN 
+//                                SanPham sp ON spct.IdSanPham = sp.ID
+//                            LEFT JOIN 
+//                                MauSac ms ON spct.IdMauSac = ms.ID
+//                            LEFT JOIN 
+//                                Size s ON spct.IdSize = s.ID
+//                            LEFT JOIN 
+//                                ChatLieu cl ON spct.IdChatLieu = cl.ID
+//                            LEFT JOIN 
+//                                DoDay dd ON spct.IdDoDay = dd.ID
+//                            LEFT JOIN 
+//                                NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID;
+//                         """;
+//        List<ChiTietSP> listSPCT = new ArrayList<>();
+//        try {
+//            ResultSet rs = dBHelper.executeQuery(sqlQuery);
+//            while (rs.next()) {
+//                listSPCT.add(
+//                        new ChiTietSP(
+//                                rs.getString(1),
+//                                rs.getString(2),
+//                                rs.getBigDecimal(3),
+//                                rs.getString(4),
+//                                rs.getString(5),
+//                                rs.getString(6),
+//                                rs.getString(7),
+//                                rs.getString(8),
+//                                rs.getInt(9)
+//                        )
+//                );
+//            }
+//            dBHelper.closeResultSet(rs);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return listSPCT;
+//    }
 
     public List<Voucher> getAllVoucher() {
         dBHelper = new JDBCHelper();

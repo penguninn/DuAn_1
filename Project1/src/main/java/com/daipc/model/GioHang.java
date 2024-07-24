@@ -14,18 +14,21 @@ public class GioHang {
     private String tenSPCT;
     private double donGia;
     private int soLuong;
-    private boolean trangThai = false;
+    private boolean trangThai;
     private double thanhTien;
 
     public GioHang() {
     }
+    
+    
 
-    public GioHang(String maSPCT, String tenSPCT, double donGia, int soLuong, double thanhTien) {
+    public GioHang(String maSPCT, String tenSPCT, double donGia, int soLuong, double thanhTien, boolean trangThai) {
         this.maSPCT = maSPCT;
         this.tenSPCT = tenSPCT;
         this.donGia = donGia;
         this.soLuong = soLuong;
         this.thanhTien = thanhTien;
+        this.trangThai = trangThai;
     }
 
     public GioHang(String maCTSP, String tenSPCT, double donGia, int soLuong) {

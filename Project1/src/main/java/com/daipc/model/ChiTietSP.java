@@ -46,7 +46,8 @@ public class ChiTietSP {
         this.trangThai = trangThai;
     }
 
-    public ChiTietSP(String maCTSP, String tenSPCT, BigDecimal giaBan, String tenNhaCungCap, String tenMauSac, String tenSize, String tenChatLieu, String tenDoDay, int soLuong) {
+    public ChiTietSP(int id, String maCTSP, String tenSPCT, BigDecimal giaBan, String tenNhaCungCap, String tenMauSac, String tenSize, String tenChatLieu, String tenDoDay, int soLuong) {
+        this.id = id;
         this.maCTSP = maCTSP;
         this.tenSPCT = tenSPCT;
         this.giaBan = giaBan;

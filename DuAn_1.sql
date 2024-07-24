@@ -303,7 +303,7 @@ VALUES
 INSERT INTO KhachHang
     (MaKhachHang, HoTen, GioiTinh, SoDT, DiaChi, NgayTao, NgaySua, NguoiTao, NguoiSua)
 VALUES
-    ('KH000', N'Khách Bán Lẻ', NULL, NULL, NULL, '2020-01-01', NULL, 'admin', NULL),
+    ('KH000', N'Khách Bán Lẻ', NULL, '0969477050', NULL, '2020-01-01', NULL, 'admin', NULL),
     ('KH001', N'Nguyễn Văn Khánh', 0, '0901234567', N'123 Đường ABC, Quận 1, TP. HCM', '2023-01-01', '2023-01-01', N'admin', N'admin'),
     ('KH002', N'Trần Thị Lan', 1, '0987654321', N'456 Đường XYZ, Quận 2, TP. HCM', '2023-01-01', '2023-01-01', N'admin', N'admin'),
     ('KH003', N'Hoàng Minh Tuấn', 0, '0912345678', N'789 Đường KLM, Quận 3, TP. HCM', '2023-01-01', '2023-01-01', N'admin', N'admin'),
@@ -420,8 +420,9 @@ SELECT
 FROM
     HoaDon;
 
-select hd.id, hd.MaHD, nv.HoTen, hd.NguoiTao, hd.NgayTao, hd.TongGiaTriHoaDon, hd.TrangThai
-from hoadon hd
-    inner join KhachHang kh on hd.IDKhachHang = kh.ID
-    INNER join NhanVien nv on hd.IDNhanVien = nv.ID
+select hd.id, hd.MaHD, kh.HoTen, hd.NguoiTao, hd.idvoucher, hd.thanhtoan, hd.NgayTao, hd.TrangThai, hd.TongGiaTriHoaDon, kh.sodt
+    from hoadon hd
+        inner join KhachHang kh on hd.IDKhachHang = kh.ID
+        INNER join NhanVien nv on hd.IDNhanVien = nv.ID
+
 

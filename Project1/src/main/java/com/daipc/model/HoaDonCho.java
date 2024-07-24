@@ -14,7 +14,7 @@ public class HoaDonCho {
     private String tenKhachHang;
     private String nguoiTao;
     private String voucher;
-    private String thanhToan;
+    private double thanhToan;
     private String ngayTao;
     private int TrangThai;
     private double tong;
@@ -22,9 +22,8 @@ public class HoaDonCho {
     
     public HoaDonCho() {
     }
-    
 
-    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String voucher, String thanhToan, String ngayTao, int TrangThai, double tong, String SDT) {
+    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String voucher, double thanhToan, String ngayTao, int TrangThai, double tong, String SDT) {
         this.id = id;
         this.maHD = maHD;
         this.tenKhachHang = tenKhachHang;
@@ -106,11 +105,11 @@ public class HoaDonCho {
         this.voucher = voucher;
     }
 
-    public String getThanhToan() {
+    public double getThanhToan() {
         return thanhToan;
     }
 
-    public void setThanhToan(String thanhToan) {
+    public void setThanhToan(double thanhToan) {
         this.thanhToan = thanhToan;
     }
 

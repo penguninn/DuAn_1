@@ -73,10 +73,10 @@ public class Form_Sell extends javax.swing.JPanel {
         listHDC.addAll(
                 QLBH.selectAllHDC(
                         """
-                            select hd.id, hd.MaHD, kh.HoTen, nv.hoten, hd.NgayTao, hd.TongGiaTriHoaDon, hd.TrangThai
+                            select hd.id, hd.MaHD, kh.HoTen, hd.NguoiTao, hd.idvoucher, hd.thanhtoan, hd.NgayTao, hd.TrangThai, hd.TongGiaTriHoaDon, kh.sodt
                             from hoadon hd
                             inner join KhachHang kh on hd.IDKhachHang = kh.ID
-                            INNER join NhanVien nv on hd.IDNhanVien = nv.ID 
+                            INNER join NhanVien nv on hd.IDNhanVien = nv.ID
                             WHERE hd.TrangThai = ?
                         """, 0));
         for (HoaDonCho hd : listHDC) {
@@ -186,10 +186,10 @@ public class Form_Sell extends javax.swing.JPanel {
         listGH.addAll(
                 QLBH.selectAllGH(
                         """
-                            select spct.MaSPCT, spct.TenSPCT, spct.GiaBan, hdct.SoLuong, spct.GiaBan * hdct.SoLuong from HoaDonCT hdct 
-                            join SanPhamChiTiet spct on hdct.IDCTSP = spct.id
-                            where hdct.IDHoaDon = ?        
-                        """, id));
+                            select spct.MaSPCT, spct.TenSPCT, spct.GiaBan, hdct.SoLuong, spct.GiaBan * hdct.SoLuong, hdct.TrangThai from HoaDonCT hdct 
+                                                        join SanPhamChiTiet spct on hdct.IDCTSP = spct.id
+                                                        where hdct.IDHoaDon = ? and hdct.TrangThai = ?    
+                        """, id, 1));
         loadDataGH();
     }
 
@@ -203,6 +203,7 @@ public class Form_Sell extends javax.swing.JPanel {
     public void clearFormHD() {
         txtTenKH.setText("Khách Bán Lẻ");
         txtSDT.setText("");
+        txtMaHD.setText("");
         txtThanhToan.setText("0");
         txtTongTien.setText("0");
         txtTienKhachDua.setText("");
@@ -211,15 +212,15 @@ public class Form_Sell extends javax.swing.JPanel {
         cboVoucher.setSelectedIndex(-1);
         cboHinhThucTT.setSelectedIndex(-1);
     }
-   
+
     public void showDetails(HoaDonCho hdc) {
         txtTenKH.setText(hdc.getTenKhachHang());
-        txtSDT.setText("");
+        txtSDT.setText(hdc.getSDT());
         txtMaHD.setText(hdc.getMaHD());
         txtTongTien.setText(String.valueOf(hdc.getTong()));
         cboVoucher.setSelectedItem(hdc.getVoucher());
-        txtThanhToan.setText(hdc.getThanhToan());
-        txtThanhToan.setText(hdc.getThanhToan());
+        txtThanhToan.setText(String.valueOf(hdc.getThanhToan()));
+
     }
 
 //    @SuppressWarnings("unchecked");
@@ -657,6 +658,7 @@ public class Form_Sell extends javax.swing.JPanel {
 
     private void tblDanhSachSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachSanPhamMouseClicked
         if (evt.getClickCount() == 2) {
+            selectedRowHDC = tblHoaDonCho.getSelectedRow();
             selectedRowSP = tblDanhSachSanPham.getSelectedRow();
             int soLuong = 0;
             String inputValue = JOptionPane.showInputDialog(null, "Nhập số lượng:", "", JOptionPane.QUESTION_MESSAGE);
@@ -670,10 +672,17 @@ public class Form_Sell extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Lỗi định dạng. Nhấp số nguyên lớn hơn 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
             }
+            String sqlInsert = """
+                                insert into HoaDonCT (IDHoaDon, IDCTSP, DonGia, TrangThai, SoLuong) 
+                                Values (?, ?, ?, ?, ?)
+                               """;
             if (soLuong > 0) {
+
                 ChiTietSP sp = listSP.get(selectedRowSP);
-                listGH.add(new GioHang(sp.getMaCTSP(), sp.getTenSPCT(), sp.getGiaBan().doubleValue(), soLuong));
-                loadDataGH();
+                HoaDonCho hdc = listHDC.get(selectedRowHDC);
+
+                QLBH.update(sqlInsert, hdc.getId(), sp.getId(), sp.getGiaBan(), 1, soLuong);
+                selectionRowGH(hdc.getId());
             }
 
         }
@@ -686,10 +695,6 @@ public class Form_Sell extends javax.swing.JPanel {
                             INSERT INTO HoaDon 
                             (MaHD, IDKhachHang, IDNhanVien, IDVoucher, TongGiaTriHoaDon, ThanhToan, NgayTao, TrangThai)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
-                           """;
-        String sqlUpdate = """
-                            Update HoaDon 
-                            set IDKhachHang = ?, IDNhanVien = ?, IDVoucher = ?, TongGiaTriHoaDon = ?, ThanhToan = ?, NgayTao = ? where mahd = ?
                            """;
         if (QLBH.update(sqlInsert, txtMaHD.getText(), 1, 1, 1, 0, 0, LocalDate.now(), 0) == TrangThaiCRUD.ThanhCong) {
             JOptionPane.showMessageDialog(null, "Tạo Hóa Đơn Thành Công !!!");
