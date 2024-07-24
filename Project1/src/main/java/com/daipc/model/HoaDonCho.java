@@ -13,39 +13,30 @@ public class HoaDonCho {
     private String maHD;
     private String tenKhachHang;
     private String nguoiTao;
+    private String voucher;
+    private String thanhToan;
     private String ngayTao;
     private int TrangThai;
     private double tong;
-
+    private String SDT;
+    
     public HoaDonCho() {
     }
+    
 
-    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String ngayTao, int TrangThai, double tong) {
+    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String voucher, String thanhToan, String ngayTao, int TrangThai, double tong, String SDT) {
         this.id = id;
         this.maHD = maHD;
         this.tenKhachHang = tenKhachHang;
         this.nguoiTao = nguoiTao;
+        this.voucher = voucher;
+        this.thanhToan = thanhToan;
         this.ngayTao = ngayTao;
         this.TrangThai = TrangThai;
         this.tong = tong;
+        this.SDT = SDT;
     }
-
-    public HoaDonCho(String maHD, String tenKhachHang, String nguoiTao, String ngayTao, int TrangThai, double tong) {
-        this.maHD = maHD;
-        this.tenKhachHang = tenKhachHang;
-        this.nguoiTao = nguoiTao;
-        this.ngayTao = ngayTao;
-        this.TrangThai = TrangThai;
-        this.tong = tong;
-    }
-
-    public HoaDonCho(String maHD, String tenKhachHang, String nguoiTao, String ngayTao, double tong) {
-        this.maHD = maHD;
-        this.tenKhachHang = tenKhachHang;
-        this.nguoiTao = nguoiTao;
-        this.ngayTao = ngayTao;
-        this.tong = tong;
-    }
+    
     
     public Object[] getHDC() {
         return new Object[]{maHD, tenKhachHang, nguoiTao, ngayTao, tong};
@@ -105,6 +96,30 @@ public class HoaDonCho {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getVoucher() {
+        return voucher;
+    }
+
+    public void setVoucher(String voucher) {
+        this.voucher = voucher;
+    }
+
+    public String getThanhToan() {
+        return thanhToan;
+    }
+
+    public void setThanhToan(String thanhToan) {
+        this.thanhToan = thanhToan;
+    }
+
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
     }
 
     

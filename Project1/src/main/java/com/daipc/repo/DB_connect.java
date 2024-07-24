@@ -22,7 +22,7 @@ public class DB_connect {
     private final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private final String URL = "jdbc:sqlserver://DAIPC\\SQLEXPRESS:1433;databaseName=DuAn1_Final;encrypt=true;trustServerCertificate=true;";
     private final String USER = "sa";
-    private final String PASSWORD = "123";
+    private final String PASSWORD = "Dai1082005@";
 
     public Connection getConnection() {
         try {

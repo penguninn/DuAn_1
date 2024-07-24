@@ -3,9 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.daipc.model;
-
-import java.util.Date;
-
 /**
  *
  * @author DaiPc
@@ -16,11 +13,23 @@ public class HoaDon {
     private int idKhachHang;
     private int idNhanVien;
     private int idVoucher;
-    private String loaiHoaDon;
     private double tongGiaTriHoaDon;
     private int thanhToan;
-    private Date ngayTao;
+    private String ngayTao;
+    private int trangThai;
 
+    public HoaDon(int id, String maHD, int idKhachHang, int idNhanVien, int idVoucher, double tongGiaTriHoaDon, int thanhToan, String ngayTao, int trangThai) {
+        this.id = id;
+        this.maHD = maHD;
+        this.idKhachHang = idKhachHang;
+        this.idNhanVien = idNhanVien;
+        this.idVoucher = idVoucher;
+        this.tongGiaTriHoaDon = tongGiaTriHoaDon;
+        this.thanhToan = thanhToan;
+        this.ngayTao = ngayTao;
+        this.trangThai = trangThai;
+    }
+    
     public HoaDon() {
     }
 
@@ -64,14 +73,6 @@ public class HoaDon {
         this.idVoucher = idVoucher;
     }
 
-    public String getLoaiHoaDon() {
-        return loaiHoaDon;
-    }
-
-    public void setLoaiHoaDon(String loaiHoaDon) {
-        this.loaiHoaDon = loaiHoaDon;
-    }
-
     public double getTongGiaTriHoaDon() {
         return tongGiaTriHoaDon;
     }
@@ -88,12 +89,20 @@ public class HoaDon {
         this.thanhToan = thanhToan;
     }
 
-    public Date getNgayTao() {
+    public String getNgayTao() {
         return ngayTao;
     }
 
-    public void setNgayTao(Date ngayTao) {
+    public void setNgayTao(String ngayTao) {
         this.ngayTao = ngayTao;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
     
     
