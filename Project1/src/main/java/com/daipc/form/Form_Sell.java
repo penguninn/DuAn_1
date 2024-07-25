@@ -44,6 +44,8 @@ public class Form_Sell extends javax.swing.JPanel {
     private DefaultTableModel modelHDC;
     private DefaultTableModel modelGH;
     private DefaultTableModel modelSP;
+    
+    private TableEvent eventHuyHD;
 
     public Form_Sell() {
         initComponents();
@@ -70,26 +72,31 @@ public class Form_Sell extends javax.swing.JPanel {
     public void loadDataHDC() {
         modelHDC.setRowCount(0);
         listHDC.clear();
-        listHDC.addAll(
-                QLBH.selectAllHDC(
-                        """
-                            select hd.id, hd.MaHD, kh.HoTen, hd.NguoiTao, hd.idvoucher, hd.thanhtoan, hd.NgayTao, hd.TrangThai, hd.TongGiaTriHoaDon, kh.sodt
-                            from hoadon hd
-                            inner join KhachHang kh on hd.IDKhachHang = kh.ID
-                            INNER join NhanVien nv on hd.IDNhanVien = nv.ID
-                            WHERE hd.TrangThai = ?
-                        """, 0));
+        listHDC.addAll(QLBH.selectAllHDC());
         for (HoaDonCho hd : listHDC) {
             modelHDC.addRow(hd.getHDC());
         }
-        selectedRowHDC = listHDC.size() - 1;
         if (selectedRowHDC >= 0) {
-            tblHoaDonCho.setRowSelectionInterval(selectedRowHDC, selectedRowHDC);
+            showDetails();
+        } else {
+            clearFormHD();
         }
     }
 
     public void loadDataGH() {
+        selectedRowHDC = tblHoaDonCho.getSelectedRow();
+        listGH.clear();
         modelGH.setRowCount(0);
+        if (selectedRowHDC >= 0) {
+            int id = listHDC.get(selectedRowHDC).getId();
+            listGH.addAll(
+                    QLBH.selectAllGH(
+                            """
+                            select hdct.id, spct.MaSPCT, spct.TenSPCT, spct.GiaBan, hdct.SoLuong, spct.GiaBan * hdct.SoLuong, hdct.TrangThai from HoaDonCT hdct 
+                                                        join SanPhamChiTiet spct on hdct.IDCTSP = spct.id
+                                                        where hdct.IDHoaDon = ? and hdct.TrangThai = ?    
+                        """, id, 1));
+        }
         for (GioHang gh : listGH) {
             modelGH.addRow(gh.getGioHang());
         }
@@ -123,25 +130,29 @@ public class Form_Sell extends javax.swing.JPanel {
 
     public void initTableHD() {
         TableEvent event = new TableEvent() {
-            int rowHDC = 0;
-            String sqlSofDelete = """
-                                        update hoadon set trangthai = 2 where id = ?
-                                    """;
 
             @Override
             public void onDelete(int row) {
+                String sqlSofDeleteHD = """
+                                        update hoadon set trangthai = 2 where id = ?
+                                    """;
                 if (tblHoaDonCho.isEditing()) {
                     tblHoaDonCho.getCellEditor().stopCellEditing();
                 }
-                rowHDC = row;
+                for (int id = 0; id < listGH.size(); id++) {
+                    deleteAndUpdate(row);
+                }
+
                 int id = listHDC.get(row).getId();
-                if (QLBH.update(sqlSofDelete, id) == TrangThaiCRUD.ThanhCong) {
+                if (QLBH.update(sqlSofDeleteHD, id) == TrangThaiCRUD.ThanhCong) {
                     JOptionPane.showMessageDialog(null, "Xóa Hóa Đơn Chờ Thành Công !!!");
                     loadDataHDC();
+                    loadDataGH();
+                    loadDataSP();
                 } else {
                     JOptionPane.showMessageDialog(null, "Xóa Hóa Đơn Chờ Thất Bại !!!");
                 }
-
+                
             }
 
             @Override
@@ -150,23 +161,22 @@ public class Form_Sell extends javax.swing.JPanel {
             }
 
         };
+        this.eventHuyHD = event;
         tblHoaDonCho.getColumnModel().getColumn(5).setCellRenderer(new PanelButtonCellRender(tblHoaDonCho));
         tblHoaDonCho.getColumnModel().getColumn(5).setCellEditor(new PanelButtonCellEditor(event));
     }
 
     public void initTableGH() {
-
         TableEvent event = new TableEvent() {
-            int rowGH = 0;
-
             @Override
             public void onDelete(int row) {
                 if (tblGioHang.isEditing()) {
                     tblGioHang.getCellEditor().stopCellEditing();
                 }
-                rowGH = row;
-                listGH.remove(row);
+                deleteAndUpdate(row);
                 loadDataGH();
+                loadDataSP();
+                loadDataHDC();
             }
 
             @Override
@@ -175,22 +185,26 @@ public class Form_Sell extends javax.swing.JPanel {
             }
 
         };
-
         tblGioHang.getColumnModel().getColumn(5).setCellRenderer(new PanelButtonCellRender(tblGioHang));
         tblGioHang.getColumnModel().getColumn(5).setCellEditor(new PanelButtonCellEditor(event));
         tblGioHang.getColumnModel().getColumn(3).setCellEditor(new QuantityCellEditor(event));
     }
-
-    public void selectionRowGH(int id) {
-        listGH.clear();
-        listGH.addAll(
-                QLBH.selectAllGH(
-                        """
-                            select spct.MaSPCT, spct.TenSPCT, spct.GiaBan, hdct.SoLuong, spct.GiaBan * hdct.SoLuong, hdct.TrangThai from HoaDonCT hdct 
-                                                        join SanPhamChiTiet spct on hdct.IDCTSP = spct.id
-                                                        where hdct.IDHoaDon = ? and hdct.TrangThai = ?    
-                        """, id, 1));
-        loadDataGH();
+    
+    public void deleteAndUpdate(int row) {
+        String sqlSofDelete =   """
+                                    update hoadonct set trangthai = 0 where id = ?
+                                """;
+        String sqlUpdate =  """
+                                update sanphamchitiet set SoLuong = ? where id = ?
+                            """;
+        int idOfListSP = -1;
+        for (int i = 0; i < listSP.size(); i++) {
+            if (listSP.get(i).getMaCTSP().equals(listGH.get(row).getMaCTSP())) {
+                idOfListSP = i;
+            }
+        }
+        QLBH.update(sqlUpdate, listSP.get(idOfListSP).getSoLuong() + listGH.get(row).getSoLuong(), listSP.get(idOfListSP).getId());
+        QLBH.update(sqlSofDelete, listGH.get(row).getId());
     }
 
     public String autoTangMaHD() {
@@ -213,7 +227,8 @@ public class Form_Sell extends javax.swing.JPanel {
         cboHinhThucTT.setSelectedIndex(-1);
     }
 
-    public void showDetails(HoaDonCho hdc) {
+    public void showDetails() {
+        HoaDonCho hdc = listHDC.get(selectedRowHDC);
         txtTenKH.setText(hdc.getTenKhachHang());
         txtSDT.setText(hdc.getSDT());
         txtMaHD.setText(hdc.getMaHD());
@@ -465,6 +480,11 @@ public class Form_Sell extends javax.swing.JPanel {
         jLabel21.setText("Ghi Chú");
 
         btnHuy.setText("Hủy Hóa Đơn");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
+            }
+        });
 
         btnLamMoi.setText("Làm Mới");
         btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
@@ -660,29 +680,42 @@ public class Form_Sell extends javax.swing.JPanel {
         if (evt.getClickCount() == 2) {
             selectedRowHDC = tblHoaDonCho.getSelectedRow();
             selectedRowSP = tblDanhSachSanPham.getSelectedRow();
-            int soLuong = 0;
-            String inputValue = JOptionPane.showInputDialog(null, "Nhập số lượng:", "", JOptionPane.QUESTION_MESSAGE);
-            if (inputValue != null) {
-                try {
-                    soLuong = Integer.parseInt(inputValue);
-                    if (soLuong < 0) {
-                        JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            if (selectedRowHDC >= 0) {
+                HoaDonCho hdc = listHDC.get(selectedRowHDC);
+                ChiTietSP sp = listSP.get(selectedRowSP);
+                int soLuong = 0;
+                int checkSoLuong = -999;
+                String inputValue = JOptionPane.showInputDialog(null, "Nhập số lượng:", "", JOptionPane.QUESTION_MESSAGE);
+                if (inputValue != null) {
+                    try {
+                        soLuong = Integer.parseInt(inputValue);
+                        if (soLuong < 0) {
+                            JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        } else if (soLuong > sp.getSoLuong()) {
+                            checkSoLuong = JOptionPane.showConfirmDialog(null, "Số lượng vượt quá tồn kho\nBạn có muốn nhập số lượng tối đa ?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        }
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Lỗi định dạng. Nhấp số nguyên lớn hơn 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Lỗi định dạng. Nhấp số nguyên lớn hơn 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
-            }
-            String sqlInsert = """
+                String sqlInsert = """
                                 insert into HoaDonCT (IDHoaDon, IDCTSP, DonGia, TrangThai, SoLuong) 
                                 Values (?, ?, ?, ?, ?)
                                """;
-            if (soLuong > 0) {
-
-                ChiTietSP sp = listSP.get(selectedRowSP);
-                HoaDonCho hdc = listHDC.get(selectedRowHDC);
-
-                QLBH.update(sqlInsert, hdc.getId(), sp.getId(), sp.getGiaBan(), 1, soLuong);
-                selectionRowGH(hdc.getId());
+                String sqlUpdate = """
+                                    update sanphamchitiet set SoLuong = ? where id = ?
+                                """;
+                if (checkSoLuong == JOptionPane.YES_OPTION) {
+                    soLuong = sp.getSoLuong();
+                }
+                if (soLuong > 0 && soLuong <= sp.getSoLuong()) {
+                    QLBH.update(sqlInsert, hdc.getId(), sp.getId(), sp.getGiaBan(), 1, soLuong);
+                    QLBH.update(sqlUpdate, sp.getSoLuong() - soLuong, sp.getId());
+                    loadDataGH();
+                    loadDataSP();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn hóa đơn chờ !!!");
             }
 
         }
@@ -696,17 +729,16 @@ public class Form_Sell extends javax.swing.JPanel {
                             (MaHD, IDKhachHang, IDNhanVien, IDVoucher, TongGiaTriHoaDon, ThanhToan, NgayTao, TrangThai)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
                            """;
-        if (QLBH.update(sqlInsert, txtMaHD.getText(), 1, 1, 1, 0, 0, LocalDate.now(), 0) == TrangThaiCRUD.ThanhCong) {
+        if (QLBH.update(sqlInsert, txtMaHD.getText(), 1, 1, null, 0, 0, LocalDate.now(), 0) == TrangThaiCRUD.ThanhCong) {
             JOptionPane.showMessageDialog(null, "Tạo Hóa Đơn Thành Công !!!");
         }
         loadDataHDC();
+        showDetails();
     }//GEN-LAST:event_btnTaoHDActionPerformed
 
     private void tblHoaDonChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChoMouseClicked
-        selectedRowHDC = tblHoaDonCho.getSelectedRow();
-        int id = listHDC.get(selectedRowHDC).getId();
-        selectionRowGH(id);
-        showDetails(listHDC.get(selectedRowHDC));
+        loadDataGH();
+        showDetails();
     }//GEN-LAST:event_tblHoaDonChoMouseClicked
 
     private void btnKiemTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKiemTraActionPerformed
@@ -731,6 +763,10 @@ public class Form_Sell extends javax.swing.JPanel {
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         clearFormHD();
     }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        eventHuyHD.onDelete(tblHoaDonCho.getSelectedRow());
+    }//GEN-LAST:event_btnHuyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

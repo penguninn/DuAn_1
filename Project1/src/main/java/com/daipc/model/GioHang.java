@@ -9,7 +9,7 @@ package com.daipc.model;
  * @author DaiPc
  */
 public class GioHang {
-
+    private int id;
     private String maSPCT;
     private String tenSPCT;
     private double donGia;
@@ -22,7 +22,8 @@ public class GioHang {
     
     
 
-    public GioHang(String maSPCT, String tenSPCT, double donGia, int soLuong, double thanhTien, boolean trangThai) {
+    public GioHang(int id, String maSPCT, String tenSPCT, double donGia, int soLuong, double thanhTien, boolean trangThai) {
+        this.id = id;
         this.maSPCT = maSPCT;
         this.tenSPCT = tenSPCT;
         this.donGia = donGia;
@@ -43,6 +44,16 @@ public class GioHang {
         return new Object[]{maSPCT, tenSPCT, donGia, soLuong, thanhTien};
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
+    
     public String getMaCTSP() {
         return maSPCT;
     }

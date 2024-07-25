@@ -26,11 +26,40 @@ public class QuanLiBanHang {
 
     JDBCHelper dBHelper;
 
-    public List<HoaDonCho> selectAllHDC(String sqlQuery, Object... params) {
+    public List<HoaDonCho> selectAllHDC() {
         dBHelper = new JDBCHelper();
+        String sqlQuery = """
+                            SELECT 
+                                hd.id, 
+                                hd.MaHD, 
+                                kh.HoTen, 
+                                nv.HoTen, 
+                                hd.idvoucher, 
+                                hd.thanhtoan, 
+                                hd.NgayTao, 
+                                hd.TrangThai, 
+                                COALESCE(SUM(CASE WHEN hdct.TrangThai = 1 THEN hdct.SoLuong * hdct.DonGia ELSE 0 END), 0) AS TongTien,
+                                kh.sodt
+                            FROM 
+                                hoadon hd
+                                INNER JOIN KhachHang kh ON hd.IDKhachHang = kh.ID
+                                INNER JOIN NhanVien nv ON hd.IDNhanVien = nv.ID
+                                LEFT JOIN HoaDonCT hdct ON hd.ID = hdct.IDHoaDon
+                            WHERE hd.TrangThai = 0
+                            GROUP BY 
+                                hd.id, 
+                                hd.MaHD, 
+                                kh.HoTen, 
+                                nv.HoTen, 
+                                hd.idvoucher, 
+                                hd.thanhtoan, 
+                                hd.NgayTao, 
+                                hd.TrangThai,
+                                kh.sodt
+                        """;
         List<HoaDonCho> listHD = new ArrayList<>();
         try {
-            ResultSet rs = dBHelper.executeQuery(sqlQuery, params);
+            ResultSet rs = dBHelper.executeQuery(sqlQuery);
             while (rs.next()) {
                 listHD.add(
                         new HoaDonCho(
@@ -102,12 +131,13 @@ public class QuanLiBanHang {
             while (rs.next()) {
                 listGH.add(
                         new GioHang(
-                                rs.getString(1),
+                                rs.getInt(1),
                                 rs.getString(2),
-                                rs.getDouble(3),
-                                rs.getInt(4),
-                                rs.getDouble(5),
-                                rs.getBoolean(6)
+                                rs.getString(3),
+                                rs.getDouble(4),
+                                rs.getInt(5),
+                                rs.getDouble(6),
+                                rs.getBoolean(7)
                         )
                 );
             }
@@ -250,7 +280,6 @@ public class QuanLiBanHang {
 //        }
 //        return listSPCT;
 //    }
-
     public List<Voucher> getAllVoucher() {
         dBHelper = new JDBCHelper();
         List<Voucher> listVoucher = new ArrayList<>();

@@ -406,6 +406,8 @@ SELECT *
 FROM Voucher
 SELECT *
 FROM KhachHang
+SELECT *
+from SanPhamChiTiet
 
 SELECT
     ID,
@@ -421,8 +423,37 @@ FROM
     HoaDon;
 
 select hd.id, hd.MaHD, kh.HoTen, hd.NguoiTao, hd.idvoucher, hd.thanhtoan, hd.NgayTao, hd.TrangThai, hd.TongGiaTriHoaDon, kh.sodt
-    from hoadon hd
-        inner join KhachHang kh on hd.IDKhachHang = kh.ID
-        INNER join NhanVien nv on hd.IDNhanVien = nv.ID
+from hoadon hd
+    inner join KhachHang kh on hd.IDKhachHang = kh.ID
+    INNER join NhanVien nv on hd.IDNhanVien = nv.ID
 
+update sanphamchitiet set SoLuong = 60 where id = 9;
 
+    SELECT 
+        hd.id, 
+        hd.MaHD, 
+        kh.HoTen, 
+        hd.NguoiTao, 
+        hd.idvoucher, 
+        hd.thanhtoan, 
+        hd.NgayTao, 
+        hd.TrangThai, 
+        SUM(hdct.SoLuong * hdct.DonGia) AS TongTien,
+        kh.sodt
+    FROM 
+        hoadon hd
+        INNER JOIN KhachHang kh ON hd.IDKhachHang = kh.ID
+        INNER JOIN NhanVien nv ON hd.IDNhanVien = nv.ID
+        INNER JOIN HoaDonCT hdct ON hd.ID = hdct.IDHoaDon
+        WHERE hd.TrangThai = 0 and hdct.TrangThai = 1
+    GROUP BY 
+        hd.id, 
+        hd.MaHD, 
+        kh.HoTen, 
+        hd.NguoiTao, 
+        hd.idvoucher, 
+        hd.thanhtoan, 
+        hd.NgayTao, 
+        hd.TrangThai,
+        kh.sodt
+                      
