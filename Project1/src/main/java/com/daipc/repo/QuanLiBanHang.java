@@ -10,6 +10,7 @@ import com.daipc.model.GioHang;
 import com.daipc.model.HoaDon;
 import com.daipc.model.HoaDonCho;
 import com.daipc.model.KhachHang;
+import com.daipc.model.PhuongThucTT;
 import com.daipc.model.SanPham;
 import com.daipc.model.Voucher;
 import java.math.BigDecimal;
@@ -29,33 +30,39 @@ public class QuanLiBanHang {
     public List<HoaDonCho> selectAllHDC() {
         dBHelper = new JDBCHelper();
         String sqlQuery = """
-                            SELECT 
-                                hd.id, 
-                                hd.MaHD, 
-                                kh.HoTen, 
-                                nv.HoTen, 
-                                hd.idvoucher, 
-                                hd.thanhtoan, 
-                                hd.NgayTao, 
-                                hd.TrangThai, 
+                            SELECT
+                                hd.id,
+                                hd.MaHD,
+                                kh.HoTen AS TenKhachHang,
+                                nv.HoTen AS TenNhanVien,
+                                vc.MaVoucher,
+                                GREATEST(COALESCE(SUM(CASE WHEN hdct.TrangThai = 1 THEN hdct.SoLuong * hdct.DonGia ELSE 0 END), 0) - COALESCE(vc.GiaTriVoucher, 0), 0) AS ThanhToan,
+                                pttt.TenPhuongThucTT,
+                                hd.NgayTao,
+                                hd.TrangThai,
                                 COALESCE(SUM(CASE WHEN hdct.TrangThai = 1 THEN hdct.SoLuong * hdct.DonGia ELSE 0 END), 0) AS TongTien,
-                                kh.sodt
-                            FROM 
+                                kh.sodt,
+                                hd.ghiCHu
+                            FROM
                                 hoadon hd
                                 INNER JOIN KhachHang kh ON hd.IDKhachHang = kh.ID
                                 INNER JOIN NhanVien nv ON hd.IDNhanVien = nv.ID
                                 LEFT JOIN HoaDonCT hdct ON hd.ID = hdct.IDHoaDon
-                            WHERE hd.TrangThai = 0
+                                LEFT JOIN Voucher vc ON hd.IDVoucher = vc.ID
+                                LEFT JOIN PhuongThucThanhToan pttt on hd.IDPhuongThucTT = pttt.ID
+                            where hd.trangthai = 0
                             GROUP BY 
                                 hd.id, 
                                 hd.MaHD, 
                                 kh.HoTen, 
                                 nv.HoTen, 
-                                hd.idvoucher, 
-                                hd.thanhtoan, 
+                                vc.MaVoucher, 
+                                vc.GiaTriVoucher,
                                 hd.NgayTao, 
                                 hd.TrangThai,
-                                kh.sodt
+                                kh.sodt,
+                                pttt.TenPhuongThucTT,
+                                hd.ghiCHu
                         """;
         List<HoaDonCho> listHD = new ArrayList<>();
         try {
@@ -70,9 +77,11 @@ public class QuanLiBanHang {
                                 rs.getString(5),
                                 rs.getDouble(6),
                                 rs.getString(7),
-                                rs.getInt(8),
-                                rs.getDouble(9),
-                                rs.getString(10)
+                                rs.getString(8),
+                                rs.getInt(9),
+                                rs.getDouble(10),
+                                rs.getString(11),
+                                rs.getString(12)
                         )
                 );
             }
@@ -228,63 +237,11 @@ public class QuanLiBanHang {
         return listKH;
     }
 
-//    public List<ChiTietSP> getSPCT() {
-//        dBHelper = new JDBCHelper();
-//        String sqlQuery = """
-//                            SELECT 
-//                                spct.MaSPCT,
-//                                spct.TenSPCT,
-//                                spct.GiaBan,
-//                                ms.TenMauSac,
-//                                s.TenSize,
-//                                cl.TenChatLieu,
-//                                dd.TenDoDay,
-//                                ncc.TenNhaCungCap,
-//                                spct.SoLuong
-//                            FROM 
-//                                SanPhamChiTiet spct
-//                            LEFT JOIN 
-//                                SanPham sp ON spct.IdSanPham = sp.ID
-//                            LEFT JOIN 
-//                                MauSac ms ON spct.IdMauSac = ms.ID
-//                            LEFT JOIN 
-//                                Size s ON spct.IdSize = s.ID
-//                            LEFT JOIN 
-//                                ChatLieu cl ON spct.IdChatLieu = cl.ID
-//                            LEFT JOIN 
-//                                DoDay dd ON spct.IdDoDay = dd.ID
-//                            LEFT JOIN 
-//                                NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID;
-//                         """;
-//        List<ChiTietSP> listSPCT = new ArrayList<>();
-//        try {
-//            ResultSet rs = dBHelper.executeQuery(sqlQuery);
-//            while (rs.next()) {
-//                listSPCT.add(
-//                        new ChiTietSP(
-//                                rs.getString(1),
-//                                rs.getString(2),
-//                                rs.getBigDecimal(3),
-//                                rs.getString(4),
-//                                rs.getString(5),
-//                                rs.getString(6),
-//                                rs.getString(7),
-//                                rs.getString(8),
-//                                rs.getInt(9)
-//                        )
-//                );
-//            }
-//            dBHelper.closeResultSet(rs);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return listSPCT;
-//    }
     public List<Voucher> getAllVoucher() {
         dBHelper = new JDBCHelper();
         List<Voucher> listVoucher = new ArrayList<>();
         String sqlQuery = """
-                            select * from Voucher
+                            select * from Voucher where GETDATE() <= NgayKetThuc and SoLuong > 0
                           """;
         try {
             ResultSet rs = dBHelper.executeQuery(sqlQuery);
@@ -302,6 +259,26 @@ public class QuanLiBanHang {
         } catch (Exception e) {
         }
         return listVoucher;
+    }
+    
+    public List<PhuongThucTT> getAllPhuongThucTT() {
+        dBHelper = new JDBCHelper();
+        List<PhuongThucTT> listPTTT = new ArrayList<>();
+        String sqlQuery = """
+                            select * from Phuongthucthanhtoan
+                          """;
+        try {
+            ResultSet rs = dBHelper.executeQuery(sqlQuery);
+            while (rs.next()) {
+                listPTTT.add(new PhuongThucTT(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return listPTTT;
     }
 
     public TrangThaiCRUD update(String sqlQuery, Object... params) {

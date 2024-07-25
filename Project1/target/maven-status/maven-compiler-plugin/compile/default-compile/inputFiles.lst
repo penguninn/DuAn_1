@@ -69,12 +69,14 @@
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/form/Form_Sell.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/repo/QuanLiTaiKhoan.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/repo/ChatLieuRepo.java
+/home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/model/PhuongThucTT.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/component/Menu.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/customTable/DeleteButton.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/model/Voucher.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/model/KhachHang.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/enumm/TrangThai.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/combo_suggestion/ComboBoxSuggestion.java
+/home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/form/Popup_KhachHang.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/searchbar/Search_Item.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/component/Card.java
 /home/daipc/Desktop/Github/DuAn_1/Project1/src/main/java/com/daipc/form/Form_Bill.java

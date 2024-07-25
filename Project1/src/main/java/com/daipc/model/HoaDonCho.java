@@ -19,11 +19,13 @@ public class HoaDonCho {
     private int TrangThai;
     private double tong;
     private String SDT;
+    private String hinhThucTT;
+    private String ghiChu;
     
     public HoaDonCho() {
     }
 
-    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String voucher, double thanhToan, String ngayTao, int TrangThai, double tong, String SDT) {
+    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String voucher, double thanhToan, String hinhThucTT, String ngayTao, int TrangThai, double tong, String SDT, String ghiChu) {
         this.id = id;
         this.maHD = maHD;
         this.tenKhachHang = tenKhachHang;
@@ -34,13 +36,33 @@ public class HoaDonCho {
         this.TrangThai = TrangThai;
         this.tong = tong;
         this.SDT = SDT;
+        this.hinhThucTT = hinhThucTT;
+        this.ghiChu = ghiChu;
+    }
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
+    
+    
+
+    public String getHinhThucTT() {
+        return hinhThucTT;
+    }
+
+    public void setHinhThucTT(String hinhThucTT) {
+        this.hinhThucTT = hinhThucTT;
     }
     
     
     public Object[] getHDC() {
         return new Object[]{maHD, tenKhachHang, nguoiTao, ngayTao, tong};
     }
-
+    
     public String getMaHD() {
         return maHD;
     }

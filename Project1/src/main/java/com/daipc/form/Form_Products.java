@@ -102,8 +102,8 @@ public class Form_Products extends javax.swing.JPanel {
         }
     };
 
-    DefaultTableModel modelSPCT = new DefaultTableModel(new String[]{"", "Mã Sản Phẩm Chi Tiết", "Mã Sản Phẩm", "Tên Sản Phẩm Chi Tiết",
-        "Tên Sản Phẩm", "Giá Bán", "Giá Nhập", "Số Lượng", "Nhà Cung Cấp  ", "Chất Liệu", "Màu sắc",
+    DefaultTableModel modelSPCT = new DefaultTableModel(new String[]{"", "Mã Sản Phẩm Chi Tiết", "Mã Sản Phẩm",  "Tên Sản Phẩm", "Tên Sản Phẩm Chi Tiết",
+        "Giá Bán", "Giá Nhập", "Số Lượng", "Nhà Cung Cấp  ", "Chất Liệu", "Màu sắc",
         "Size", "Độ Dày", "Trạng Thái"}, 10) {
         @Override
         public boolean isCellEditable(int row, int column) {
