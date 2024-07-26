@@ -11,23 +11,22 @@ import javax.swing.JTable;
 
 /**
  *
- * @author DaiPc
+ * @author daipc
  */
-public class PanelButtonCellEditor extends DefaultCellEditor{
-    
+public class PanelActionCellEditor extends DefaultCellEditor{
     private TableEvent event;
 
-    public PanelButtonCellEditor(TableEvent event) {
+    public PanelActionCellEditor(TableEvent event) {
         super(new JCheckBox());
         this.event = event;
     }
 
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        PanelButton panelButton = new PanelButton();
-        panelButton.setBackground(table.getSelectionBackground());
-        panelButton.initEvent(event, row);
-        return panelButton;
+        PanelActionButton panelActionButton = new PanelActionButton();
+        panelActionButton.setBackground(table.getSelectionBackground());
+        panelActionButton.initEvent(event, row);
+        return panelActionButton;
     }
     
 }

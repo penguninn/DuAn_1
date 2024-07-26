@@ -8,7 +8,7 @@ import com.daipc.component.Menu;
 import com.daipc.event.EventMenuSelected;
 import com.daipc.form.Form_Bill;
 import com.daipc.form.Form_Customer;
-import com.daipc.form.Form_History;
+import com.daipc.form.Form_Refund;
 import com.daipc.form.Form_Home;
 import com.daipc.form.Form_Products;
 import com.daipc.form.Form_Profile;
@@ -48,7 +48,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Form_Promotion Form_Promotion;
     private Form_Staffs Form_Staffs;
     private Form_Customer Form_Customer;
-    private Form_History Form_History;
+    private Form_Refund Form_Refund;
     private Form_Profile Form_Profile;
     public static MainFrame mainFrame;
     private String role = "";
@@ -82,7 +82,7 @@ public class MainFrame extends javax.swing.JFrame {
         Form_Staffs = new Form_Staffs();
         Form_Customer = new Form_Customer();
         Form_Profile = new Form_Profile();
-        Form_History = new Form_History();
+        Form_Refund = new Form_Refund();
 
         menu.initMoving(MainFrame.this);
         header.initMoving(MainFrame.this);
@@ -97,7 +97,7 @@ public class MainFrame extends javax.swing.JFrame {
         cardPanel.add(Form_Staffs, "Form_Staffs");
         cardPanel.add(Form_Customer, "Form_Customer");
         cardPanel.add(Form_Profile, "Form_Profile");
-        cardPanel.add(Form_History, "Form_History");
+        cardPanel.add(Form_Refund, "Form_Refund");
 
         layerPane.add(menu, "w 230!, spany 2");
         layerPane.add(header, "h 35!, wrap");
@@ -130,7 +130,7 @@ public class MainFrame extends javax.swing.JFrame {
                         cardLayout.show(cardPanel, "Form_Customer");
                         break;
                     case 7:
-                        cardLayout.show(cardPanel, "Form_History");
+                        cardLayout.show(cardPanel, "Form_Refund");
                         break;
                     case 11:
                         cardLayout.show(cardPanel, "Form_Profile");

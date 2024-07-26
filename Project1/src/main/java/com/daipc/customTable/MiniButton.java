@@ -18,12 +18,12 @@ import javax.swing.border.EmptyBorder;
  *
  * @author DaiPc
  */
-public class DeleteButton extends JButton{
+public class MiniButton extends JButton{
     
     private boolean mousePress;
     
     
-    public  DeleteButton() {
+    public  MiniButton() {
         setContentAreaFilled(false);
         setBorder(new EmptyBorder(3, 3, 3, 3));
         addMouseListener(new MouseAdapter(){

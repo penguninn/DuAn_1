@@ -27,13 +27,13 @@ import javax.swing.text.DefaultFormatter;
  *
  * @author DaiPc
  */
-public class QuantityCellEditor extends DefaultCellEditor {
+public class QtySpinnerCellEditor extends DefaultCellEditor {
 
     private JSpinner spinner;
     private JFormattedTextField formatTextField;
     private TableEvent event;
 
-    public QuantityCellEditor(TableEvent event) {
+    public QtySpinnerCellEditor(TableEvent event) {
         super(new JCheckBox());
         spinner = new JSpinner();
         this.event = event;

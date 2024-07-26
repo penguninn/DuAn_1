@@ -11,24 +11,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 
 /**
  *
- * @author DaiPc
+ * @author daipc
  */
-public class PanelButtonCellRender extends DefaultTableCellRenderer {
-
+public class PanelActionCellRender extends DefaultTableCellRenderer {
+    
     private int hoverRow = -1;
 
-    public PanelButtonCellRender(JTable table) {
-        table.addMouseMotionListener(new MouseMotionAdapter() {
+    public PanelActionCellRender(JTable table) {
+    table.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
                 int currentHoverRow = table.rowAtPoint(e.getPoint());
                 if (hoverRow != currentHoverRow) {
                     hoverRow = currentHoverRow;
-
                     table.repaint();
                 }
             }
@@ -41,23 +39,25 @@ public class PanelButtonCellRender extends DefaultTableCellRenderer {
                 table.repaint();
             }
         });
+        
     }
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component com = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        PanelButton panelButton = new PanelButton();
+        PanelActionButton panelAction = new PanelActionButton();
 
         if (isSelected == false && row == hoverRow) {
-            panelButton.setBackground(new Color(230, 230, 230));
+            panelAction.setBackground(new Color(230, 230, 230));
         } else if (isSelected == false && row % 2 != 0) {
-            panelButton.setBackground(new Color(242, 242, 242));
+            panelAction.setBackground(new Color(242, 242, 242));
 
         } else {
-            panelButton.setBackground(com.getBackground());
+            panelAction.setBackground(com.getBackground());
         }
 
-        return panelButton;
+        return panelAction;
     }
-
+    
+    
 }

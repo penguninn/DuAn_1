@@ -8,12 +8,12 @@ package com.daipc.form;
  *
  * @author DaiPc
  */
-public class Form_History extends javax.swing.JPanel {
+public class Form_Refund extends javax.swing.JPanel {
 
     /**
      * Creates new form Form_History
      */
-    public Form_History() {
+    public Form_Refund() {
         initComponents();
     }
 
@@ -28,14 +28,14 @@ public class Form_History extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setText("History");
+        jLabel1.setText("Hoanf tra");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(219, Short.MAX_VALUE)
+                .addContainerGap(205, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(143, 143, 143))
         );

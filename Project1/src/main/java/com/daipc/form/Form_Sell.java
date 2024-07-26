@@ -1,9 +1,11 @@
 package com.daipc.form;
 
 import com.daipc.ScrollBar.ScrollbarCustom;
-import com.daipc.customTable.PanelButtonCellEditor;
-import com.daipc.customTable.PanelButtonCellRender;
-import com.daipc.customTable.QuantityCellEditor;
+import com.daipc.customTable.PanelActionCellEditor;
+import com.daipc.customTable.PanelActionCellRender;
+import com.daipc.customTable.PanelBtnDeleteCellEditor;
+import com.daipc.customTable.PanelBtnDeleteCellRender;
+import com.daipc.customTable.QtySpinnerCellEditor;
 import com.daipc.model.ChiTietSP;
 import com.daipc.model.GioHang;
 import com.daipc.model.HoaDonCho;
@@ -20,6 +22,7 @@ import com.daipc.enumm.TrangThaiCRUD;
 import com.daipc.model.HoaDon;
 import com.daipc.model.KhachHang;
 import com.daipc.model.PhuongThucTT;
+import com.daipc.model.SanPham;
 import com.daipc.model.Voucher;
 import java.util.Random;
 import javax.swing.JScrollBar;
@@ -77,8 +80,10 @@ public class Form_Sell extends javax.swing.JPanel {
         loadDataSP();
         loadDataVoucher();
         loadDataHTTT();
-        showDetails();
+        if (selectedRowHDC >= 0) {
+            showDetails();
 
+        }
         txtTienKhachDua.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent de) {
@@ -175,6 +180,22 @@ public class Form_Sell extends javax.swing.JPanel {
 
     public void initTableHD() {
         TableEvent event = new TableEvent() {
+            @Override
+            public void onUpdate(int row) {
+                Popup_UpdateHoaDon updateHD = new Popup_UpdateHoaDon(null, true);
+                updateHD.setAlwaysOnTop(true);
+                updateHD.setLocationRelativeTo(null);
+                updateHD.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                        selectedRowHDC = row;
+                        loadDataHDC();
+                        showDetails();
+                        
+                    }
+                });
+                updateHD.setVisible(true);
+            }
 
             @Override
             public void onDelete(int row) {
@@ -185,7 +206,7 @@ public class Form_Sell extends javax.swing.JPanel {
                     tblHoaDonCho.getCellEditor().stopCellEditing();
                 }
                 for (int id = 0; id < listGH.size(); id++) {
-                    deleteAndUpdate(row);
+                    deleteAndUpdate(id);
                 }
 
                 int id = listHDC.get(row).getId();
@@ -198,7 +219,6 @@ public class Form_Sell extends javax.swing.JPanel {
                 } else {
                     JOptionPane.showMessageDialog(null, "Xóa Hóa Đơn Chờ Thất Bại !!!");
                 }
-
             }
 
             @Override
@@ -208,12 +228,16 @@ public class Form_Sell extends javax.swing.JPanel {
 
         };
         this.eventHuyHD = event;
-        tblHoaDonCho.getColumnModel().getColumn(5).setCellRenderer(new PanelButtonCellRender(tblHoaDonCho));
-        tblHoaDonCho.getColumnModel().getColumn(5).setCellEditor(new PanelButtonCellEditor(event));
+        tblHoaDonCho.getColumnModel().getColumn(5).setCellRenderer(new PanelActionCellRender(tblHoaDonCho));
+        tblHoaDonCho.getColumnModel().getColumn(5).setCellEditor(new PanelActionCellEditor(event));
     }
 
     public void initTableGH() {
         TableEvent event = new TableEvent() {
+            @Override
+            public void onUpdate(int row) {
+            }
+            
             @Override
             public void onDelete(int row) {
                 if (tblGioHang.isEditing()) {
@@ -231,9 +255,9 @@ public class Form_Sell extends javax.swing.JPanel {
             }
 
         };
-        tblGioHang.getColumnModel().getColumn(5).setCellRenderer(new PanelButtonCellRender(tblGioHang));
-        tblGioHang.getColumnModel().getColumn(5).setCellEditor(new PanelButtonCellEditor(event));
-        tblGioHang.getColumnModel().getColumn(3).setCellEditor(new QuantityCellEditor(event));
+        tblGioHang.getColumnModel().getColumn(5).setCellRenderer(new PanelBtnDeleteCellRender(tblGioHang));
+        tblGioHang.getColumnModel().getColumn(5).setCellEditor(new PanelBtnDeleteCellEditor(event));
+        tblGioHang.getColumnModel().getColumn(3).setCellEditor(new QtySpinnerCellEditor(event));
     }
 
     public void deleteAndUpdate(int row) {
@@ -244,6 +268,7 @@ public class Form_Sell extends javax.swing.JPanel {
                                 update sanphamchitiet set SoLuong = ? where id = ?
                             """;
         int idOfListSP = -1;
+        System.out.println(listSP.size());
         for (int i = 0; i < listSP.size(); i++) {
             if (listSP.get(i).getMaCTSP().equals(listGH.get(row).getMaCTSP())) {
                 idOfListSP = i;
@@ -337,6 +362,15 @@ public class Form_Sell extends javax.swing.JPanel {
         return true;
     }
 
+    private int checkGioHang(ChiTietSP sp) {
+        for (int i = 0; i < listGH.size(); i++) {
+            if (listGH.get(i).getMaCTSP().equals(sp.getMaCTSP())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 //    @SuppressWarnings("unchecked");
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -405,6 +439,7 @@ public class Form_Sell extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblHoaDonCho.setRowHeight(45);
         tblHoaDonCho.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblHoaDonChoMouseClicked(evt);
@@ -433,7 +468,7 @@ public class Form_Sell extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jLabel11)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollHoaDonCho, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -509,7 +544,7 @@ public class Form_Sell extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblGioHang.setRowHeight(40);
+        tblGioHang.setRowHeight(45);
         scrollGioHang.setViewportView(tblGioHang);
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -832,7 +867,12 @@ public class Form_Sell extends javax.swing.JPanel {
                     soLuong = sp.getSoLuong();
                 }
                 if (soLuong > 0 && soLuong <= sp.getSoLuong()) {
-                    QLBH.update(sqlInsert, hdc.getId(), sp.getId(), sp.getGiaBan(), 1, soLuong);
+                    int idGioHang = checkGioHang(sp);
+                    if (idGioHang >= 0) {
+                        QLBH.update("update HoaDonCT set soluong = soluong + ? where id = ?", soLuong, listGH.get(idGioHang).getId());
+                    } else {
+                        QLBH.update(sqlInsert, hdc.getId(), sp.getId(), sp.getGiaBan(), 1, soLuong);
+                    }
                     QLBH.update(sqlUpdate, sp.getSoLuong() - soLuong, sp.getId());
                     loadDataHDC();
                     loadDataGH();
@@ -921,14 +961,15 @@ public class Form_Sell extends javax.swing.JPanel {
         String sqlUpdate = "update HoaDon set IDVoucher = ?, IDPhuongThucTT = ?, trangThai = ?, GhiChu = ? where ID = ?";
         if (validateForm()) {
             if (cboHinhThucTT.getSelectedIndex() == 0) {
-                if(QLBH.update(sqlUpdate, listVoucher.get(cboHinhThucTT.getSelectedIndex()).getId(), listPTTT.get(cboHinhThucTT.getSelectedIndex()).getId(), 1, txtGhiChu.getText(), listHDC.get(tblHoaDonCho.getSelectedRow()).getId()) == TrangThaiCRUD.ThanhCong){
+                if (QLBH.update(sqlUpdate, listVoucher.get(cboHinhThucTT.getSelectedIndex()).getId(), listPTTT.get(cboHinhThucTT.getSelectedIndex()).getId(), 1, txtGhiChu.getText(), listHDC.get(tblHoaDonCho.getSelectedRow()).getId()) == TrangThaiCRUD.ThanhCong) {
                     JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công !");
                     loadDataHDC();
+                    loadDataGH();
                 } else {
                     JOptionPane.showMessageDialog(null, "Thanh Toán Thất Bại !");
                 }
             } else {
-                if(QLBH.update(sqlUpdate, listVoucher.get(cboHinhThucTT.getSelectedIndex()).getId(), listPTTT.get(cboHinhThucTT.getSelectedIndex()).getId(), 1, txtGhiChu.getText(), listHDC.get(tblHoaDonCho.getSelectedRow()).getId()) == TrangThaiCRUD.ThanhCong){
+                if (QLBH.update(sqlUpdate, listVoucher.get(cboHinhThucTT.getSelectedIndex()).getId(), listPTTT.get(cboHinhThucTT.getSelectedIndex()).getId(), 1, txtGhiChu.getText(), listHDC.get(tblHoaDonCho.getSelectedRow()).getId()) == TrangThaiCRUD.ThanhCong) {
                     JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công !");
                     loadDataHDC();
                 } else {
@@ -936,7 +977,6 @@ public class Form_Sell extends javax.swing.JPanel {
                 }
             }
         }
-        
 
 
     }//GEN-LAST:event_btnThanhToanActionPerformed
