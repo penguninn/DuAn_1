@@ -230,7 +230,7 @@ public class Form_Products extends javax.swing.JPanel {
         btnThem = new com.daipc.swing.Button();
         btnSua = new com.daipc.swing.Button();
         btnChiTiet = new com.daipc.swing.Button();
-        btnAn = new com.daipc.swing.Button();
+        btnXoaMem = new com.daipc.swing.Button();
         btnDanhSachAn = new com.daipc.swing.Button();
         btnClear = new com.daipc.swing.Button();
         panelFilter = new com.daipc.swing.PanelBorder();
@@ -433,10 +433,10 @@ public class Form_Products extends javax.swing.JPanel {
             }
         });
 
-        btnAn.setText("Ẩn");
-        btnAn.addActionListener(new java.awt.event.ActionListener() {
+        btnXoaMem.setText("Xóa");
+        btnXoaMem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnActionPerformed(evt);
+                btnXoaMemActionPerformed(evt);
             }
         });
 
@@ -472,30 +472,32 @@ public class Form_Products extends javax.swing.JPanel {
                 .addGap(155, 155, 155)
                 .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInfoProductsLayout.createSequentialGroup()
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelInfoProductsLayout.createSequentialGroup()
                         .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(50, 50, 50)
                         .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTenSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtMaSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(62, 62, 62)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTenSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(txtMaSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelInfoProductsLayout.createSequentialGroup()
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(btnXoaMem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelInfoProductsLayout.createSequentialGroup()
-                        .addComponent(btnAn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
                         .addComponent(btnDanhSachAn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scrollMoTa))
+                    .addComponent(scrollMoTa, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE))
                 .addGap(192, 192, 192))
         );
         panelInfoProductsLayout.setVerticalGroup(
@@ -520,7 +522,7 @@ public class Form_Products extends javax.swing.JPanel {
                 .addGap(43, 43, 43)
                 .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoaMem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDanhSachAn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2858,7 +2860,7 @@ public class Form_Products extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDanhSachAnActionPerformed
 
-    private void btnAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnActionPerformed
+    private void btnXoaMemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaMemActionPerformed
         int id = listSP.get(selectedRow.get("SP")).getId();
         TrangThaiCRUD status = QLSP.update("update SanPham set hienthi = ? where id = ?", HienThi.An.name(), id);
         switch (status) {
@@ -2872,7 +2874,7 @@ public class Form_Products extends javax.swing.JPanel {
             MessageAlerts.getInstance().showMessage("Ẩn thất bại", "", MessageAlerts.MessageType.ERROR);
             default:
         }
-    }//GEN-LAST:event_btnAnActionPerformed
+    }//GEN-LAST:event_btnXoaMemActionPerformed
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
         materialTabbed.setSelectedIndex(1);
@@ -3194,7 +3196,6 @@ public class Form_Products extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.daipc.swing.Button ClearDoDay;
     private javax.swing.JPanel attributesProducts;
-    private com.daipc.swing.Button btnAn;
     private com.daipc.radiobutton.RadioButtonCustom btnChatLieu;
     private com.daipc.swing.Button btnChiTiet;
     private com.daipc.swing.Button btnClear;
@@ -3225,6 +3226,7 @@ public class Form_Products extends javax.swing.JPanel {
     private com.daipc.swing.Button btnThemMau;
     private com.daipc.swing.Button btnThemNCC;
     private com.daipc.swing.Button btnThemSize;
+    private com.daipc.swing.Button btnXoaMem;
     private javax.swing.ButtonGroup buttonGroup1;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_ChatLieu;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_DoDay;

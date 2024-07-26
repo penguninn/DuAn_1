@@ -23,6 +23,9 @@ import com.daipc.model.PhuongThucTT;
 import com.daipc.model.Voucher;
 import java.util.Random;
 import javax.swing.JScrollBar;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class Form_Sell extends javax.swing.JPanel {
 
@@ -43,9 +46,9 @@ public class Form_Sell extends javax.swing.JPanel {
     private List<Voucher> listVoucher = new ArrayList<>();
 
     private List<PhuongThucTT> listPTTT = new ArrayList<>();
-    
-    private List<HoaDon> listHD = new ArrayList<>(); 
-    
+
+    private List<HoaDon> listHD = new ArrayList<>();
+
     private DefaultTableModel modelHDC;
     private DefaultTableModel modelGH;
     private DefaultTableModel modelSP;
@@ -74,6 +77,24 @@ public class Form_Sell extends javax.swing.JPanel {
         loadDataSP();
         loadDataVoucher();
         loadDataHTTT();
+        showDetails();
+
+        txtTienKhachDua.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent de) {
+                updateDisplay();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent de) {
+                updateDisplay();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent de) {
+                updateDisplay();
+            }
+        });
     }
 
     public void loadDataHDC() {
@@ -83,8 +104,13 @@ public class Form_Sell extends javax.swing.JPanel {
         for (HoaDonCho hd : listHDC) {
             modelHDC.addRow(hd.getHDC());
         }
-        if (selectedRowHDC >= 0) {
-            showDetails();
+        if (selectedRowHDC >= listHDC.size() || selectedRowHDC == -1) {
+            selectedRowHDC = listHDC.size() - 1;
+            if (selectedRowHDC >= 0) {
+                tblHoaDonCho.setRowSelectionInterval(selectedRowHDC, selectedRowHDC);
+            }
+        } else if (selectedRowHDC >= 0) {
+            tblHoaDonCho.setRowSelectionInterval(selectedRowHDC, selectedRowHDC);
         } else {
             clearFormHD();
         }
@@ -129,7 +155,7 @@ public class Form_Sell extends javax.swing.JPanel {
     public void loadDataVoucher() {
         listVoucher.clear();
         listVoucher.addAll(QLBH.getAllVoucher());
-        idVoucher = new int[listVoucher.size() + 1];
+        idVoucher = new int[listVoucher.size()];
         int i = 0;
         for (Voucher v : listVoucher) {
             cboVoucher.addItem(v.getMaVoucher());
@@ -166,6 +192,7 @@ public class Form_Sell extends javax.swing.JPanel {
                 if (QLBH.update(sqlSofDeleteHD, id) == TrangThaiCRUD.ThanhCong) {
                     JOptionPane.showMessageDialog(null, "Xóa Hóa Đơn Chờ Thành Công !!!");
                     loadDataHDC();
+                    selectedRowHDC = tblHoaDonCho.getSelectedRow();
                     loadDataGH();
                     loadDataSP();
                 } else {
@@ -235,7 +262,7 @@ public class Form_Sell extends javax.swing.JPanel {
 
     public void clearFormHD() {
         txtTenKH.setText("Khách Bán Lẻ");
-        txtSDT.setText("");
+//        txtSDT.setText("");
         txtMaHD.setText("");
         txtThanhToan.setText("0");
         txtTongTien.setText("0");
@@ -257,18 +284,58 @@ public class Form_Sell extends javax.swing.JPanel {
         cboHinhThucTT.setSelectedItem(hdc.getHinhThucTT());
         txtGhiChu.setText(hdc.getGhiChu());
         tblHoaDonCho.setRowSelectionInterval(selectedRowHDC, selectedRowHDC);
+        if (cboVoucher.getSelectedItem() != null) {
+            btnRandomVoucher.setEnabled(false);
+        } else {
+            btnRandomVoucher.setEnabled(true);
+        }
     }
-    
-    public static int getRandomElement(int[] array) {
+
+    public int getRandomElement(int[] array) {
         if (array == null || array.length == 0) {
             throw new IllegalArgumentException("Mảng trống hoặc null");
         }
-        
+
         Random random = new Random();
         int randomIndex = random.nextInt(array.length);
         return array[randomIndex];
     }
 
+    public int checKhachHang() {
+        int i = 0;
+        for (KhachHang kh : listKH) {
+            if (txtSDT.getText().equals(kh.getSoDT())) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    private void updateDisplay() {
+        try {
+            double tienKhach = Double.parseDouble(txtTienKhachDua.getText());
+            double thanhToan = Double.parseDouble(txtThanhToan.getText());
+            SwingUtilities.invokeLater(() -> {
+                if (tienKhach - thanhToan < 0) {
+                    txtTienThua.setText("0");
+                } else {
+                    txtTienThua.setText(String.valueOf(tienKhach - thanhToan));
+
+                }
+            });
+        } catch (Exception e) {
+
+        }
+    }
+
+    private boolean validateForm() {
+        if (cboHinhThucTT.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn phương thức thanh toán");
+            return false;
+        }
+        return true;
+    }
 
 //    @SuppressWarnings("unchecked");
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -491,6 +558,7 @@ public class Form_Sell extends javax.swing.JPanel {
         });
 
         btnKiemTra.setText("Kiểm Tra");
+        btnKiemTra.setEnabled(false);
         btnKiemTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnKiemTraActionPerformed(evt);
@@ -563,6 +631,7 @@ public class Form_Sell extends javax.swing.JPanel {
         jLabel22.setText("Đơn Hàng");
 
         btnRandomVoucher.setText("Random");
+        btnRandomVoucher.setEnabled(false);
         btnRandomVoucher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRandomVoucherActionPerformed(evt);
@@ -644,7 +713,7 @@ public class Form_Sell extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder7Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jLabel12)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(txtTenKH))
@@ -654,7 +723,7 @@ public class Form_Sell extends javax.swing.JPanel {
                     .addComponent(txtSDT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jLabel22)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelBorder7Layout.createSequentialGroup()
                         .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -676,7 +745,7 @@ public class Form_Sell extends javax.swing.JPanel {
                     .addComponent(jLabel17)
                     .addComponent(txtThanhToan)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
@@ -689,7 +758,7 @@ public class Form_Sell extends javax.swing.JPanel {
                 .addComponent(cboHinhThucTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(scrollMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -765,8 +834,10 @@ public class Form_Sell extends javax.swing.JPanel {
                 if (soLuong > 0 && soLuong <= sp.getSoLuong()) {
                     QLBH.update(sqlInsert, hdc.getId(), sp.getId(), sp.getGiaBan(), 1, soLuong);
                     QLBH.update(sqlUpdate, sp.getSoLuong() - soLuong, sp.getId());
+                    loadDataHDC();
                     loadDataGH();
                     loadDataSP();
+                    showDetails();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn hóa đơn chờ !!!");
@@ -787,10 +858,17 @@ public class Form_Sell extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Tạo Hóa Đơn Thành Công !!!");
         }
         loadDataHDC();
+        selectedRowHDC = listHDC.size() - 1;
         showDetails();
     }//GEN-LAST:event_btnTaoHDActionPerformed
 
     private void tblHoaDonChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChoMouseClicked
+        selectedRowHDC = tblHoaDonCho.getSelectedRow();
+        if (selectedRowHDC != 0) {
+            btnKiemTra.setEnabled(true);
+        } else {
+            btnKiemTra.setEnabled(false);
+        }
         loadDataGH();
         showDetails();
     }//GEN-LAST:event_tblHoaDonChoMouseClicked
@@ -801,25 +879,32 @@ public class Form_Sell extends javax.swing.JPanel {
                             set IDKhachHang = ? where id = ?
                            """;
         selectedRowHDC = tblHoaDonCho.getSelectedRow();
-        int id = listHDC.get(selectedRowHDC).getId();
-        int choice = JOptionPane.NO_OPTION;
+        int tempSelectedRow = tblHoaDonCho.getSelectedRow();
         listKH.addAll(QLBH.getAllKH());
-        for (KhachHang kh : listKH) {
-            if (txtSDT.getText().equals(kh.getSoDT())) {
-                JOptionPane.showConfirmDialog(null, "Khách hàng đã tồn tại\nDùng thông tin khách hàng này ?", "", JOptionPane.YES_NO_OPTION);
-                if (choice == JOptionPane.YES_OPTION) {
-                    if (QLBH.update(sqlUpdate, kh.getId(), id) == TrangThaiCRUD.ThanhCong) {
-                        JOptionPane.showMessageDialog(null, "Cập Nhật Khách Hàng Thành Công !!!");
+        int id = listHDC.get(selectedRowHDC).getId();
+        if (checKhachHang() == -1) {
+            if (JOptionPane.showConfirmDialog(null, "Khách hàng không tồn tại !\nTạo khách hàng mới ?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                Popup_KhachHang popup_KhachHang = new Popup_KhachHang(null, true, listKH, txtSDT.getText(), id);
+                popup_KhachHang.setLocationRelativeTo(null);
+                popup_KhachHang.setAlwaysOnTop(true);
+                popup_KhachHang.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                        loadDataHDC();
+                        selectedRowHDC = tempSelectedRow;
+                        showDetails();
                     }
-                }
-            } else {
-                if(JOptionPane.showConfirmDialog(null, "Khách hàng không tồn tại\nTạo khách hàng mới ?", "", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
-                    
+                });
+                popup_KhachHang.setVisible(true);
+            }
+        } else {
+            if (JOptionPane.showConfirmDialog(null, "Khách hàng đã tồn tại\nDùng thông tin khách hàng này ?", "", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
+                KhachHang kh = listKH.get(checKhachHang());
+                if (QLBH.update(sqlUpdate, kh.getId(), id) == TrangThaiCRUD.ThanhCong) {
+                    JOptionPane.showMessageDialog(null, "Cập Nhật Khách Hàng Thành Công !!!");
                 }
             }
-
         }
-
         loadDataHDC();
 
     }//GEN-LAST:event_btnKiemTraActionPerformed
@@ -833,22 +918,41 @@ public class Form_Sell extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        String sqlUpdate = """
-                           """;
+        String sqlUpdate = "update HoaDon set IDVoucher = ?, IDPhuongThucTT = ?, trangThai = ?, GhiChu = ? where ID = ?";
+        if (validateForm()) {
+            if (cboHinhThucTT.getSelectedIndex() == 0) {
+                if(QLBH.update(sqlUpdate, listVoucher.get(cboHinhThucTT.getSelectedIndex()).getId(), listPTTT.get(cboHinhThucTT.getSelectedIndex()).getId(), 1, txtGhiChu.getText(), listHDC.get(tblHoaDonCho.getSelectedRow()).getId()) == TrangThaiCRUD.ThanhCong){
+                    JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công !");
+                    loadDataHDC();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Thanh Toán Thất Bại !");
+                }
+            } else {
+                if(QLBH.update(sqlUpdate, listVoucher.get(cboHinhThucTT.getSelectedIndex()).getId(), listPTTT.get(cboHinhThucTT.getSelectedIndex()).getId(), 1, txtGhiChu.getText(), listHDC.get(tblHoaDonCho.getSelectedRow()).getId()) == TrangThaiCRUD.ThanhCong){
+                    JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công !");
+                    loadDataHDC();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Thanh Toán Thất Bại !");
+                }
+            }
+        }
         
+
+
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnRandomVoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRandomVoucherActionPerformed
-        idVoucher[listVoucher.size()] = -1;
         int idRandom = getRandomElement(idVoucher);
         System.out.println(idRandom);
         int tempSelectedRow = tblHoaDonCho.getSelectedRow();
         HoaDonCho hdc = listHDC.get(tempSelectedRow);
-        if(idRandom != -1) {
-            QLBH.update("update hoadon set IDVoucher = ? where id = ?", idRandom , hdc.getId());
+        if (idRandom >= 0) {
+            QLBH.update("update hoadon set IDVoucher = ? where id = ?", idRandom, hdc.getId());
+            QLBH.update("update Voucher set SoLuong = SoLuong - 1 where id = ?", idRandom);
         } else {
-            QLBH.update("update hoadon set IDVoucher = '' where id = ?", idRandom , hdc.getId());
+            JOptionPane.showMessageDialog(null, "Hết Voucher, vui lòng đợi đợt khuyến mại sau !!!", "", JOptionPane.INFORMATION_MESSAGE);
         }
+
         loadDataHDC();
         selectedRowHDC = tempSelectedRow;
         showDetails();

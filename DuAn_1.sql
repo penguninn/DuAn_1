@@ -136,7 +136,6 @@ CREATE TABLE NhanVien
     TaiKhoan varchar(50),
     MatKhau varchar(10),
     NgayTao DATE,
-    NgaySua DATE,
     TrangThai BIT DEFAULT 1
 );
 
@@ -147,7 +146,7 @@ CREATE TABLE KhachHang
     MaKhachHang varchar(max),
     HoTen nvarchar(max),
     GioiTinh bit,
-    SoDT VARCHAR(15),
+    SoDT VARCHAR(15) UNIQUE,
     DiaChi nvarchar(max),
     NgayTao DATE,
     NguoiTao nvarchar(max)
@@ -182,7 +181,6 @@ CREATE TABLE HoaDon
     TongGiaTriHoaDon DECIMAL(10, 2),
     ThanhToan DECIMAL(10, 2),
     IDPhuongThucTT int,
-    NguoiTao nvarchar(max),
     NgayTao DATE,
     TrangThai int,
     GhiChu NVARCHAR(max)
@@ -304,18 +302,18 @@ VALUES
 ('SPCT010', N'Quần dài Adidas Tiro tím size M', 50, 10, 10, 2, 10, 2, 5, '2024-07-01', 340000, 570000, N'Còn hàng', N'Hien');
 
 -- NhanVien table
-INSERT INTO NhanVien (MaNhanVien, HoTen, SoDT, CCCD, NgaySinh, ChucVu, GioiTinh, DiaChi, TaiKhoan, MatKhau, NgayTao, NgaySua, TrangThai)
+INSERT INTO NhanVien (MaNhanVien, HoTen, SoDT, CCCD, NgaySinh, ChucVu, GioiTinh, DiaChi, TaiKhoan, MatKhau, NgayTao, TrangThai)
 VALUES 
-('NV001', N'Nguyễn Văn An', '0901234567', '001234567890', '1990-01-01', N'nv', 1, N'456 Đường Nguyễn Trãi, Quận 5, TP.HCM', 'nva', '123', '2023-01-01', GETDATE(), 1),
-('NV002', N'Trần Thị Bình', '0912345678', '001234567891', '1992-05-15', N'nv', 0, N'789 Đường Lý Thường Kiệt, Quận 10, TP.HCM', 'ttb', '123', '2023-01-01', GETDATE(), 1),
-('NV003', N'Lê Văn Cường', '0923456789', '001234567892', '1988-09-20', N'nv', 1, N'101 Đường Cách Mạng Tháng 8, Quận 3, TP.HCM', 'lvc', '123', '2023-01-01', GETDATE(), 1),
-('NV004', N'Phạm Thị Dung', '0934567890', '001234567893', '1995-03-10', N'nv', 0, N'202 Đường Nguyễn Văn Cừ, Quận 5, TP.HCM', 'ptd', '123', '2023-01-01', GETDATE(), 1),
-('NV005', N'Hoàng Văn Em', '0945678901', '001234567894', '1993-07-25', N'nv', 1, N'303 Đường Võ Văn Tần, Quận 3, TP.HCM', 'hve', '123', '2023-01-01', GETDATE(), 1),
-('NV006', N'Ngô Thị Phương', '0956789012', '001234567895', '1991-11-30', N'nv', 0, N'404 Đường Điện Biên Phủ, Quận Bình Thạnh, TP.HCM', 'ntp', '123', '2023-01-01', GETDATE(), 1),
-('NV007', N'Đặng Văn Quang', '0967890123', '001234567896', '1994-02-14', N'nv', 1, N'505 Đường Nguyễn Thị Minh Khai, Quận 1, TP.HCM', 'dvq', '123', '2023-01-01', GETDATE(), 1),
-('NV008', N'Mai Thị Hoa', '0978901234', '001234567897', '1989-06-05', N'nv', 0, N'606 Đường Trần Hưng Đạo, Quận 1, TP.HCM', 'mth', '123', '2023-01-01', GETDATE(), 1),
-('NV009', N'Trương Văn Khoa', '0989012345', '001234567898', '1996-10-18', N'nv', 1, N'707 Đường Lê Hồng Phong, Quận 5, TP.HCM', 'tvk', '123', '2023-01-01', GETDATE(), 1),
-('NV010', N'Lý Thị Lan', '0990123456', '001234567899', '1987-12-22', N'nv', 0, N'808 Đường Hai Bà Trưng, Quận 1, TP.HCM', 'ltl', '123', '2023-01-01', GETDATE(), 1);
+('NV001', N'Nguyễn Văn An', '0901234567', '001234567890', '1990-01-01', N'nv', 1, N'456 Đường Nguyễn Trãi, Quận 5, TP.HCM', 'nva', '123', '2023-01-01', 1),
+('NV002', N'Trần Thị Bình', '0912345678', '001234567891', '1992-05-15', N'nv', 0, N'789 Đường Lý Thường Kiệt, Quận 10, TP.HCM', 'ttb', '123', '2023-01-01', 1),
+('NV003', N'Lê Văn Cường', '0923456789', '001234567892', '1988-09-20', N'nv', 1, N'101 Đường Cách Mạng Tháng 8, Quận 3, TP.HCM', 'lvc', '123', '2023-01-01', 1),
+('NV004', N'Phạm Thị Dung', '0934567890', '001234567893', '1995-03-10', N'nv', 0, N'202 Đường Nguyễn Văn Cừ, Quận 5, TP.HCM', 'ptd', '123', '2023-01-01', 1),
+('NV005', N'Hoàng Văn Em', '0945678901', '001234567894', '1993-07-25', N'nv', 1, N'303 Đường Võ Văn Tần, Quận 3, TP.HCM', 'hve', '123', '2023-01-01', 1),
+('NV006', N'Ngô Thị Phương', '0956789012', '001234567895', '1991-11-30', N'nv', 0, N'404 Đường Điện Biên Phủ, Quận Bình Thạnh, TP.HCM', 'ntp', '123', '2023-01-01', 1),
+('NV007', N'Đặng Văn Quang', '0967890123', '001234567896', '1994-02-14', N'nv', 1, N'505 Đường Nguyễn Thị Minh Khai, Quận 1, TP.HCM', 'dvq', '123', '2023-01-01', 1),
+('NV008', N'Mai Thị Hoa', '0978901234', '001234567897', '1989-06-05', N'nv', 0, N'606 Đường Trần Hưng Đạo, Quận 1, TP.HCM', 'mth', '123', '2023-01-01', 1),
+('NV009', N'Trương Văn Khoa', '0989012345', '001234567898', '1996-10-18', N'nv', 1, N'707 Đường Lê Hồng Phong, Quận 5, TP.HCM', 'tvk', '123', '2023-01-01', 1),
+('NV010', N'Lý Thị Lan', '0990123456', '001234567899', '1987-12-22', N'nv', 0, N'808 Đường Hai Bà Trưng, Quận 1, TP.HCM', 'ltl', '123', '2023-01-01', 1);
 
 -- KhachHang table
 INSERT INTO KhachHang (MaKhachHang, HoTen, GioiTinh, SoDT, DiaChi, NgayTao, NguoiTao)
@@ -354,18 +352,18 @@ VALUES
 (N'Chuyển khoản', 1);
 
 -- Bảng HoaDon
-INSERT INTO HoaDon (MaHD, IDKhachHang, IDNhanVien, IDVoucher, TongGiaTriHoaDon, ThanhToan, IDPhuongThucTT, NguoiTao, NgayTao, TrangThai, GhiChu)
+INSERT INTO HoaDon (MaHD, IDKhachHang, IDNhanVien, IDVoucher, TongGiaTriHoaDon, ThanhToan, IDPhuongThucTT, NgayTao, TrangThai, GhiChu)
 VALUES 
-('HD001', 1, 1, 1, 950000, 950000, 1, N'Nguyễn Văn An', '2024-07-01', 0, N'Ghi chú cho HD001'),
-('HD002', 2, 2, NULL, 500000, 500000, 2, N'Trần Thị Bình', '2024-07-02', 0, N'Ghi chú cho HD002'),
-('HD003', 3, 3, 2, 1450000, 1450000, 1, N'Lê Văn Cường', '2024-07-03', 0, N'Ghi chú cho HD003'),
-('HD004', 4, 4, NULL, 1100000, 1100000, 2, N'Phạm Thị Dung', '2024-07-04', 1, N'Ghi chú cho HD004'),
-('HD005', 5, 5, 3, 1800000, 1800000, 1, N'Hoàng Văn Em', '2024-07-05', 1, N'Ghi chú cho HD005'),
-('HD006', 6, 6, NULL, 570000, 570000, 2, N'Ngô Thị Phương', '2024-07-06', 0, N'Ghi chú cho HD006'),
-('HD007', 7, 7, 4, 2250000, 2250000, 1, N'Đặng Văn Quang', '2024-07-07', 1, N'Ghi chú cho HD007'),
-('HD008', 8, 8, NULL, 1300000, 1300000, 2, N'Mai Thị Hoa', '2024-07-08', 0, N'Ghi chú cho HD008'),
-('HD009', 9, 9, 5, 2700000, 2700000, 1, N'Trương Văn Khoa', '2024-07-09', 1, N'Ghi chú cho HD009'),
-('HD010', 10, 10, NULL, 630000, 630000, 2, N'Lý Thị Lan', '2024-07-10', 0, N'Ghi chú cho HD010');
+('HD001', 1, 1, 1, 950000, 950000, 1, '2024-07-01', 0, N'Ghi chú cho HD001'),
+('HD002', 2, 2, NULL, 500000, 500000, 2, '2024-07-02', 0, N'Ghi chú cho HD002'),
+('HD003', 3, 3, 2, 1450000, 1450000, 1, '2024-07-03', 0, N'Ghi chú cho HD003'),
+('HD004', 4, 4, NULL, 1100000, 1100000, 2, '2024-07-04', 1, N'Ghi chú cho HD004'),
+('HD005', 5, 5, 3, 1800000, 1800000, 1, '2024-07-05', 1, N'Ghi chú cho HD005'),
+('HD006', 6, 6, NULL, 570000, 570000, 2, '2024-07-06', 0, N'Ghi chú cho HD006'),
+('HD007', 7, 7, 4, 2250000, 2250000, 1, '2024-07-07', 1, N'Ghi chú cho HD007'),
+('HD008', 8, 8, NULL, 1300000, 1300000, 2, '2024-07-08', 0, N'Ghi chú cho HD008'),
+('HD009', 9, 9, 5, 2700000, 2700000, 1, '2024-07-09', 1, N'Ghi chú cho HD009'),
+('HD010', 10, 10, NULL, 630000, 630000, 2, '2024-07-10', 0, N'Ghi chú cho HD010');
 
 -- HoaDonCT table
 INSERT INTO HoaDonCT (IDHoaDon, IDCTSP, DonGia, TrangThai, SoLuong)
@@ -390,6 +388,8 @@ VALUES
 (9, 8, 650000, 1, 2),
 (9, 9, 630000, 1, 1),
 (10, 10, 570000, 1, 1);
+
+
 
 
 select hd.MaHD, kh.HoTen, hd.NguoiTao, hd.NgayTao, hd.TongGiaTriHoaDon, hd.TrangThai
@@ -429,6 +429,8 @@ from HoaDonCT hdct
 where hdct.ID = 1
 
 select id, MaKhachHang, HoTen, GioiTinh, SoDT, DiaChi, NguoiTao, NgayTao
+
+use DuAn1_Final
 from KhachHang
 SELECT *
 FROM HoaDon
@@ -495,6 +497,9 @@ GROUP BY
     kh.sodt,
     pttt.TenPhuongThucTT,
     hd.ghiCHu
+    
+update Voucher set SoLuong = SoLuong - 1;
 select * from Voucher where GETDATE() <= NgayKetThuc and SoLuong > 0
 
 SELECT GETDATE()
+update HoaDon set IDVoucher = 2, IDPhuongThucTT = 1, GhiChu = ' ' where ID = 20
