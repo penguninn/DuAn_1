@@ -184,7 +184,8 @@ public class QuanLiBanHang {
                             LEFT JOIN 
                                 DoDay dd ON spct.IdDoDay = dd.ID
                             LEFT JOIN 
-                                NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID;
+                                NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID
+                            where spct.hienthi = 'hien'
                          """;
         List<ChiTietSP> listSPCT = new ArrayList<>();
         try {

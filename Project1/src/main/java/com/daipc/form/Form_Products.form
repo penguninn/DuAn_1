@@ -612,14 +612,16 @@
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnImportDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="btnExportDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="btnClearDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="btnSuaDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="btnThemDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="btnXoaDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnImportDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="btnExportDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
