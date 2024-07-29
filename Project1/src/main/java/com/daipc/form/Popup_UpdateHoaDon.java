@@ -37,16 +37,16 @@ public class Popup_UpdateHoaDon extends javax.swing.JDialog {
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel1.setText("Cập Nhật Thông Tin Hóa Đơn");
+        jLabel1.setText("Cập Nhật Thông Tin Khách Hàng");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
         panelBorder1Layout.setHorizontalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
+                .addContainerGap(105, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

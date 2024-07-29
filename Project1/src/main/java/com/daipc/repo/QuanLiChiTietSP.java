@@ -57,8 +57,7 @@ public class QuanLiChiTietSP {
                 + "LEFT JOIN \n"
                 + "    ChatLieu F ON A.IdChatLieu = F.ID\n"
                 + "LEFT JOIN \n"
-                + "    DoDay G ON A.IdDoDay = G.ID;";
-
+                + "    DoDay G ON A.IdDoDay = G.ID where A.hienthi like 'Hien'";
         try {
             PreparedStatement stm = conn.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
@@ -220,6 +219,68 @@ public class QuanLiChiTietSP {
             e.printStackTrace();
         }
     }
+    
+    public List<ChiTietSP> getSPCT(int idSP) {
+        ArrayList<ChiTietSP> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "     A.ID,\n"
+                + "    A.MaSPCT,\n"
+                + "    B.MaSP,\n"
+                + "    B.TenSP,\n"
+                + "    A.TenSPCT,\n"
+                + "    A.GiaBan,\n"
+                + "    A.SoLuong,\n"
+                + "    G.TenDoDay,\n"
+                + "    E.TenSize,\n"
+                + "    F.TenChatLieu,\n"
+                + "    D.TenMauSac,\n"
+                + "    C.TenNhaCungCap,\n"
+                + "    A.TrangThai,\n"
+                + "    A.GiaNhap\n"
+                + "FROM \n"
+                + "    SanPhamChiTiet A \n"
+                + "LEFT JOIN \n"
+                + "    SanPham B ON A.IdSanPham = B.ID\n"
+                + "LEFT JOIN \n"
+                + "    NhaCungCap C ON A.IdNhaCungCap = C.ID \n"
+                + "LEFT JOIN \n"
+                + "    MauSac D ON A.IdMauSac = D.ID\n"
+                + "LEFT JOIN \n"
+                + "    Size E ON A.IdSize = E.ID\n"
+                + "LEFT JOIN \n"
+                + "    ChatLieu F ON A.IdChatLieu = F.ID\n"
+                + "LEFT JOIN \n"
+                + "    DoDay G ON A.IdDoDay = G.ID where A.hienthi like 'Hien' and A.IdSanPham = ?";
+        try {
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setObject(1, idSP);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String MaSPCT = rs.getString(2);
+                String MaSP = rs.getString(3);
+                String TenSP = rs.getString(4);
+                String TenSPCT = rs.getString(5);
+                BigDecimal GiaBan = rs.getBigDecimal(6);
+                BigDecimal GiaNhap = rs.getBigDecimal(14);
+                int Soluong = rs.getInt(7);
+                String tenDoDay = rs.getString(8);
+                String tenSize = rs.getString(9);
+                String tenCL = rs.getString(10);
+                String tenMS = rs.getString(12);
+                String tenNCC = rs.getString(11);
+                String trangThai = rs.getString(13);
+
+                ChiTietSP chiTietSP = new ChiTietSP(id, MaSPCT, MaSP, TenSP, TenSPCT, GiaBan, GiaNhap, Soluong,
+                        tenMS, tenNCC, tenSize, tenCL, tenDoDay, trangThai);
+                list.add(chiTietSP);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
     public static void main(String[] args) {
         QuanLiChiTietSP ctsps = new QuanLiChiTietSP();

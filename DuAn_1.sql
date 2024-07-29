@@ -444,6 +444,7 @@ SELECT *
 from SanPhamChiTiet
 SELECT *
 from NhanVien
+SELECT * from SanPhamChiTiet WHERE HienThi like 'Hien'
 
 SELECT
     ID,

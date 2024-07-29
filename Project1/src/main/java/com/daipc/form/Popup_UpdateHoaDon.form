@@ -52,9 +52,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="120" max="32767" attributes="0"/>
+                  <EmptySpace pref="105" max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="120" max="32767" attributes="0"/>
+                  <EmptySpace pref="104" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -74,7 +74,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="sansserif" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="C&#x1ead;p Nh&#x1ead;t Th&#xf4;ng Tin H&#xf3;a &#x110;&#x1a1;n"/>
+            <Property name="text" type="java.lang.String" value="C&#x1ead;p Nh&#x1ead;t Th&#xf4;ng Tin Kh&#xe1;ch H&#xe0;ng"/>
           </Properties>
         </Component>
       </SubComponents>

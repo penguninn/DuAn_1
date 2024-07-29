@@ -128,25 +128,23 @@
                                   <Component id="jLabel7" min="-2" pref="60" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnThem" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnThem" min="-2" pref="80" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="btnSua" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="btnChiTiet" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="btnXoaMem" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnSua" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnXoaMem" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnChiTiet" min="-2" pref="80" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollMoTa" pref="313" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="btnClear" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="btnDanhSachAn" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnClear" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="scrollMoTa" pref="313" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
                       </Group>
@@ -178,15 +176,14 @@
                           </Group>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnThem" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnXoaMem" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnChiTiet" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnSua" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnDanhSachAn" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnThem" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="btnXoaMem" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="btnChiTiet" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="btnSua" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="btnClear" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="scrollInfoProducts" pref="445" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="scrollInfoProducts" pref="453" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -345,14 +342,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaMemActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="com.daipc.swing.Button" name="btnDanhSachAn">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Danh S&#xe1;ch &#x1ea8;n"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDanhSachAnActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="com.daipc.swing.Button" name="btnClear">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="L&#xe0;m M&#x1edb;i"/>
@@ -493,16 +482,16 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jLabel11" max="32767" attributes="0"/>
+                                                  <Component id="jLabel28" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="jLabel17" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                                          <Component id="jLabel11" max="32767" attributes="0"/>
-                                                          <Component id="jLabel28" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="jLabel17" alignment="0" max="32767" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="txt_Soluong" pref="204" max="32767" attributes="0"/>
                                                       <Component id="txt_MSPCT" alignment="1" max="32767" attributes="0"/>
@@ -542,16 +531,17 @@
                                                   </Group>
                                               </Group>
                                               <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
                                                   <Component id="btnThemDetails" min="-2" pref="80" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Component id="btnSuaDetails" min="-2" pref="80" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="btnClearDetails" min="-2" pref="80" max="-2" attributes="0"/>
+                                                  <Component id="btnXoaDetails" min="-2" pref="80" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="btnClearDetails" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
                                                   <Component id="btnImportDetails" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="btnExportDetails" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="btnExportDetails" min="-2" pref="85" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -621,20 +611,19 @@
                                   <Component id="cbb_DoDay" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="btnImportDetails" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnExportDetails" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="3" attributes="0">
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnImportDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="btnExportDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
                                   <Component id="btnClearDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="btnSuaDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="btnThemDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="btnXoaDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="scrollDetailsProducts" pref="373" max="32767" attributes="0"/>
+                          <Component id="scrollDetailsProducts" pref="383" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -892,6 +881,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportDetailsActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="com.daipc.swing.Button" name="btnXoaDetails">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaDetailsActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
