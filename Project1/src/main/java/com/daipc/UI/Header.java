@@ -111,13 +111,11 @@ public class Header extends javax.swing.JPanel {
                 lblClose.setIcon(new ImageIcon(getClass().getResource("/com/daipc/icon/close1.png")));
                 repaint();
             }
-        });
-        lblClose.addMouseListener(new MouseAdapter() {
+            
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.exit(0);
             }
-            
         });
         
         lblMinimize.addMouseListener(new MouseAdapter() {
@@ -135,13 +133,10 @@ public class Header extends javax.swing.JPanel {
                 lblMinimize.setIcon(new ImageIcon(getClass().getResource("/com/daipc/icon/minimize1.png")));
                 repaint();
             }
-        });
-        lblMinimize.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.setState(JFrame.ICONIFIED);
             }
-            
         });
         
         lblMaximize.addMouseListener(new MouseAdapter() {
@@ -159,8 +154,7 @@ public class Header extends javax.swing.JPanel {
                 lblMaximize.setIcon(new ImageIcon(getClass().getResource("/com/daipc/icon/maximize1.png")));
                 repaint();
             }
-        });
-        lblMaximize.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (isMaximized) {
@@ -170,7 +164,6 @@ public class Header extends javax.swing.JPanel {
                 }
                 isMaximized = !isMaximized;
             }
-            
         });
     }
 

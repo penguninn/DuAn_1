@@ -50,11 +50,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
 import jnafilechooser.api.JnaFileChooser;
-import raven.alerts.MessageAlerts;
-import raven.popup.GlassPanePopup;
-import raven.popup.component.PopupCallbackAction;
-import raven.popup.component.PopupController;
-
 public class Form_Products extends javax.swing.JPanel {
 
     private JPopupMenu menu;
@@ -153,7 +148,6 @@ public class Form_Products extends javax.swing.JPanel {
         TableCustom.apply(scrollNhaCc, TableCustom.TableType.DEFAULT);
 
         this.frame = frame;
-        GlassPanePopup.install(frame);
 
         listSP = new ArrayList<>();
         listMS = new ArrayList<>();
@@ -1834,7 +1828,7 @@ public class Form_Products extends javax.swing.JPanel {
 
         for (TextField textField : textFields) {
             if (isTextFieldEmpty(textField)) {
-                MessageAlerts.getInstance().showMessage("Không để trống trường này", "", MessageAlerts.MessageType.WARNING);
+                JOptionPane.showMessageDialog(this, "Không để trống trường này", "", JOptionPane.WARNING_MESSAGE);
                 textField.requestFocus();
                 allValid = false;
                 break;
@@ -2668,22 +2662,31 @@ public class Form_Products extends javax.swing.JPanel {
             try {
                 File file = new File(filePath[0]);
                 if (file.exists()) {
-                    MessageAlerts.getInstance().showMessage("File đã tồn tại", "Oops! Bạn có muốn ghi đè lên file hiện tại?", MessageAlerts.MessageType.ERROR, MessageAlerts.OK_OPTION, new PopupCallbackAction() {
-                        @Override
-                        public void action(PopupController pc, int i) {
-                            if (i == MessageAlerts.OK_OPTION) {
-                                if (isFileOpen(file)) {
-                                    MessageAlerts.getInstance().showMessage("File đang được mở", "Vui lòng đóng file !!", MessageAlerts.MessageType.ERROR);
-                                } else {
-                                    exportedType(modelSPCT, filePath[0], fileType[0]);
-                                    MessageAlerts.getInstance().showMessage("Export thành công", "", MessageAlerts.MessageType.SUCCESS);
-                                }
-                            }
+//                    MessageAlerts.getInstance().showMessage("File đã tồn tại", "Oops! Bạn có muốn ghi đè lên file hiện tại?", MessageAlerts.MessageType.ERROR, MessageAlerts.OK_OPTION, new PopupCallbackAction() {
+//                        @Override
+//                        public void action(PopupController pc, int i) {
+//                            if (i == MessageAlerts.OK_OPTION) {
+//                                if (isFileOpen(file)) {
+//                                    MessageAlerts.getInstance().showMessage("File đang được mở", "Vui lòng đóng file !!", MessageAlerts.MessageType.ERROR);
+//                                } else {
+//                                    exportedType(modelSPCT, filePath[0], fileType[0]);
+//                                    MessageAlerts.getInstance().showMessage("Export thành công", "", MessageAlerts.MessageType.SUCCESS);
+//                                }
+//                            }
+//                        }
+//                    });
+                    if(JOptionPane.showConfirmDialog(this, "File đã tồn tại !\nBạn có muốn ghi đè lên file hiện tại?", "",JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
+                        if (isFileOpen(file)) {
+                            JOptionPane.showMessageDialog(this, "File đang được mở\nVui lòng đóng file !!", "", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            exportedType(modelSPCT, filePath[0], fileType[0]);
+                            JOptionPane.showMessageDialog(this, "Export thành công", "",JOptionPane.INFORMATION_MESSAGE);
                         }
-                    });
+                    }
+                    
                 } else {
                     exportedType(modelSPCT, filePath[0], fileType[0]);
-                    MessageAlerts.getInstance().showMessage("Export thành công", "", MessageAlerts.MessageType.SUCCESS);
+                    JOptionPane.showMessageDialog(this, "Export thành công", "", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -2711,18 +2714,17 @@ public class Form_Products extends javax.swing.JPanel {
             popupReviewDataImport.setVisible(true);
             switch ((popupReviewDataImport.getUpdateTbl())) {
                 case ThanhCong:
-                    MessageAlerts.getInstance().showMessage("Thêm tất cả thành công", "", MessageAlerts.MessageType.SUCCESS);
+                    JOptionPane.showMessageDialog(this, "Thêm tất cả thành công",  "", JOptionPane.INFORMATION_MESSAGE);
                     loadDataToTable(modelSPCT, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
                     if (selectedRow.get("SP") >= 0) {
                         showDetailsSP();
                     }
                     break;
                 case ThatBai:
-                    MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "", MessageAlerts.MessageType.ERROR);
+                    JOptionPane.showMessageDialog(this, "Thêm Thất Bại",  "", JOptionPane.ERROR_MESSAGE);
                 case DaTonTai:
-                    MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "Trùng sản phẩm", MessageAlerts.MessageType.ERROR);
+                    JOptionPane.showMessageDialog(this, "Thêm Thất Bại\nTrùng sản phẩm",  "", JOptionPane.ERROR_MESSAGE);
                 default:
-                //                    throw new AssertionError();
             }
 
         } catch (Exception e) {
@@ -2746,10 +2748,9 @@ public class Form_Products extends javax.swing.JPanel {
 
     private void btnSuaDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaDetailsActionPerformed
         if (txt_MSPCT.getText().trim().length() == 0) {
-            MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.WARNING);
+            JOptionPane.showMessageDialog(this, "Dữ liệu không được bỏ trống",  "", JOptionPane.WARNING_MESSAGE);
         } else {
             Boolean check = checkCTSP();
-
             if (check) {
                 int coHoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn Sửa không?", "", JOptionPane.YES_NO_OPTION);
                 if (coHoi == JOptionPane.YES_OPTION) {
@@ -2763,8 +2764,7 @@ public class Form_Products extends javax.swing.JPanel {
                     txt_GiaNhap.setText("");
                     txt_TenSPCT.setText("");
                     loadDataCTSP();
-                    MessageAlerts.getInstance().showMessage("Sửa Thành Công", "", MessageAlerts.MessageType.SUCCESS);
-
+                    JOptionPane.showMessageDialog(this, "Sửa Thành Công",  "", JOptionPane.INFORMATION_MESSAGE);
                 } else if (coHoi == JOptionPane.NO_OPTION) {
                     //                    MessageAlerts.getInstance().showMessage("Sửa Thất Bại", "", MessageAlerts.MessageType.ERROR);
                 }
@@ -2777,12 +2777,11 @@ public class Form_Products extends javax.swing.JPanel {
 
     private void btnThemDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDetailsActionPerformed
         if (txt_MSPCT.getText().trim().length() == 0) {
-            MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.WARNING);
+            JOptionPane.showMessageDialog(this, "Dữ liệu không được bỏ trống",  "", JOptionPane.WARNING_MESSAGE);
         } else {
             for (ChiTietSP chiTietSP : chiTietSPService.getAll()) {
                 if (txt_MSPCT.getText().trim().toLowerCase().equals(chiTietSP.getMaCTSP().toLowerCase())) {
-                    MessageAlerts.getInstance().showMessage("Trùng Mã Sản Phẩm Chi tiết Sản Phẩm", "", MessageAlerts.MessageType.ERROR);
-
+                    JOptionPane.showMessageDialog(this, "Trùng Mã Sản Phẩm Chi tiết Sản Phẩm",  "", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
@@ -2793,7 +2792,7 @@ public class Form_Products extends javax.swing.JPanel {
                 if (coHoi == JOptionPane.YES_OPTION) {
                     SPCT spct = getCTSP();
                     chiTietSPService.addCTSP1(spct);
-                    MessageAlerts.getInstance().showMessage("Thêm thành công", "", MessageAlerts.MessageType.SUCCESS);
+                    JOptionPane.showMessageDialog(this, "Thêm thành công",  "", JOptionPane.INFORMATION_MESSAGE);
                     //MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.ERROR);
                     loadDataCTSP();
                     txt_MSPCT.setText("");
@@ -2857,7 +2856,7 @@ public class Form_Products extends javax.swing.JPanel {
                 }
                 break;
             case ThatBai:
-                MessageAlerts.getInstance().showMessage("Xóa thất bại", "", MessageAlerts.MessageType.ERROR);
+                JOptionPane.showMessageDialog(this, "Xóa thất bại",  "", JOptionPane.ERROR_MESSAGE);
             default:
         }
     }//GEN-LAST:event_btnXoaMemActionPerformed
@@ -2885,17 +2884,17 @@ public class Form_Products extends javax.swing.JPanel {
                     sp.getMaSP(), sp.getTenSP(), sp.getMoTa(), id);
             switch (status) {
                 case ThanhCong:
-                    MessageAlerts.getInstance().showMessage("Sửa thành công", "", MessageAlerts.MessageType.SUCCESS);
+                    JOptionPane.showMessageDialog(this, "Sửa thành công",  "", JOptionPane.INFORMATION_MESSAGE);
                     loadDataToTable(modelSP, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
                     if (selectedRow.get("SP") >= 0) {
                         showDetailsSP();
                     }
                     break;
                 case ThatBai:
-                    MessageAlerts.getInstance().showMessage("Sửa Thất Bại", "", MessageAlerts.MessageType.ERROR);
+                    JOptionPane.showMessageDialog(this, "Sửa Thất Bại",  "", JOptionPane.ERROR_MESSAGE);
                     break;
                 case DaTonTai:
-                    MessageAlerts.getInstance().showMessage("Sửa Thất Bại", "Trùng sản phẩm", MessageAlerts.MessageType.ERROR);
+                    JOptionPane.showMessageDialog(this, "Sửa Thất Bại\nTrùng sản phẩm",  "", JOptionPane.ERROR_MESSAGE);
                     break;
                 default:
 
@@ -2910,17 +2909,17 @@ public class Form_Products extends javax.swing.JPanel {
             TrangThaiCRUD status = QLSP.update("insert into SanPham(MaSp, TenSP, MoTa) values (?, ?, ?)", sp.getMaSP(), sp.getTenSP(), sp.getMoTa());
             switch (status) {
                 case ThanhCong:
-                    MessageAlerts.getInstance().showMessage("Thêm thành công", "", MessageAlerts.MessageType.SUCCESS);
+                    JOptionPane.showMessageDialog(this, "Thêm thành công",  "", JOptionPane.INFORMATION_MESSAGE);
                     loadDataToTable(modelSP, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
                     if (selectedRow.get("SP") >= 0) {
                         showDetailsSP();
                     }
                     break;
                 case ThatBai:
-                    MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "", MessageAlerts.MessageType.ERROR);
+                    JOptionPane.showMessageDialog(this, "Thêm Thất Bại",  "", JOptionPane.ERROR_MESSAGE);
                     break;
                 case DaTonTai:
-                    MessageAlerts.getInstance().showMessage("Thêm Thất Bại", "Trùng sản phẩm", MessageAlerts.MessageType.ERROR);
+                    JOptionPane.showMessageDialog(this, "Thêm Thất Bại\nTrùng sản phẩm",  "", JOptionPane.ERROR_MESSAGE);
                     break;
                 default:
 
@@ -2944,7 +2943,7 @@ public class Form_Products extends javax.swing.JPanel {
                     loadDataCTSP();
                     break;
                 case ThatBai:
-                    MessageAlerts.getInstance().showMessage("Xóa thất bại", "", MessageAlerts.MessageType.ERROR);
+                    JOptionPane.showMessageDialog(this, "Xóa Thất Bại",  "", JOptionPane.ERROR_MESSAGE);
                 default:
             }
         }
@@ -3126,7 +3125,7 @@ public class Form_Products extends javax.swing.JPanel {
         spct.setGiaBan(GiaBan);
         spct.setMaSPCT(MaSPCT);
         spct.setSoLuong(SoLuong);
-        spct.setTrangThai(TT); // Sử dụng chuỗi TT đã chuyển đổi
+        spct.setTrangThai(TT); 
         spct.setTenSPCT(MoTa);
 
         System.out.println(GiaBan);
@@ -3170,35 +3169,33 @@ public class Form_Products extends javax.swing.JPanel {
         try {
             Float gia = Float.parseFloat(txt_GiaBan.getText());
             if (gia <= 0) {
-                MessageAlerts.getInstance().showMessage("Giá phải lớn hơn 0", "", MessageAlerts.MessageType.WARNING);
+                JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0",  "", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
         } catch (Exception e) {
-            MessageAlerts.getInstance().showMessage("Giá phải là số", "", MessageAlerts.MessageType.WARNING);
+            JOptionPane.showMessageDialog(this, "Giá phải là số",  "", JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
         try {
             Float gia = Float.parseFloat(txt_GiaNhap.getText());
             if (gia <= 0) {
-                MessageAlerts.getInstance().showMessage("Giá phải lớn hơn 0", "", MessageAlerts.MessageType.WARNING);
-
+                JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0",  "", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
         } catch (Exception e) {
-            MessageAlerts.getInstance().showMessage("Giá phải là số", "", MessageAlerts.MessageType.WARNING);
+            JOptionPane.showMessageDialog(this, "Giá phải là số",  "", JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
         try {
             Integer soLuong = Integer.parseInt(txt_Soluong.getText());
             if (soLuong <= 0) {
-                MessageAlerts.getInstance().showMessage("Số lượng phải lớn hơn 0", "", MessageAlerts.MessageType.WARNING);
-
+                JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0",  "", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
         } catch (Exception e) {
-            MessageAlerts.getInstance().showMessage("Số lượng phải là số", "", MessageAlerts.MessageType.WARNING);
+            JOptionPane.showMessageDialog(this, "Số lượng phải là số",  "", JOptionPane.WARNING_MESSAGE);
 
             return false;
         }

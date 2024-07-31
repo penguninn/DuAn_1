@@ -120,42 +120,46 @@ public class Form_Sell extends javax.swing.JPanel {
         });
 
         modelGH.addTableModelListener((TableModelEvent e) -> {
-    if (e.getType() == TableModelEvent.UPDATE) {
-        int row = e.getFirstRow();
-        int column = e.getColumn();
-        Object cellValue = modelGH.getValueAt(row, column);
-
-        try {
-            // Chuyển đổi giá trị của ô thành chuỗi và kiểm tra xem nó có phải là số không
-            int newValue = 0;
-            if (cellValue instanceof Number) {
-                newValue = ((Number) cellValue).intValue();
-            } else if (cellValue instanceof String) {
-                String strValue = ((String) cellValue).trim();
-                if (!strValue.isEmpty() && strValue.matches("-?\\d+")) {
-                    newValue = Integer.parseInt(strValue);
-                } else {
-                    // Xử lý trường hợp giá trị không hợp lệ
-                    System.err.println("Giá trị ô không phải số: " + strValue);
-                    return; // Dừng xử lý nếu giá trị không hợp lệ
+            if (e.getType() == TableModelEvent.UPDATE) {
+                int row = e.getFirstRow();
+                int column = e.getColumn();
+                Object cellValue = modelGH.getValueAt(row, column);
+                try {
+                    int oldVulue = 0;
+                    int newValue = 0;
+                    if (cellValue instanceof Number) {
+                        newValue = ((Number) cellValue).intValue();
+                    } else if (cellValue instanceof String) {
+                        String strValue = ((String) cellValue).trim();
+                        if (!strValue.isEmpty() && strValue.matches("-?\\d+")) {
+                            newValue = Integer.parseInt(strValue);
+                        } else {
+                            System.err.println("Giá trị ô không phải số: " + strValue);
+                            return;
+                        }
+                    } else {
+                        System.err.println("Giá trị ô không hợp lệ: " + cellValue);
+                        return;
+                    }
+                    oldVulue = listGH.get(row).getSoLuong();
+                    ChiTietSP prod = new ChiTietSP();
+                    for (ChiTietSP ctsp : listSP) {
+                        if(ctsp.getMaCTSP().equals(listGH.get(row).getMaCTSP())) {
+                            prod = ctsp;
+                            break;
+                        }
+                    }
+                    QLBH.update("update sanphamchitiet set SoLuong = ? where id = ?", prod.getSoLuong() - (newValue - oldVulue), prod.getId());
+                    QLBH.update("update HoaDonCT set soluong = ? where id = ?", newValue, listGH.get(row).getId());
+                    loadDataGH();
+                    loadDataSP();
+                } catch (NumberFormatException ex) {
+                    System.err.println("Lỗi khi chuyển đổi giá trị ô thành số: " + cellValue);
+                } catch (Exception ex) {
+                    System.err.println("Lỗi xảy ra: " + ex.getMessage());
                 }
-            } else {
-                // Xử lý trường hợp giá trị không phải là String hoặc Number
-                System.err.println("Giá trị ô không hợp lệ: " + cellValue);
-                return; // Dừng xử lý nếu giá trị không hợp lệ
             }
-
-            // Cập nhật cơ sở dữ liệu
-            QLBH.update("update HoaDonCT set soluong = ? where id = ?", newValue, listGH.get(row).getId());
-            loadDataGH();
-        } catch (NumberFormatException ex) {
-            System.err.println("Lỗi khi chuyển đổi giá trị ô thành số: " + cellValue);
-        } catch (Exception ex) {
-            System.err.println("Lỗi xảy ra: " + ex.getMessage());
-        }
-    }
-});
-
+        });
 
     }
 
@@ -199,9 +203,9 @@ public class Form_Sell extends javax.swing.JPanel {
             modelGH.addRow(gh.getGioHang());
         }
         selectedRowGH = listGH.size() - 1;
-        if (selectedRowGH >= 0) {
-            tblGioHang.setRowSelectionInterval(selectedRowGH, selectedRowGH);
-        }
+//        if (selectedRowGH >= 0) {
+//            tblGioHang.setRowSelectionInterval(selectedRowGH, selectedRowGH);
+//        }
     }
 
     public void loadDataSP() {
@@ -220,11 +224,9 @@ public class Form_Sell extends javax.swing.JPanel {
     public void loadDataVoucher() {
         listVoucher.clear();
         listVoucher.addAll(QLBH.getAllVoucher());
-        idVoucher = new int[listVoucher.size()];
-        int i = 0;
+        cboVoucher.removeAllItems();
         for (Voucher v : listVoucher) {
             cboVoucher.addItem(v.getMaVoucher());
-            idVoucher[i++] = v.getId();
         }
         cboVoucher.setSelectedIndex(-1);
     }
@@ -318,7 +320,7 @@ public class Form_Sell extends javax.swing.JPanel {
         };
         tblGioHang.getColumnModel().getColumn(5).setCellRenderer(new PanelBtnDeleteCellRender(tblGioHang));
         tblGioHang.getColumnModel().getColumn(5).setCellEditor(new PanelBtnDeleteCellEditor(event));
-        tblGioHang.getColumnModel().getColumn(3).setCellEditor(new QtySpinnerCellEditor(event));
+        tblGioHang.getColumnModel().getColumn(3).setCellEditor(new QtySpinnerCellEditor(event, tblGioHang));
     }
 
     public void deleteAndUpdate(int row) {

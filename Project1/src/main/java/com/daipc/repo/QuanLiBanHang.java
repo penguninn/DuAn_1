@@ -282,6 +282,10 @@ public class QuanLiBanHang {
         return listPTTT;
     }
 
+//    public ChiTietSP getSanPham() {
+//        
+//    }
+    
     public TrangThaiCRUD update(String sqlQuery, Object... params) {
         dBHelper = new JDBCHelper();
         try {

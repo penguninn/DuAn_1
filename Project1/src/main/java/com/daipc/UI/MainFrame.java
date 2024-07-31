@@ -15,18 +15,12 @@ import com.daipc.form.Form_Profile;
 import com.daipc.form.Form_Promotion;
 import com.daipc.form.Form_Sell;
 import com.daipc.form.Form_Staffs;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.WindowConstants;
+import javax.swing.UnsupportedLookAndFeelException;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -54,14 +48,10 @@ public class MainFrame extends javax.swing.JFrame {
     private Form_Profile Form_Profile;
     public static MainFrame mainFrame;
     private String role = "";
-    private Login loginForm;
 
     public MainFrame() {
         initComponents();
-        setBackground(new Color(0, 0, 0, 0));
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        login();
         init();
     }
 
@@ -69,12 +59,12 @@ public class MainFrame extends javax.swing.JFrame {
         mlayout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         layerPane.setLayout(mlayout);
 
-        if(!role.equals("ql")) {
+        if (!role.equals("ql")) {
             menu = new Menu(5);
         } else {
             menu = new Menu(-1);
         }
-        
+
         header = new Header(this);
         Form_Home = new Form_Home();
         Form_Products = new Form_Products(this);
@@ -138,30 +128,13 @@ public class MainFrame extends javax.swing.JFrame {
                         cardLayout.show(cardPanel, "Form_Profile");
                         break;
                     case 12:
-                        login();
+
                         break;
                     default:
 //                        throw new AssertionError();
                 }
             }
         });
-    }
-
-    public void login() {
-        loginForm = new Login(this);
-        loginForm.applyComponentOrientation(getComponentOrientation());
-        setContentPane(loginForm);
-        revalidate();
-        repaint();
-    }
-
-    public void showMainForm(String role) {
-        this.role = role;
-        layerPane.removeAll();
-        init();
-        setContentPane(layerPane);
-        revalidate();
-        repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -203,10 +176,12 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-        FlatMacLightLaf.setup();
-        FlatRobotoFont.install();
-        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-        java.awt.EventQueue.invokeLater(() -> {
+        try {
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        }
+        SwingUtilities.invokeLater(() -> {
             mainFrame = new MainFrame();
             mainFrame.setVisible(true);
         });

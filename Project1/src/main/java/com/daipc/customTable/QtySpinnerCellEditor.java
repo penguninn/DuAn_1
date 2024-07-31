@@ -7,8 +7,11 @@ package com.daipc.customTable;
 import java.awt.Component;
 import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.DefaultCellEditor;
 import javax.swing.InputVerifier;
 import javax.swing.JCheckBox;
@@ -33,12 +36,12 @@ public class QtySpinnerCellEditor extends DefaultCellEditor {
     private JFormattedTextField formatTextField;
     private TableEvent event;
 
-    public QtySpinnerCellEditor(TableEvent event) {
+    public QtySpinnerCellEditor(TableEvent event, JTable table) {
         super(new JCheckBox());
         spinner = new JSpinner();
         this.event = event;
         SpinnerNumberModel spinnerModel = (SpinnerNumberModel) spinner.getModel();
-        spinnerModel.setMinimum(0);
+        spinnerModel.setMinimum(1);
         JSpinner.NumberEditor numEditor = (JSpinner.NumberEditor) spinner.getEditor();
         JFormattedTextField formatTextField = (JFormattedTextField) numEditor.getTextField();
         formatTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -48,13 +51,13 @@ public class QtySpinnerCellEditor extends DefaultCellEditor {
         formatTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                int selectedRow = table.getSelectedRow();
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     e.consume();
                     if (commitEdit(formatTextField)) {
-                        KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
-                    } else {
-                        Toolkit.getDefaultToolkit().beep();
+                        stopEditing(table, selectedRow);
                     }
+                    
                 }
             }
         });
@@ -64,14 +67,18 @@ public class QtySpinnerCellEditor extends DefaultCellEditor {
             public boolean verify(JComponent input) {
                 return commitEdit((JFormattedTextField) input);
             }
-        });
-
-        
+        });   
+    }
+    
+    private void stopEditing(JTable table, int selectedRow) {
+        stopCellEditing();
+        table.setRowSelectionInterval(selectedRow, selectedRow);
+        table.getParent().repaint();
     }
 
     private boolean commitEdit(JFormattedTextField textField) {
         try {
-            if(Integer.parseInt(textField.getText()) < 0) {
+            if(Integer.parseInt(textField.getText()) <= 0) {
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên lớn hơn 0 !", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
@@ -81,7 +88,6 @@ public class QtySpinnerCellEditor extends DefaultCellEditor {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập một số nguyên!", "Lỗi nhập liệu", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-
     }
 
     @Override
@@ -93,13 +99,9 @@ public class QtySpinnerCellEditor extends DefaultCellEditor {
             @Override
             public void stateChanged(ChangeEvent e) {
                 int value = (int) spinner.getValue();
-                if (value == 0) {
-                    if (JOptionPane.showConfirmDialog(null, "Xóa sản phẩm ? ", "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                        event.onDelete(row);
-                    }
-                }
             }
         });
+        
         return spinner;
     }
 
