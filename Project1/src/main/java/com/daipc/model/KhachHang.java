@@ -128,5 +128,31 @@ public class KhachHang {
         this.nguoiSua = nguoiSua;
     }
 
-    
+     private int tienThua;
+    private int tongTienTra;
+    private int tongGTHD;
+
+    public int getTongGTHD() {
+        return tongGTHD;
+    }
+
+    public void setTongGTHD(int tongGTHD) {
+        this.tongGTHD = tongGTHD;
+    }
+
+    public int getTienThua() {
+        return tienThua;
+    }
+
+    public void setTienThua(int tienThua) {
+        this.tienThua = tienThua;
+    }
+
+    public int getTongTienTra() {
+        return tongTienTra;
+    }
+
+    public void setTongTienTra(int tongTienTra) {
+        this.tongTienTra = tongTienTra;
+    }
 }

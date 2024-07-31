@@ -32,6 +32,8 @@ import javax.swing.JScrollBar;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 public class Form_Sell extends javax.swing.JPanel {
 
@@ -117,6 +119,44 @@ public class Form_Sell extends javax.swing.JPanel {
 
         });
 
+        modelGH.addTableModelListener((TableModelEvent e) -> {
+    if (e.getType() == TableModelEvent.UPDATE) {
+        int row = e.getFirstRow();
+        int column = e.getColumn();
+        Object cellValue = modelGH.getValueAt(row, column);
+
+        try {
+            // Chuyển đổi giá trị của ô thành chuỗi và kiểm tra xem nó có phải là số không
+            int newValue = 0;
+            if (cellValue instanceof Number) {
+                newValue = ((Number) cellValue).intValue();
+            } else if (cellValue instanceof String) {
+                String strValue = ((String) cellValue).trim();
+                if (!strValue.isEmpty() && strValue.matches("-?\\d+")) {
+                    newValue = Integer.parseInt(strValue);
+                } else {
+                    // Xử lý trường hợp giá trị không hợp lệ
+                    System.err.println("Giá trị ô không phải số: " + strValue);
+                    return; // Dừng xử lý nếu giá trị không hợp lệ
+                }
+            } else {
+                // Xử lý trường hợp giá trị không phải là String hoặc Number
+                System.err.println("Giá trị ô không hợp lệ: " + cellValue);
+                return; // Dừng xử lý nếu giá trị không hợp lệ
+            }
+
+            // Cập nhật cơ sở dữ liệu
+            QLBH.update("update HoaDonCT set soluong = ? where id = ?", newValue, listGH.get(row).getId());
+            loadDataGH();
+        } catch (NumberFormatException ex) {
+            System.err.println("Lỗi khi chuyển đổi giá trị ô thành số: " + cellValue);
+        } catch (Exception ex) {
+            System.err.println("Lỗi xảy ra: " + ex.getMessage());
+        }
+    }
+});
+
+
     }
 
     public void loadDataHDC() {
@@ -191,6 +231,7 @@ public class Form_Sell extends javax.swing.JPanel {
 
     public void loadDataHTTT() {
         listPTTT.clear();
+        cboHinhThucTT.removeAllItems();
         listPTTT.addAll(QLBH.getAllPhuongThucTT());
         for (PhuongThucTT tt : listPTTT) {
             cboHinhThucTT.addItem(tt.getTenPTTT());
@@ -354,13 +395,14 @@ public class Form_Sell extends javax.swing.JPanel {
 
     private void updateDisplay() {
         try {
-            double tienKhach = Double.parseDouble(txtTienKhachDua.getText());
-            double thanhToan = Double.parseDouble(txtThanhToan.getText());
+            BigDecimal tienKhach = BigDecimal.valueOf(Double.parseDouble(txtTienKhachDua.getText()));
+            BigDecimal thanhToan = BigDecimal.valueOf(Double.parseDouble(txtThanhToan.getText()));
             SwingUtilities.invokeLater(() -> {
-                if (tienKhach - thanhToan < 0) {
+                BigDecimal tienThua = tienKhach.subtract(thanhToan);
+                if (tienThua.equals(BigDecimal.valueOf(0))) {
                     txtTienThua.setText("0");
                 } else {
-                    txtTienThua.setText(String.valueOf(tienKhach - thanhToan));
+                    txtTienThua.setText(String.valueOf(tienThua));
 
                 }
             });

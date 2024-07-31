@@ -46,7 +46,7 @@ public class Popup_KhachHang extends javax.swing.JDialog {
         listKH.clear();
         listKH = QLBH.getAllKH();
         if (QLBH.update("Update HoaDon set IDKhachHang = ? where id = ?", listKH.get(listKH.size() - 1).getId(), id) == TrangThaiCRUD.ThanhCong) {
-            JOptionPane.showMessageDialog(null, "Cập Nhật Khách Hàng Thành Công !!!");
+            JOptionPane.showMessageDialog(this, "Cập Nhật Khách Hàng Thành Công !!!");
         }
         this.dispose();
     }
