@@ -4,6 +4,8 @@
  */
 package com.daipc.model;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author DaiPc
@@ -12,17 +14,17 @@ public class GioHang {
     private int id;
     private String maSPCT;
     private String tenSPCT;
-    private double donGia;
+    private BigDecimal donGia;
     private int soLuong;
-    private boolean trangThai;
-    private double thanhTien;
+    private BigDecimal trangThai;
+    private BigDecimal thanhTien;
 
     public GioHang() {
     }
     
     
 
-    public GioHang(int id, String maSPCT, String tenSPCT, double donGia, int soLuong, double thanhTien, boolean trangThai) {
+    public GioHang(int id, String maSPCT, String tenSPCT, BigDecimal donGia, int soLuong, BigDecimal thanhTien, BigDecimal trangThai) {
         this.id = id;
         this.maSPCT = maSPCT;
         this.tenSPCT = tenSPCT;
@@ -32,12 +34,12 @@ public class GioHang {
         this.trangThai = trangThai;
     }
 
-    public GioHang(String maCTSP, String tenSPCT, double donGia, int soLuong) {
+    public GioHang(String maCTSP, String tenSPCT, BigDecimal donGia, int soLuong) {
         this.maSPCT = maCTSP;
         this.tenSPCT = tenSPCT;
         this.soLuong = soLuong;
         this.donGia = donGia;
-        this.thanhTien = this.soLuong * this.donGia;
+        this.thanhTien = this.donGia.multiply(BigDecimal.valueOf(soLuong));
     }
 
     public Object[] getGioHang() {
@@ -62,11 +64,11 @@ public class GioHang {
         this.maSPCT = MaCTSP;
     }
 
-    public double getDonGia() {
+    public BigDecimal getDonGia() {
         return donGia;
     }
 
-    public void setDonGia(double donGia) {
+    public void setDonGia(BigDecimal donGia) {
         this.donGia = donGia;
     }
 
@@ -78,11 +80,11 @@ public class GioHang {
         this.soLuong = soLuong;
     }
 
-    public boolean isTrangThai() {
+    public BigDecimal isTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(boolean trangThai) {
+    public void setTrangThai(BigDecimal trangThai) {
         this.trangThai = trangThai;
     }
 
@@ -94,11 +96,11 @@ public class GioHang {
         this.tenSPCT = tenSPCT;
     }
 
-    public double getTongTien() {
+    public BigDecimal getTongTien() {
         return thanhTien;
     }
 
-    public void setTongTien(double tongTien) {
+    public void setTongTien(BigDecimal tongTien) {
         this.thanhTien = tongTien;
     }
 
@@ -110,11 +112,11 @@ public class GioHang {
         this.maSPCT = maSPCT;
     }
 
-    public double getThanhTien() {
+    public BigDecimal getThanhTien() {
         return thanhTien;
     }
 
-    public void setThanhTien(double thanhTien) {
+    public void setThanhTien(BigDecimal thanhTien) {
         this.thanhTien = thanhTien;
     }
 

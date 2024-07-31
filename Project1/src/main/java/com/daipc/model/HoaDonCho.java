@@ -4,6 +4,8 @@
  */
 package com.daipc.model;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author DaiPc
@@ -14,10 +16,10 @@ public class HoaDonCho {
     private String tenKhachHang;
     private String nguoiTao;
     private String voucher;
-    private double thanhToan;
+    private BigDecimal thanhToan;
     private String ngayTao;
     private int TrangThai;
-    private double tong;
+    private BigDecimal tong;
     private String SDT;
     private String hinhThucTT;
     private String ghiChu;
@@ -25,7 +27,7 @@ public class HoaDonCho {
     public HoaDonCho() {
     }
 
-    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String voucher, double thanhToan, String hinhThucTT, String ngayTao, int TrangThai, double tong, String SDT, String ghiChu) {
+    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String voucher, BigDecimal thanhToan, String hinhThucTT, String ngayTao, int TrangThai, BigDecimal tong, String SDT, String ghiChu) {
         this.id = id;
         this.maHD = maHD;
         this.tenKhachHang = tenKhachHang;
@@ -48,8 +50,6 @@ public class HoaDonCho {
         this.ghiChu = ghiChu;
     }
     
-    
-
     public String getHinhThucTT() {
         return hinhThucTT;
     }
@@ -103,11 +103,11 @@ public class HoaDonCho {
         this.TrangThai = TrangThai;
     }
 
-    public double getTong() {
+    public BigDecimal getTong() {
         return tong;
     }
 
-    public void setTong(double tong) {
+    public void setTong(BigDecimal tong) {
         this.tong = tong;
     }
 
@@ -127,11 +127,11 @@ public class HoaDonCho {
         this.voucher = voucher;
     }
 
-    public double getThanhToan() {
+    public BigDecimal getThanhToan() {
         return thanhToan;
     }
 
-    public void setThanhToan(double thanhToan) {
+    public void setThanhToan(BigDecimal thanhToan) {
         this.thanhToan = thanhToan;
     }
 

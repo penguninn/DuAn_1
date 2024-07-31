@@ -33,16 +33,18 @@ public class Popup_KhachHang extends javax.swing.JDialog {
     /**
      * Creates new form Popup_KhachHang
      */
-    public Popup_KhachHang(java.awt.Frame parent, boolean modal, List<KhachHang> listKH, String SDT, int id) {
+    public Popup_KhachHang(java.awt.Frame parent, boolean modal, String SDT, int id) {
         super(parent, modal);
         initComponents();
-        this.listKH = listKH;
         this.id = id;
         txtSDT.setText(SDT);
+        listKH = QLBH.getAllKH();
     }
 
     public void themKH() {
         QLBH.update("insert into khachhang (MaKhachHang, hoten, sodt, ngaytao, nguoitao) values(?, ?, ?, ?, ?)", autoTangMaKH(), txtTenKH.getText(), txtSDT.getText(), LocalDate.now(), "admin");
+        listKH.clear();
+        listKH = QLBH.getAllKH();
         if (QLBH.update("Update HoaDon set IDKhachHang = ? where id = ?", listKH.get(listKH.size() - 1).getId(), id) == TrangThaiCRUD.ThanhCong) {
             JOptionPane.showMessageDialog(null, "Cập Nhật Khách Hàng Thành Công !!!");
         }
@@ -175,7 +177,7 @@ public class Popup_KhachHang extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Popup_KhachHang dialog = new Popup_KhachHang(new javax.swing.JFrame(), true, null, null, 0);
+                Popup_KhachHang dialog = new Popup_KhachHang(new javax.swing.JFrame(), true, null, 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

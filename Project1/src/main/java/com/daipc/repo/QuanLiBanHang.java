@@ -75,11 +75,11 @@ public class QuanLiBanHang {
                                 rs.getString(3),
                                 rs.getString(4),
                                 rs.getString(5),
-                                rs.getDouble(6),
+                                rs.getBigDecimal(6),
                                 rs.getString(7),
                                 rs.getString(8),
                                 rs.getInt(9),
-                                rs.getDouble(10),
+                                rs.getBigDecimal(10),
                                 rs.getString(11),
                                 rs.getString(12)
                         )
@@ -143,10 +143,10 @@ public class QuanLiBanHang {
                                 rs.getInt(1),
                                 rs.getString(2),
                                 rs.getString(3),
-                                rs.getDouble(4),
+                                rs.getBigDecimal(4),
                                 rs.getInt(5),
-                                rs.getDouble(6),
-                                rs.getBoolean(7)
+                                rs.getBigDecimal(6),
+                                rs.getBigDecimal(7)
                         )
                 );
             }
