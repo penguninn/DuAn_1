@@ -305,15 +305,30 @@ VALUES
 INSERT INTO NhanVien (MaNhanVien, HoTen, SoDT, CCCD, NgaySinh, ChucVu, GioiTinh, DiaChi, TaiKhoan, MatKhau, NgayTao, TrangThai)
 VALUES 
 ('NV001', N'Nguyễn Văn An', '0901234567', '001234567890', '1990-01-01', N'nv', 1, N'456 Đường Nguyễn Trãi, Quận 5, TP.HCM', 'nva', '123', '2023-01-01', 1),
-('NV002', N'Trần Thị Bình', '0912345678', '001234567891', '1992-05-15', N'nv', 0, N'789 Đường Lý Thường Kiệt, Quận 10, TP.HCM', 'ttb', '123', '2023-01-01', 1),
+('NV002', N'Trần Thị Bình', '0912345678', '001234567891', '1992-05-15', N'nv', 0, N'789 Đường Lý Thường Kiệt, Quận 10, TP.HCM', 'ttb', '123', '2023-01-01', 0),
 ('NV003', N'Lê Văn Cường', '0923456789', '001234567892', '1988-09-20', N'nv', 1, N'101 Đường Cách Mạng Tháng 8, Quận 3, TP.HCM', 'lvc', '123', '2023-01-01', 1),
-('NV004', N'Phạm Thị Dung', '0934567890', '001234567893', '1995-03-10', N'nv', 0, N'202 Đường Nguyễn Văn Cừ, Quận 5, TP.HCM', 'ptd', '123', '2023-01-01', 1),
-('NV005', N'Hoàng Văn Em', '0945678901', '001234567894', '1993-07-25', N'nv', 1, N'303 Đường Võ Văn Tần, Quận 3, TP.HCM', 'hve', '123', '2023-01-01', 1),
+('NV004', N'Phạm Thị Dung', '0934567890', '001234567893', '1995-03-10', N'ql', 0, N'202 Đường Nguyễn Văn Cừ, Quận 5, TP.HCM', 'ptd', '456', '2023-01-01', 1),
+('NV005', N'Hoàng Văn Em', '0945678901', '001234567894', '1993-07-25', N'nv', 1, N'303 Đường Võ Văn Tần, Quận 3, TP.HCM', 'hve', '123', '2023-01-01', 0),
 ('NV006', N'Ngô Thị Phương', '0956789012', '001234567895', '1991-11-30', N'nv', 0, N'404 Đường Điện Biên Phủ, Quận Bình Thạnh, TP.HCM', 'ntp', '123', '2023-01-01', 1),
-('NV007', N'Đặng Văn Quang', '0967890123', '001234567896', '1994-02-14', N'nv', 1, N'505 Đường Nguyễn Thị Minh Khai, Quận 1, TP.HCM', 'dvq', '123', '2023-01-01', 1),
-('NV008', N'Mai Thị Hoa', '0978901234', '001234567897', '1989-06-05', N'nv', 0, N'606 Đường Trần Hưng Đạo, Quận 1, TP.HCM', 'mth', '123', '2023-01-01', 1),
-('NV009', N'Trương Văn Khoa', '0989012345', '001234567898', '1996-10-18', N'nv', 1, N'707 Đường Lê Hồng Phong, Quận 5, TP.HCM', 'tvk', '123', '2023-01-01', 1),
-('NV010', N'Lý Thị Lan', '0990123456', '001234567899', '1987-12-22', N'nv', 0, N'808 Đường Hai Bà Trưng, Quận 1, TP.HCM', 'ltl', '123', '2023-01-01', 1);
+('NV007', N'Đặng Văn Quang', '0967890123', '001234567896', '1994-02-14', N'ql', 1, N'505 Đường Nguyễn Thị Minh Khai, Quận 1, TP.HCM', 'dvq', '456', '2023-01-01', 1),
+('NV008', N'Mai Thị Hoa', '0978901234', '001234567897', '1989-06-05', N'ql', 0, N'606 Đường Trần Hưng Đạo, Quận 1, TP.HCM', 'mth', '456', '2023-01-01', 1),
+('NV009', N'Trương Văn Khoa', '0989012345', '001234567898', '1996-10-18', N'nv', 1, N'707 Đường Lê Hồng Phong, Quận 5, TP.HCM', 'tvk', '123', '2023-01-01', 0),
+('NV010', N'Lý Thị Lan', '0990123456', '001234567899', '1987-12-22', N'nv', 0, N'808 Đường Hai Bà Trưng, Quận 1, TP.HCM', 'ltl', '123', '2023-01-01', 0),
+('NV011', N'Nguyễn Văn Phúc', '0901122334', '001234567800', '1991-03-03', N'nv', 1, N'1 Đường Lê Lợi, Quận 1, TP.HCM', 'nvp', '123', '2023-01-01', 1),
+('NV012', N'Nguyễn Thị Quỳnh', '0912233445', '001234567801', '1993-04-04', N'ql', 0, N'2 Đường Lý Tự Trọng, Quận 1, TP.HCM', 'ntq', '456', '2023-01-01', 0),
+('NV013', N'Phạm Văn Trung', '0923344556', '001234567802', '1985-05-05', N'nv', 1, N'3 Đường Phạm Ngũ Lão, Quận 1, TP.HCM', 'pvt', '123', '2023-01-01', 1),
+('NV014', N'Trần Thị Mai', '0934455667', '001234567803', '1990-06-06', N'nv', 0, N'4 Đường Nguyễn Thị Nghĩa, Quận 1, TP.HCM', 'ttm', '123', '2023-01-01', 0),
+('NV015', N'Lê Văn Tiến', '0945566778', '001234567804', '1988-07-07', N'nv', 1, N'5 Đường Đề Thám, Quận 1, TP.HCM', 'lvt', '123', '2023-01-01', 0),
+('NV016', N'Hoàng Thị Minh', '0956677889', '001234567805', '1992-08-08', N'nv', 0, N'6 Đường Cô Giang, Quận 1, TP.HCM', 'htm', '123', '2023-01-01', 1),
+('NV017', N'Vũ Văn Lâm', '0967788990', '001234567806', '1994-09-09', N'nv', 1, N'7 Đường Nguyễn Công Trứ, Quận 1, TP.HCM', 'vvl', '123', '2023-01-01', 0),
+('NV018', N'Phạm Thị Tuyết', '0978899001', '001234567807', '1989-10-10', N'nv', 0, N'8 Đường Nguyễn Khắc Nhu, Quận 1, TP.HCM', 'ptt', '123', '2023-01-01', 1),
+('NV019', N'Bùi Văn Nam', '0989900112', '001234567808', '1991-11-11', N'nv', 1, N'9 Đường Nguyễn Hữu Cảnh, Quận Bình Thạnh, TP.HCM', 'bvn', '123', '2023-01-01', 1),
+('NV020', N'Phan Thị Lệ', '0990011223', '001234567809', '1993-12-12', N'nv', 0, N'10 Đường Trường Sa, Quận Phú Nhuận, TP.HCM', 'ptl', '123', '2023-01-01', 1),
+('NV021', N'Nguyễn Văn Đức', '0901122335', '001234567810', '1987-01-13', N'ql', 1, N'11 Đường Hoàng Sa, Quận Phú Nhuận, TP.HCM', 'nvd', '456', '2023-01-01', 0),
+('NV022', N'Võ Thị Ngọc', '0912233446', '001234567811', '1989-02-14', N'nv', 0, N'12 Đường Điện Biên Phủ, Quận Bình Thạnh, TP.HCM', 'vtn', '123', '2023-01-01', 0),
+('NV023', N'Lê Văn Hải', '0923344557', '001234567812', '1990-03-15', N'nv', 1, N'13 Đường Xô Viết Nghệ Tĩnh, Quận Bình Thạnh, TP.HCM', 'lvh', '123', '2023-01-01', 1),
+('NV024', N'Nguyễn Thị Lan', '0934455668', '001234567813', '1992-04-16', N'nv', 0, N'14 Đường Phan Đăng Lưu, Quận Phú Nhuận, TP.HCM', 'ntl', '123', '2023-01-01', 1),
+('NV025', N'Trần Văn Phú', '0945566779', '001234567814', '1988-05-17', N'ql', 1, N'15 Đường Lê Quang Định, Quận Bình Thạnh, TP.HCM', 'tvp', '456', '2023-01-01', 1);
 
 -- KhachHang table
 INSERT INTO KhachHang (MaKhachHang, HoTen, GioiTinh, SoDT, DiaChi, NgayTao, NguoiTao)
