@@ -12,7 +12,7 @@ public class JDBCHelper {
     private final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private final String URL = "jdbc:sqlserver://localhost:1433;databaseName=DuAn1_Final;encrypt=true;trustServerCertificate=true;";
     private final String USER = "sa";
-    private final String PASSWORD = "Dai1082005@";
+    private final String PASSWORD = "xTruong19*";
 
     public JDBCHelper() {
     }
