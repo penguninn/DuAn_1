@@ -52,7 +52,11 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        layerPane.removeAll();
         init();
+        setContentPane(layerPane);
+        revalidate();
+        repaint();
     }
 
     public void init() {

@@ -161,6 +161,8 @@ public class Header extends javax.swing.JPanel {
                     frame.setExtendedState(JFrame.NORMAL);
                 } else {
                     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    revalidate();
+                    repaint();
                 }
                 isMaximized = !isMaximized;
             }
