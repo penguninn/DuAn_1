@@ -53,7 +53,7 @@ public class QuanLiBanHang {
                                 LEFT JOIN HoaDonCT hdct ON hd.ID = hdct.IDHoaDon
                                 LEFT JOIN Voucher vc ON hd.IDVoucher = vc.ID
                                 LEFT JOIN PhuongThucThanhToan pttt ON hd.IDPhuongThucTT = pttt.ID
-                            WHERE hd.trangthai = 0
+                            where hd.trangthai = 0
                             GROUP BY 
                                 hd.id, 
                                 hd.MaHD, 

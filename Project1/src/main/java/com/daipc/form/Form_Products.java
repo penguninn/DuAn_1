@@ -2550,7 +2550,6 @@ public class Form_Products extends javax.swing.JPanel {
         cbb_SP_Filter.setSelectedIndex(-1);
         cbb_TT_Filter.setSelectedIndex(-1);
         txtSearchDetails.setText("");
-        
     }//GEN-LAST:event_btnClearFiltersDetailsActionPerformed
 
     private void txtSearchDetailsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchDetailsKeyReleased
@@ -2828,6 +2827,22 @@ public class Form_Products extends javax.swing.JPanel {
             default:
         }
     }//GEN-LAST:event_btnXoaMemActionPerformed
+
+
+    private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
+        materialTabbed.setSelectedIndex(1);
+        listCTSP = chiTietSPService.getSPCT(listSP.get(tblInfoProducts.getSelectedRow()).getId());
+        modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
+        modelCTSP.setRowCount(0);
+        for (ChiTietSP ctsp : listCTSP) {
+            modelCTSP.addRow(new Object[]{
+                ctsp.getId(),
+                ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
+                ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
+            });
+        }
+    }//GEN-LAST:event_btnChiTietActionPerformed
+
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (checkNull(txtMaSP, txtTenSP)) {

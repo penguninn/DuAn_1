@@ -9,17 +9,20 @@ import com.daipc.model.HoaDonCho;
 import com.daipc.model.HoaDonModel;
 import com.daipc.model.KhachHang;
 import com.daipc.model.PhuongThucTT;
+
 import com.daipc.model.Voucher;
 import com.daipc.repo.HoaDonDao;
 import com.daipc.repo.KhachHangService;
 import com.daipc.repo.ProductDetaisDAO;
 import com.daipc.repo.QuanLiBanHang;
+
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+
 
 public class Form_Bill extends javax.swing.JPanel {
 
@@ -53,6 +56,7 @@ public class Form_Bill extends javax.swing.JPanel {
     public Form_Bill() {
         initComponents();
         init();
+
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
@@ -60,6 +64,8 @@ public class Form_Bill extends javax.swing.JPanel {
             }
 
         });
+        
+
     }
 
    

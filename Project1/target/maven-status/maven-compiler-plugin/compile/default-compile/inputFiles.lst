@@ -15,7 +15,6 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\DoDay.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\UI\PanelChart.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\chart\Chart.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\SPCT.java
-C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\DB_connect.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\ChiTietSP.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\SanPham.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Form_ChooserChoice.java
@@ -64,6 +63,7 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\combo_suggestion\C
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\IO\Import.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\NhaCungCapRepo.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\combobox\Combobox.java
+C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\KhachHangRepo.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\QuanLiTaiKhoan.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Form_Promotion.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\table\HoverIndex.java

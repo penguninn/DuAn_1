@@ -16,11 +16,12 @@ import static org.bouncycastle.cms.RecipientId.password;
  * @author admin
  */
 public class DatabaseHelper {
-      private static final String DB_SERVER = "localhost";
+
+    private static final String DB_SERVER = "localhost";
     private static final String DB_NAME = "DuAn1_Final";
     private static final String DB_USERNAME = "sa";
     private static final String DB_PASSWORD = "123";
-    private static final String DB_URL ="jdbc:sqlserver://localhost;databaseName=DuAn1_Final;encrypt=true;trustServerCertificate=true;";
+    private static final String DB_URL = "jdbc:sqlserver://localhost;databaseName=DuAn1_Final;encrypt=true;trustServerCertificate=true;";
 
     private static java.sql.Connection conn;
 
@@ -47,17 +48,17 @@ public class DatabaseHelper {
     }
 
     public void closeConnection() {
-    
-        
+
     }
-    
-     public static ResultSet query(String sql, Object... args) throws SQLException {
+
+    public static ResultSet query(String sql, Object... args) throws SQLException {
         PreparedStatement pstmt = DatabaseHelper.getStmt(sql, args);
 //C1:    ResultSet rs = pstmt.executeQuery();
 //        return rs;
         return pstmt.executeQuery(); //C2
     }
-     public static PreparedStatement getStmt(String sql, Object... args) throws SQLException {
+
+    public static PreparedStatement getStmt(String sql, Object... args) throws SQLException {
 
         //Thực hiện kết nối với Database
         Connection cn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);

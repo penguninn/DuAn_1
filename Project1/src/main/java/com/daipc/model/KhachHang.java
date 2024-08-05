@@ -21,6 +21,9 @@ public class KhachHang {
     private String nguoiTao;
     private String nguoiSua;
 
+    private Boolean trangThai;
+
+
     public KhachHang() {
     }
 
@@ -46,6 +49,27 @@ public class KhachHang {
         this.diaChi = diaChi;
         this.ngayTao = ngayTao;
         this.nguoiTao = nguoiTao;
+    }
+
+
+    public KhachHang(int id, String maKhachHang, String hoTen, boolean gioiTinh, String soDT, String diaChi, String ngayTao, Boolean trangThai) {
+        this.id = id;
+        this.maKhachHang = maKhachHang;
+        this.hoTen = hoTen;
+        this.gioiTinh = gioiTinh;
+        this.soDT = soDT;
+        this.diaChi = diaChi;
+        this.ngayTao = ngayTao;
+        this.trangThai = trangThai;
+    }
+
+    
+    public Boolean getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(Boolean trangThai) {
+        this.trangThai = trangThai;
     }
 
     public int getId() {
