@@ -10,9 +10,9 @@ public class JDBCHelper {
 
     private Connection connection = null;
     private final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private final String URL = "jdbc:sqlserver://DAIPC\\SQLEXPRESS:1433;databaseName=DuAn1_Final;encrypt=true;trustServerCertificate=true;";
+    private final String URL = "jdbc:sqlserver://localhost:1433;databaseName=DuAn1_Final;encrypt=true;trustServerCertificate=true;";
     private final String USER = "sa";
-    private final String PASSWORD = "123";
+    private final String PASSWORD = "hung";
 
     public JDBCHelper() {
     }
@@ -90,7 +90,7 @@ public class JDBCHelper {
 
     public static void main(String[] args) {
         try {
-            DatabaseMetaData dbmt = new DB_connect().getConnection().getMetaData();
+            DatabaseMetaData dbmt = new JDBCHelper().getConnection().getMetaData();
             System.out.println(dbmt.getDriverName());
             System.out.println(dbmt.getDatabaseProductName());
             System.out.println(dbmt.getDatabaseProductVersion());

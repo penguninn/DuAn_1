@@ -20,9 +20,9 @@ public class DB_connect {
 
     private Connection connection = null;
     private final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private final String URL = "jdbc:sqlserver://DAIPC\\SQLEXPRESS:1433;databaseName=DuAn1_Final;encrypt=true;trustServerCertificate=true;";
+    private final String URL = "jdbc:sqlserver://DESKTOP-2KQ9KFJ\\SQLEXPRESS:1433;databaseName=DuAn1_Final;encrypt=true;trustServerCertificate=true;";
     private final String USER = "sa";
-    private final String PASSWORD = "123";
+    private final String PASSWORD = "hung";
 
     public Connection getConnection() {
         try {

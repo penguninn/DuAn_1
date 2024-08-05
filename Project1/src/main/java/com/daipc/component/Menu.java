@@ -13,34 +13,43 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 
 public class Menu extends javax.swing.JPanel {
-    
+
     private EventMenuSelected event;
+    private int idDisable = -1;
+
     public void addEventMenuSelected(EventMenuSelected event) {
         this.event = event;
         listMenu1.addEventMenuSelected(event);
     }
 
-    public Menu() {
+    public Menu(int idDisable) {
         initComponents();
         setOpaque(false);
         listMenu1.setOpaque(false);
+        this.idDisable = idDisable;
+        listMenu1.setItemDisable(idDisable);
         init();
     }
-    
+
     public void init() {
         listMenu1.addItem(new Model_Menu("1", "Thống Kê", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("2", "Sản Phẩm", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("3", "Bán Hàng", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("4", "Hóa Đơn", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("5", "Khuyến Mại", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("6", "Nhân Viên", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("7", "Khách Hàng", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("9", "Lịch Sử", Model_Menu.MenuType.MENU));
+        if(! (idDisable == 5)) {
+            listMenu1.addItem(new Model_Menu("6", "Nhân Viên", Model_Menu.MenuType.MENU));
+        } else {
+            listMenu1.addItem(new Model_Menu("6_disable", "Nhân Viên", Model_Menu.MenuType.MENU));
+        }
         
+        listMenu1.addItem(new Model_Menu("7", "Khách Hàng", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("9", "Hoàn Trả", Model_Menu.MenuType.MENU));
+
         listMenu1.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
         listMenu1.addItem(new Model_Menu("", "------------------------------", Model_Menu.MenuType.TITLE));
         listMenu1.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
-        
+
         listMenu1.addItem(new Model_Menu("8", "Tài Khoản", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("10", "Đăng xuất", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
@@ -105,10 +114,10 @@ public class Menu extends javax.swing.JPanel {
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 0, 0);
         super.paintChildren(grphcs);
     }
-    
+
     private int x;
     private int y;
-    
+
     public void initMoving(JFrame frame) {
         panelMoving.addMouseListener(new MouseAdapter() {
             @Override
@@ -117,7 +126,7 @@ public class Menu extends javax.swing.JPanel {
                 y = e.getY();
             }
         });
-        
+
         panelMoving.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {

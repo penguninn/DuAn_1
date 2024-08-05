@@ -8,23 +8,19 @@ import com.daipc.component.Menu;
 import com.daipc.event.EventMenuSelected;
 import com.daipc.form.Form_Bill;
 import com.daipc.form.Form_Customer;
-import com.daipc.form.Form_History;
+import com.daipc.form.Form_Refund;
 import com.daipc.form.Form_Home;
 import com.daipc.form.Form_Products;
 import com.daipc.form.Form_Profile;
 import com.daipc.form.Form_Promotion;
 import com.daipc.form.Form_Sell;
 import com.daipc.form.Form_Staffs;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.WindowConstants;
+import javax.swing.UnsupportedLookAndFeelException;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -48,25 +44,31 @@ public class MainFrame extends javax.swing.JFrame {
     private Form_Promotion Form_Promotion;
     private Form_Staffs Form_Staffs;
     private Form_Customer Form_Customer;
-    private Form_History Form_History;
+    private Form_Refund Form_Refund;
     private Form_Profile Form_Profile;
     public static MainFrame mainFrame;
-    private Login loginForm;
+    private String role = "";
 
     public MainFrame() {
         initComponents();
-        setBackground(new Color(0, 0, 0, 0));
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        login();
+        layerPane.removeAll();
         init();
+        setContentPane(layerPane);
+        revalidate();
+        repaint();
     }
 
     public void init() {
         mlayout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         layerPane.setLayout(mlayout);
 
-        menu = new Menu();
+        if (!role.equals("ql")) {
+            menu = new Menu(5);
+        } else {
+            menu = new Menu(-1);
+        }
+
         header = new Header(this);
         Form_Home = new Form_Home();
         Form_Products = new Form_Products(this);
@@ -76,7 +78,7 @@ public class MainFrame extends javax.swing.JFrame {
         Form_Staffs = new Form_Staffs();
         Form_Customer = new Form_Customer();
         Form_Profile = new Form_Profile();
-        Form_History = new Form_History();
+        Form_Refund = new Form_Refund();
 
         menu.initMoving(MainFrame.this);
         header.initMoving(MainFrame.this);
@@ -91,7 +93,7 @@ public class MainFrame extends javax.swing.JFrame {
         cardPanel.add(Form_Staffs, "Form_Staffs");
         cardPanel.add(Form_Customer, "Form_Customer");
         cardPanel.add(Form_Profile, "Form_Profile");
-        cardPanel.add(Form_History, "Form_History");
+        cardPanel.add(Form_Refund, "Form_Refund");
 
         layerPane.add(menu, "w 230!, spany 2");
         layerPane.add(header, "h 35!, wrap");
@@ -124,37 +126,19 @@ public class MainFrame extends javax.swing.JFrame {
                         cardLayout.show(cardPanel, "Form_Customer");
                         break;
                     case 7:
-                        cardLayout.show(cardPanel, "Form_History");
+                        cardLayout.show(cardPanel, "Form_Refund");
                         break;
                     case 11:
                         cardLayout.show(cardPanel, "Form_Profile");
                         break;
                     case 12:
-                        login();
+
                         break;
                     default:
 //                        throw new AssertionError();
                 }
             }
         });
-    }
-
-    public void login() {
-        if (loginForm == null) {
-            loginForm = new Login(this);
-        }
-        loginForm.applyComponentOrientation(getComponentOrientation());
-        setContentPane(loginForm);
-        revalidate();
-        repaint();
-    }
-
-    public void showMainForm() {
-        layerPane.removeAll();
-        init();
-        setContentPane(layerPane);
-        revalidate();
-        repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -165,6 +149,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1600, 800));
 
         layerPane.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -172,22 +157,22 @@ public class MainFrame extends javax.swing.JFrame {
         layerPane.setLayout(layerPaneLayout);
         layerPaneLayout.setHorizontalGroup(
             layerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1420, Short.MAX_VALUE)
+            .addGap(0, 1600, Short.MAX_VALUE)
         );
         layerPaneLayout.setVerticalGroup(
             layerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(layerPane)
+            .addComponent(layerPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(layerPane)
+            .addComponent(layerPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -195,10 +180,12 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-        FlatMacLightLaf.setup();
-        FlatRobotoFont.install();
-        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-        java.awt.EventQueue.invokeLater(() -> {
+        try {
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        }
+        SwingUtilities.invokeLater(() -> {
             mainFrame = new MainFrame();
             mainFrame.setVisible(true);
         });

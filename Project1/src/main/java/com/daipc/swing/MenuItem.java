@@ -12,11 +12,25 @@ import java.awt.RenderingHints;
 public class MenuItem extends javax.swing.JPanel {
     
     private boolean selected;
+    private boolean isDisable;
+
+    public boolean isIsDisable() {
+        return isDisable;
+    }
+
+    public void setIsDisable(boolean isDisable) {
+        this.isDisable = isDisable;
+    }
     
-    public MenuItem(Model_Menu data) {
+    public MenuItem(Model_Menu data, boolean isDisable) {
         initComponents();
         setOpaque(false);
+        this.isDisable = isDisable;
         if(data.getType() == Model_Menu.MenuType.MENU){
+            if(!isDisable) {
+                lblName.setForeground(new Color(225, 225, 225, 150));
+                repaint();
+            }
             lblIcon.setIcon(data.toIcon());
             lblName.setText(data.getName());
         } else if(data.getType() == Model_Menu.MenuType.TITLE){
@@ -73,6 +87,12 @@ public class MenuItem extends javax.swing.JPanel {
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setColor(new Color(255, 255, 255, 80));
             g2.fillRoundRect(10, 0, getWidth() - 20, getHeight(), 5, 5);
+        }
+        if(!isDisable) {
+//            Graphics2D g2 = (Graphics2D) grphcs;
+//            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//            g2.setColor(new Color(0, 0, 0, 50));
+//            g2.fillRoundRect(10, 0, getWidth() - 20, getHeight(), 0, 0);
         }
         super.paintComponent(grphcs);
     }
