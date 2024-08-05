@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Popup_Bill extends JDialog {
 
-    private static final String VIETQR_URL_TEMPLATE = "https://img.vietqr.io/image/%s-%s-%s.png?amount=%s&addInfo=%s&accountName=%s";
+        private static final String VIETQR_URL_TEMPLATE = "https://img.vietqr.io/image/%s-%s-%s.png?amount=%s&addInfo=%s&accountName=%s";
 
     public Popup_Bill(String bankId, String accountNo, String template, double amount, String description, String accountName) {
         setTitle("Hóa Đơn");
@@ -65,7 +65,7 @@ public class Popup_Bill extends JDialog {
         String bankId = "970407"; 
         String accountNo = "19071676785014"; 
         String template = "compact";
-        double amount = 150000; // Số tiền
+        double amount = 15000; // Số tiền
         String description = "Thanh toán hóa đơn"; 
         String accountName = "Cửa Hàng Quần Abidas";
 

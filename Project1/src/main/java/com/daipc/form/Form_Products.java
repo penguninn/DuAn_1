@@ -183,20 +183,6 @@ public class Form_Products extends javax.swing.JPanel {
         initSearchDetails();
     }
 
-    public void loadCbbGia() {
-        List<ChiTietSP> chiTietSPs = chiTietSPService.getAll();
-        cbb_SP_Filter.removeAllItems();
-
-        DefaultComboBoxModel comboboxGiaB = (DefaultComboBoxModel) cbb_GiaNhap.getModel();
-        DefaultComboBoxModel comboboxGiaN = (DefaultComboBoxModel) cbb_GiaBan.getModel();
-        for (ChiTietSP chiTietSP : chiTietSPs) {
-            comboboxGiaB.addElement("");
-            comboboxGiaN.addElement("");
-            comboboxGiaB.addElement(chiTietSP.getGiaBan());
-            comboboxGiaN.addElement(chiTietSP.getGiaNhap());
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -217,7 +203,6 @@ public class Form_Products extends javax.swing.JPanel {
         txtMoTa = new javax.swing.JTextArea();
         btnThem = new com.daipc.swing.Button();
         btnSua = new com.daipc.swing.Button();
-        btnChiTiet = new com.daipc.swing.Button();
         btnXoaMem = new com.daipc.swing.Button();
         btnClear = new com.daipc.swing.Button();
         panelFilter = new com.daipc.swing.PanelBorder();
@@ -268,10 +253,10 @@ public class Form_Products extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         txtSearchDetails = new com.daipc.searchbar.MyTextField();
         jLabel16 = new javax.swing.JLabel();
-        cbb_GiaBan = new com.daipc.combo_suggestion.ComboBoxSuggestion();
         btnClearFiltersDetails = new com.daipc.swing.Button();
         jLabel18 = new javax.swing.JLabel();
-        cbb_GiaNhap = new com.daipc.combo_suggestion.ComboBoxSuggestion();
+        jSlider1 = new javax.swing.JSlider();
+        jSlider2 = new javax.swing.JSlider();
         attributesProducts = new javax.swing.JPanel();
         panelTong = new com.daipc.swing.PanelBorder();
         panelMauSac = new com.daipc.swing.PanelBorder();
@@ -414,13 +399,6 @@ public class Form_Products extends javax.swing.JPanel {
             }
         });
 
-        btnChiTiet.setText("Chi Tiết");
-        btnChiTiet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChiTietActionPerformed(evt);
-            }
-        });
-
         btnXoaMem.setText("Xóa");
         btnXoaMem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -458,25 +436,20 @@ public class Form_Products extends javax.swing.JPanel {
                             .addComponent(jLabel3))
                         .addGap(50, 50, 50)
                         .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTenSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                            .addComponent(txtMaSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTenSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                            .addComponent(txtMaSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(panelInfoProductsLayout.createSequentialGroup()
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
+                        .addGap(30, 30, 30)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addComponent(btnXoaMem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollMoTa, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-                    .addGroup(panelInfoProductsLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(62, 62, 62)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollMoTa, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                 .addGap(192, 192, 192))
         );
         panelInfoProductsLayout.setVerticalGroup(
@@ -502,7 +475,6 @@ public class Form_Products extends javax.swing.JPanel {
                 .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoaMem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -542,7 +514,7 @@ public class Form_Products extends javax.swing.JPanel {
                         .addGap(155, 155, 155)
                         .addGroup(panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE))))
+                            .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE))))
                 .addGap(190, 190, 190))
         );
         panelFilterLayout.setVerticalGroup(
@@ -721,11 +693,11 @@ public class Form_Products extends javax.swing.JPanel {
                                 .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelDetailsProductsLayout.createSequentialGroup()
                                         .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_Soluong, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                            .addComponent(txt_Soluong, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                                             .addComponent(txt_MSPCT, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(cbb_SP, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                            .addComponent(cbb_SP, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                                             .addGroup(panelDetailsProductsLayout.createSequentialGroup()
-                                                .addComponent(txt_TenSPCT, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                                                .addComponent(txt_TenSPCT, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                                                 .addGap(2, 2, 2)))
                                         .addGap(70, 70, 70)
                                         .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -735,7 +707,7 @@ public class Form_Products extends javax.swing.JPanel {
                                             .addComponent(jLabel45))
                                         .addGap(30, 30, 30)
                                         .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_GiaNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                            .addComponent(txt_GiaNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                                             .addComponent(txt_GiaBan)
                                             .addComponent(cbb_Size, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(cbb_MauSac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -747,10 +719,10 @@ public class Form_Products extends javax.swing.JPanel {
                                             .addComponent(jLabel21))
                                         .addGap(30, 30, 30)
                                         .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cbb_TT, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                            .addComponent(cbb_ChatLieu, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                            .addComponent(cbb_DoDay, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                            .addComponent(cbb_NCC, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)))
+                                            .addComponent(cbb_TT, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                                            .addComponent(cbb_ChatLieu, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                                            .addComponent(cbb_DoDay, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                                            .addComponent(cbb_NCC, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)))
                                     .addGroup(panelDetailsProductsLayout.createSequentialGroup()
                                         .addComponent(btnThemDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -824,7 +796,7 @@ public class Form_Products extends javax.swing.JPanel {
                         .addComponent(btnImportDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnExportDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(scrollDetailsProducts, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+                .addComponent(scrollDetailsProducts, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -870,7 +842,7 @@ public class Form_Products extends javax.swing.JPanel {
         });
 
         jLabel16.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel16.setText("Giá Bán");
+        jLabel16.setText("Giá Bán Max");
 
         btnClearFiltersDetails.setText("Làm Mới");
         btnClearFiltersDetails.addActionListener(new java.awt.event.ActionListener() {
@@ -880,7 +852,7 @@ public class Form_Products extends javax.swing.JPanel {
         });
 
         jLabel18.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel18.setText("Giá Nhập");
+        jLabel18.setText("Giá Bán Min");
 
         javax.swing.GroupLayout panelFilter1Layout = new javax.swing.GroupLayout(panelFilter1);
         panelFilter1.setLayout(panelFilter1Layout);
@@ -892,26 +864,26 @@ public class Form_Products extends javax.swing.JPanel {
                     .addComponent(jLabel12)
                     .addGroup(panelFilter1Layout.createSequentialGroup()
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbb_GiaNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))
                         .addGap(18, 18, 18)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbb_GiaBan, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbb_SP_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(cbb_SP_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbb_TT_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                            .addComponent(cbb_TT_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                             .addComponent(jLabel14))
                         .addGap(18, 18, 18)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
                             .addGroup(panelFilter1Layout.createSequentialGroup()
-                                .addComponent(txtSearchDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtSearchDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnClearFiltersDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
@@ -923,28 +895,25 @@ public class Form_Products extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFilter1Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelFilter1Layout.createSequentialGroup()
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jLabel13))
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel16))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSearchDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbb_SP_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnClearFiltersDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(panelFilter1Layout.createSequentialGroup()
-                            .addComponent(jLabel18)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cbb_GiaNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelFilter1Layout.createSequentialGroup()
-                            .addComponent(jLabel16)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cbb_GiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnClearFiltersDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelFilter1Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbb_TT_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout detailsProductsLayout = new javax.swing.GroupLayout(detailsProducts);
@@ -1514,7 +1483,7 @@ public class Form_Products extends javax.swing.JPanel {
             panelTblMauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTblMauLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollMau, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+                .addComponent(scrollMau, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTblMauLayout.setVerticalGroup(
@@ -1560,7 +1529,7 @@ public class Form_Products extends javax.swing.JPanel {
             panelTblDoDayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTblDoDayLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollDoDay, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+                .addComponent(scrollDoDay, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTblDoDayLayout.setVerticalGroup(
@@ -1596,7 +1565,7 @@ public class Form_Products extends javax.swing.JPanel {
             panelTblSizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTblSizeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollSize, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+                .addComponent(scrollSize, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTblSizeLayout.setVerticalGroup(
@@ -1632,7 +1601,7 @@ public class Form_Products extends javax.swing.JPanel {
             panelTblChatLieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTblChatLieuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollChatLieu, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+                .addComponent(scrollChatLieu, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTblChatLieuLayout.setVerticalGroup(
@@ -1668,7 +1637,7 @@ public class Form_Products extends javax.swing.JPanel {
             panelTblNhaCcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTblNhaCcLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollNhaCc, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+                .addComponent(scrollNhaCc, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTblNhaCcLayout.setVerticalGroup(
@@ -1775,7 +1744,6 @@ public class Form_Products extends javax.swing.JPanel {
     }
 
     public void initFormSPCT() {
-        loadCbbGia();
         loadDataCTSP();
         loadCbbSP();
         loadcombDD();
@@ -2582,7 +2550,7 @@ public class Form_Products extends javax.swing.JPanel {
         cbb_SP_Filter.setSelectedIndex(-1);
         cbb_TT_Filter.setSelectedIndex(-1);
         txtSearchDetails.setText("");
-
+        
     }//GEN-LAST:event_btnClearFiltersDetailsActionPerformed
 
     private void txtSearchDetailsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchDetailsKeyReleased
@@ -2860,20 +2828,6 @@ public class Form_Products extends javax.swing.JPanel {
             default:
         }
     }//GEN-LAST:event_btnXoaMemActionPerformed
-
-    private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
-        materialTabbed.setSelectedIndex(1);
-        listCTSP = chiTietSPService.getSPCT(listSP.get(tblInfoProducts.getSelectedRow()).getId());
-        modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
-        modelCTSP.setRowCount(0);
-        for (ChiTietSP ctsp : listCTSP) {
-            modelCTSP.addRow(new Object[]{
-                ctsp.getId(),
-                ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
-                ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
-            });
-        }
-    }//GEN-LAST:event_btnChiTietActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (checkNull(txtMaSP, txtTenSP)) {
@@ -3206,7 +3160,6 @@ public class Form_Products extends javax.swing.JPanel {
     private com.daipc.swing.Button ClearDoDay;
     private javax.swing.JPanel attributesProducts;
     private com.daipc.radiobutton.RadioButtonCustom btnChatLieu;
-    private com.daipc.swing.Button btnChiTiet;
     private com.daipc.swing.Button btnClear;
     private com.daipc.swing.Button btnClearChatLieu;
     private com.daipc.swing.Button btnClearDetails;
@@ -3239,8 +3192,6 @@ public class Form_Products extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_ChatLieu;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_DoDay;
-    private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_GiaBan;
-    private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_GiaNhap;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_MauSac;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_NCC;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_SP;
@@ -3292,6 +3243,8 @@ public class Form_Products extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JSlider jSlider1;
+    private javax.swing.JSlider jSlider2;
     private com.daipc.swing.MaterialTabbed materialTabbed;
     private com.daipc.swing.PanelBorder panelBorder2;
     private com.daipc.swing.PanelBorder panelChatLieu;

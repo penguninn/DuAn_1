@@ -72,6 +72,7 @@ public class Form_Home extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        model_Card1 = new com.daipc.modelUI.Model_Card();
         scroll = new javax.swing.JScrollPane();
 
         setBackground(new java.awt.Color(234, 234, 234));
@@ -97,6 +98,7 @@ public class Form_Home extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.daipc.modelUI.Model_Card model_Card1;
     private javax.swing.JScrollPane scroll;
     // End of variables declaration//GEN-END:variables
 }

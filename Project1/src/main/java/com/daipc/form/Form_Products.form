@@ -114,38 +114,31 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jLabel2" alignment="1" min="-2" pref="82" max="-2" attributes="0"/>
                                       <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtTenSP" alignment="1" pref="280" max="32767" attributes="0"/>
+                                      <Component id="txtTenSP" alignment="1" pref="342" max="32767" attributes="0"/>
                                       <Component id="txtMaSP" alignment="1" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" min="-2" pref="60" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnThem" min="-2" pref="80" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="btnSua" min="-2" pref="80" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btnXoaMem" min="-2" pref="80" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btnChiTiet" min="-2" pref="80" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="scrollMoTa" pref="313" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnThem" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="btnSua" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="btnXoaMem" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace pref="89" max="32767" attributes="0"/>
                                   <Component id="btnClear" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                          <Component id="jLabel7" min="-2" pref="60" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="scrollMoTa" pref="369" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -178,7 +171,6 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnThem" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="btnXoaMem" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="btnChiTiet" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="btnSua" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="btnClear" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
@@ -326,14 +318,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="com.daipc.swing.Button" name="btnChiTiet">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Chi Ti&#x1ebf;t"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChiTietActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="com.daipc.swing.Button" name="btnXoaMem">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
@@ -372,7 +356,7 @@
                                   <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtSearch" pref="828" max="32767" attributes="0"/>
+                                      <Component id="txtSearch" pref="973" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -493,11 +477,11 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="txt_Soluong" pref="204" max="32767" attributes="0"/>
+                                                      <Component id="txt_Soluong" pref="253" max="32767" attributes="0"/>
                                                       <Component id="txt_MSPCT" alignment="1" max="32767" attributes="0"/>
-                                                      <Component id="cbb_SP" alignment="0" pref="204" max="32767" attributes="0"/>
+                                                      <Component id="cbb_SP" alignment="0" pref="253" max="32767" attributes="0"/>
                                                       <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="txt_TenSPCT" pref="202" max="32767" attributes="0"/>
+                                                          <Component id="txt_TenSPCT" pref="251" max="32767" attributes="0"/>
                                                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
@@ -510,7 +494,7 @@
                                                   </Group>
                                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="txt_GiaNhap" pref="204" max="32767" attributes="0"/>
+                                                      <Component id="txt_GiaNhap" pref="252" max="32767" attributes="0"/>
                                                       <Component id="txt_GiaBan" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="cbb_Size" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="cbb_MauSac" alignment="0" max="32767" attributes="0"/>
@@ -524,10 +508,10 @@
                                                   </Group>
                                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="cbb_TT" pref="204" max="32767" attributes="0"/>
-                                                      <Component id="cbb_ChatLieu" pref="204" max="32767" attributes="0"/>
-                                                      <Component id="cbb_DoDay" alignment="0" pref="204" max="32767" attributes="0"/>
-                                                      <Component id="cbb_NCC" alignment="0" pref="204" max="32767" attributes="0"/>
+                                                      <Component id="cbb_TT" pref="252" max="32767" attributes="0"/>
+                                                      <Component id="cbb_ChatLieu" pref="252" max="32767" attributes="0"/>
+                                                      <Component id="cbb_DoDay" alignment="0" pref="252" max="32767" attributes="0"/>
+                                                      <Component id="cbb_NCC" alignment="0" pref="252" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Group type="102" attributes="0">
@@ -625,7 +609,7 @@
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="scrollDetailsProducts" pref="383" max="32767" attributes="0"/>
+                          <Component id="scrollDetailsProducts" pref="381" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -906,35 +890,35 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbb_GiaNhap" alignment="0" pref="191" max="32767" attributes="0"/>
-                                      <Component id="jLabel18" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Component id="jSlider1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbb_GiaBan" alignment="0" pref="191" max="32767" attributes="0"/>
-                                      <Component id="jLabel16" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Component id="jSlider2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbb_SP_Filter" alignment="0" pref="191" max="32767" attributes="0"/>
+                                      <Component id="cbb_SP_Filter" alignment="0" pref="223" max="32767" attributes="0"/>
                                       <Component id="jLabel13" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbb_TT_Filter" alignment="0" pref="194" max="32767" attributes="0"/>
+                                      <Component id="cbb_TT_Filter" alignment="0" pref="223" max="32767" attributes="0"/>
                                       <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txtSearchDetails" pref="221" max="32767" attributes="0"/>
-                                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtSearchDetails" min="-2" pref="250" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
                                           <Component id="btnClearFiltersDetails" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -952,27 +936,22 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jSlider1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="txtSearchDetails" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       <Component id="cbb_SP_Filter" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       <Component id="btnClearFiltersDetails" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbb_GiaNhap" min="-2" pref="28" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbb_GiaBan" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="jSlider2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
@@ -981,7 +960,7 @@
                                   <Component id="cbb_TT_Filter" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="10" max="32767" attributes="0"/>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1044,14 +1023,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Gi&#xe1; B&#xe1;n"/>
-                  </Properties>
-                </Component>
-                <Component class="com.daipc.combo_suggestion.ComboBoxSuggestion" name="cbb_GiaBan">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="0"/>
-                    </Property>
+                    <Property name="text" type="java.lang.String" value="Gi&#xe1; B&#xe1;n Max"/>
                   </Properties>
                 </Component>
                 <Component class="com.daipc.swing.Button" name="btnClearFiltersDetails">
@@ -1067,15 +1039,12 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Gi&#xe1; Nh&#x1ead;p"/>
+                    <Property name="text" type="java.lang.String" value="Gi&#xe1; B&#xe1;n Min"/>
                   </Properties>
                 </Component>
-                <Component class="com.daipc.combo_suggestion.ComboBoxSuggestion" name="cbb_GiaNhap">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="0"/>
-                    </Property>
-                  </Properties>
+                <Component class="javax.swing.JSlider" name="jSlider1">
+                </Component>
+                <Component class="javax.swing.JSlider" name="jSlider2">
                 </Component>
               </SubComponents>
             </Container>
@@ -1956,7 +1925,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scrollMau" pref="1161" max="32767" attributes="0"/>
+                              <Component id="scrollMau" pref="1306" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2020,7 +1989,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scrollDoDay" pref="1161" max="32767" attributes="0"/>
+                              <Component id="scrollDoDay" pref="1306" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2082,7 +2051,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scrollSize" pref="1161" max="32767" attributes="0"/>
+                              <Component id="scrollSize" pref="1306" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2143,7 +2112,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scrollChatLieu" pref="1161" max="32767" attributes="0"/>
+                              <Component id="scrollChatLieu" pref="1306" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2204,7 +2173,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scrollNhaCc" pref="1161" max="32767" attributes="0"/>
+                              <Component id="scrollNhaCc" pref="1306" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>

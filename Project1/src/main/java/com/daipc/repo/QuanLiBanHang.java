@@ -36,7 +36,10 @@ public class QuanLiBanHang {
                                 kh.HoTen AS TenKhachHang,
                                 nv.HoTen AS TenNhanVien,
                                 vc.MaVoucher,
-                                GREATEST(COALESCE(SUM(CASE WHEN hdct.TrangThai = 1 THEN hdct.SoLuong * hdct.DonGia ELSE 0 END), 0) - COALESCE(vc.GiaTriVoucher, 0), 0) AS ThanhToan,
+                                GREATEST(
+                                    COALESCE(SUM(CASE WHEN hdct.TrangThai = 1 THEN (hdct.SoLuong * hdct.DonGia) ELSE 0 END), 0) - COALESCE(vc.GiaTriVoucher, 0),
+                                    0
+                                ) AS ThanhToan,
                                 pttt.TenPhuongThucTT,
                                 hd.NgayTao,
                                 hd.TrangThai,
@@ -49,8 +52,8 @@ public class QuanLiBanHang {
                                 INNER JOIN NhanVien nv ON hd.IDNhanVien = nv.ID
                                 LEFT JOIN HoaDonCT hdct ON hd.ID = hdct.IDHoaDon
                                 LEFT JOIN Voucher vc ON hd.IDVoucher = vc.ID
-                                LEFT JOIN PhuongThucThanhToan pttt on hd.IDPhuongThucTT = pttt.ID
-                            where hd.trangthai = 0
+                                LEFT JOIN PhuongThucThanhToan pttt ON hd.IDPhuongThucTT = pttt.ID
+                            WHERE hd.trangthai = 0
                             GROUP BY 
                                 hd.id, 
                                 hd.MaHD, 

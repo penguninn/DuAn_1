@@ -9,35 +9,7 @@ CREATE DATABASE DuAn1_Final
 GO
 USE DuAn1_Final
 GO
-create TRIGGER trg_Unique_MaSP
-ON SanPham
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    IF EXISTS (
-        SELECT 1
-    FROM inserted i
-        JOIN SanPham s ON i.MaSP = s.MaSP
-    WHERE i.ID <> s.ID
-    )
-    BEGIN
-        RAISERROR ('DaTonTai', 16, 1);
-        ROLLBACK TRANSACTION;
-        RETURN;
-    END;
 
-    IF EXISTS (
-        SELECT 1
-    FROM inserted i
-        JOIN SanPham s ON i.TenSP = s.TenSP
-    WHERE i.ID <> s.ID
-    )
-    BEGIN
-        RAISERROR ('DaTonTai', 16, 1);
-        ROLLBACK TRANSACTION;
-        RETURN;
-    END;
-END;
 go
 -- Create table SanPham
 CREATE TABLE SanPham
@@ -161,7 +133,8 @@ CREATE TABLE Voucher
     NgayBatDau DATE,
     NgayKetThuc DATE,
     SoLuong INT,
-    MoTa nvarchar(max)
+    MoTa nvarchar(max),
+	TrangThai Int
 );
 
 create table PhuongThucThanhToan (
@@ -331,18 +304,18 @@ VALUES
 ('KH010', N'Lý Thị Mai', 0, '0912345678', N'1010 Đường Điện Biên Phủ, Quận Bình Thạnh, TP. HCM', '2024-07-05', N'admin');
 
 -- Voucher table
-INSERT INTO Voucher (MaVoucher, GiaTriVoucher, NgayBatDau, NgayKetThuc, SoLuong, MoTa)
+INSERT INTO Voucher (MaVoucher, GiaTriVoucher, NgayBatDau, NgayKetThuc, SoLuong, MoTa, TrangThai)
 VALUES 
-('VC001', 50000, '2024-07-01', '2024-12-31', 100, N'Giảm giá 50,000đ cho quần dài Adidas'),
-('VC002', 100000, '2024-07-01', '2024-12-31', 50, N'Giảm giá 100,000đ cho đơn hàng từ 1,000,000đ'),
-('VC003', 150000, '2024-07-01', '2024-12-31', 30, N'Giảm giá 150,000đ cho đơn hàng từ 1,500,000đ'),
-('VC004', 200000, '2024-07-01', '2024-12-31', 20, N'Giảm giá 200,000đ cho đơn hàng từ 2,000,000đ'),
-('VC005', 250000, '2024-07-01', '2024-12-31', 10, N'Giảm giá 250,000đ cho đơn hàng từ 2,500,000đ'),
-('VC006', 75000, '2024-07-01', '2024-12-31', 80, N'Giảm giá 75,000đ cho quần dài Adidas Originals'),
-('VC007', 125000, '2024-07-01', '2024-12-31', 40, N'Giảm giá 125,000đ cho đơn hàng từ 1,250,000đ'),
-('VC008', 175000, '2024-07-01', '2024-12-31', 25, N'Giảm giá 175,000đ cho đơn hàng từ 1,750,000đ'),
-('VC009', 225000, '2024-07-01', '2024-12-31', 15, N'Giảm giá 225,000đ cho đơn hàng từ 2,250,000đ'),
-('VC010', 300000, '2024-07-01', '2024-12-31', 5, N'Giảm giá 300,000đ cho đơn hàng từ 3,000,000đ');
+('VC001', 50000, '2024-07-01', '2024-12-31', 100, N'Giảm giá 50,000đ cho quần dài Adidas',1),
+('VC002', 100000, '2024-07-01', '2024-12-31', 50, N'Giảm giá 100,000đ cho đơn hàng từ 1,000,000đ',2),
+('VC003', 150000, '2024-07-01', '2024-12-31', 30, N'Giảm giá 150,000đ cho đơn hàng từ 1,500,000đ',3),
+('VC004', 200000, '2024-07-01', '2024-12-31', 20, N'Giảm giá 200,000đ cho đơn hàng từ 2,000,000đ',2),
+('VC005', 250000, '2024-07-01', '2024-12-31', 10, N'Giảm giá 250,000đ cho đơn hàng từ 2,500,000đ',2),
+('VC006', 75000, '2024-07-01', '2024-12-31', 80, N'Giảm giá 75,000đ cho quần dài Adidas Originals',2),
+('VC007', 125000, '2024-07-01', '2024-12-31', 40, N'Giảm giá 125,000đ cho đơn hàng từ 1,250,000đ',2),
+('VC008', 175000, '2024-07-01', '2024-12-31', 25, N'Giảm giá 175,000đ cho đơn hàng từ 1,750,000đ',2),
+('VC009', 225000, '2024-07-01', '2024-12-31', 15, N'Giảm giá 225,000đ cho đơn hàng từ 2,250,000đ',2),
+('VC010', 300000, '2024-07-01', '2024-12-31', 5, N'Giảm giá 300,000đ cho đơn hàng từ 3,000,000đ',2);
 
 -- PhuongThucThanhToan table
 -- Bảng PhuongThucThanhToan
@@ -444,7 +417,6 @@ SELECT *
 from SanPhamChiTiet
 SELECT *
 from NhanVien
-SELECT * from SanPhamChiTiet WHERE HienThi like 'Hien'
 
 SELECT
     ID,
@@ -504,3 +476,408 @@ select * from Voucher where GETDATE() <= NgayKetThuc and SoLuong > 0
 
 SELECT GETDATE()
 update HoaDon set IDVoucher = 2, IDPhuongThucTT = 1, GhiChu = ' ' where ID = 20
+
+
+create TRIGGER trg_Unique_MaSP
+ON SanPham
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+    FROM inserted i
+        JOIN SanPham s ON i.MaSP = s.MaSP
+    WHERE i.ID <> s.ID
+    )
+    BEGIN
+        RAISERROR ('DaTonTai', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END;
+
+    IF EXISTS (
+        SELECT 1
+    FROM inserted i
+        JOIN SanPham s ON i.TenSP = s.TenSP
+    WHERE i.ID <> s.ID
+    )
+    BEGIN
+        RAISERROR ('DaTonTai', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END;
+END;
+
+
+
+SELECT 
+	A.ID,
+    A.MaSPCT,
+    B.MaSP,
+    B.TenSP,
+   
+    A.GiaBan,
+    A.SoLuong,
+    G.TenDoDay,
+    E.TenSize,
+    F.TenChatLieu,
+    D.TenMauSac,
+    C.TenNhaCungCap,
+    A.TrangThai,
+    A.GiaNhap
+FROM 
+    SanPhamChiTiet A 
+LEFT JOIN 
+    SanPham B ON A.IdSanPham = B.ID
+LEFT JOIN 
+    NhaCungCap C ON A.IdNhaCungCap = C.ID 
+LEFT JOIN 
+    MauSac D ON A.IdMauSac = D.ID
+LEFT JOIN 
+    Size E ON A.IdSize = E.ID
+LEFT JOIN 
+    ChatLieu F ON A.IdChatLieu = F.ID
+LEFT JOIN 
+    DoDay G ON A.IdDoDay = G.ID
+	WHERE B.TenSP = 'Áo thun nam'
+
+	select A.MaSPCT,B.MaSP,B.TenSP,A.MoTa,A.GiaBan,A.SoLuong,G.TenDoDay,E.TenSize,F.TenChatLieu,D.TenMauSac,C.TenNhaCungCap, A.TrangThai,A.GiaNhap
+                                                      	from  SanPhamChiTiet A join SanPham B on A.ID = B.ID
+                                                     	join NhaCungCap C on A.ID = C.ID 
+                                                     	join MauSac D on A.ID = D.ID
+                                                       	join Size E on A.ID = E.ID
+                                                       	join ChatLieu F on A.ID = F.ID
+                                                       	join DoDay G on A.ID = G.ID
+                										
+                						WHERE B.TenSP = 'Áo thun nam';
+
+
+	
+select *from NhanVien
+
+
+
+create TRIGGER trg_Unique_MaSP
+ON SanPham
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        JOIN SanPham s ON i.MaSP = s.MaSP
+        WHERE i.ID <> s.ID
+    )
+    BEGIN
+        RAISERROR ('DaTonTai', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END;
+
+	IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        JOIN SanPham s ON i.TenSP = s.TenSP
+        WHERE i.ID <> s.ID
+    )
+    BEGIN
+        RAISERROR ('DaTonTai', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END;
+END;
+
+
+);
+
+SELECT 
+    hd.ID AS id, 
+	hd.MaHD AS MaHD,
+    kh.hoTen AS khachHangHoTen, 
+    kh.soDT AS khachHangSoDT, 
+    hd.tongGiaTriHoaDon AS tongGiaTri, 
+    hd.TrangThai AS TrangThai,
+    hd.ngayTao AS ngayTao, 
+    nv.hoTen AS nhanVienHoTen
+FROM 
+    HoaDon hd
+INNER JOIN 
+    HoaDonCT hdct ON hdct.IDHoaDon = hd.ID
+RIGHT JOIN 
+    NhanVien nv ON nv.ID = hd.IDNhanVien
+LEFT JOIN 
+    KhachHang kh ON kh.ID = hd.IDKhachHang
+WHERE 
+    hd.TrangThai = 1
+GROUP BY 
+    hd.ID,hd.MaHD, kh.hoTen, kh.soDT, hd.tongGiaTriHoaDon, hd.TrangThai, hd.ngayTao, nv.hoTen;
+
+
+
+
+
+
+
+
+        
+		SELECT 
+    hd.ID AS id,
+	hd.MaHD AS MaHD,
+    kh.hoTen AS khachHangHoTen, 
+    kh.soDT AS khachHangSoDT, 
+    hd.tongGiaTriHoaDon AS tongGiaTri, 
+    hd.ngayTao AS ngayTao, 
+    nv.hoTen AS nhanVienHoTen
+FROM 
+    HoaDon hd
+INNER JOIN 
+    HoaDonCT hdct ON hdct.IDHoaDon = hd.ID
+RIGHT JOIN 
+    NhanVien nv ON nv.ID = hd.IDNhanVien
+LEFT JOIN 
+    KhachHang kh ON kh.ID = hd.IDKhachHang
+WHERE 
+    hd.TrangThai = 0
+GROUP BY 
+    hd.ID,hd.MaHD, kh.hoTen, kh.soDT, hd.tongGiaTriHoaDon, hd.ngayTao, nv.hoTen;
+
+
+
+
+
+
+
+		select * from SanPhamChiTiet
+
+
+
+
+		SELECT 
+    spct.ID, 
+    sp.TenSP AS tenSanPham, 
+    ncc.TenNhaCungCap AS tenThuongHieu,
+    sz.TenSize AS kichCo,
+    ms.TenMauSac AS tenMauSac, 
+    hdct.SoLuong AS soLuong,  
+    hdct.DonGia AS giaBan,
+    cl.TenChatLieu AS tenChatLieu, 
+    dd.TenDoDay AS tenDoDay,  
+    spct.TrangThai
+FROM 
+    SanPhamChiTiet spct
+INNER JOIN 
+    SanPham sp ON spct.IdSanPham = sp.ID
+INNER JOIN 
+    NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID
+INNER JOIN 
+    ChatLieu cl ON spct.IdChatLieu = cl.ID
+INNER JOIN 
+    DoDay dd ON spct.IdDoDay = dd.ID
+INNER JOIN 
+    Size sz ON spct.IdSize = sz.ID
+INNER JOIN 
+    MauSac ms ON spct.IdMauSac = ms.ID
+INNER JOIN 
+    HoaDonCT hdct ON hdct.IDCTSP = spct.ID
+INNER JOIN 
+    HoaDon hd ON hd.ID = hdct.IDHoaDon
+WHERE 
+    spct.TrangThai = 'Hien' AND hd.ID = 2;
+	
+
+
+
+
+	SELECT 
+	A.ID,
+    A.MaSPCT,
+    B.MaSP,
+    B.TenSP,
+  
+    A.GiaBan,
+    A.SoLuong,
+    G.TenDoDay,
+    E.TenSize,
+    F.TenChatLieu,
+    D.TenMauSac,
+    C.TenNhaCungCap,
+    A.TrangThai,
+    A.GiaNhap
+FROM 
+    SanPhamChiTiet A 
+LEFT JOIN 
+    SanPham B ON A.IdSanPham = B.ID
+LEFT JOIN 
+    NhaCungCap C ON A.IdNhaCungCap = C.ID 
+LEFT JOIN 
+    MauSac D ON A.IdMauSac = D.ID
+LEFT JOIN 
+    Size E ON A.IdSize = E.ID
+LEFT JOIN 
+    ChatLieu F ON A.IdChatLieu = F.ID
+LEFT JOIN 
+    DoDay G ON A.IdDoDay = G.ID
+	WHERE B.TenSP = 'Áo thun nam'
+	
+	
+	select * from KhachHang
+	
+	UPDATE SanPhamChiTiet SET MaSPCT = ?,SoLuong  = ?, IdSanPham = ?, IdMauSac = ?, IdSize = ?, IdChatLieu = ?,,IdDoDay=? IdNhaCungCap = ?, GiaBan = ?, GiaNhap = ?, TrangThai = ?,  WHERE ID = ?
+
+
+
+
+
+
+
+
+	SELECT 
+    spct.ID, 
+    sp.TenSP AS tenSanPham, 
+	
+    ncc.TenNhaCungCap AS tenThuongHieu,
+    sz.TenSize AS kichCo,
+    ms.TenMauSac AS tenMauSac, 
+    hdct.SoLuong AS soLuong,  
+    hdct.DonGia AS giaBan,
+    cl.TenChatLieu AS tenChatLieu, 
+    dd.TenDoDay AS tenDoDay,  
+    spct.TrangThai,
+	spct.MaSPCT
+	
+FROM 
+    SanPhamChiTiet spct
+LEFT JOIN 
+    SanPham sp ON spct.IdSanPham = sp.ID
+LEFT JOIN 
+    NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID
+LEFT JOIN 
+    ChatLieu cl ON spct.IdChatLieu = cl.ID
+LEFT JOIN 
+    DoDay dd ON spct.IdDoDay = dd.ID
+LEFT JOIN 
+    Size sz ON spct.IdSize = sz.ID
+LEFT JOIN 
+    MauSac ms ON spct.IdMauSac = ms.ID
+LEFT JOIN 
+    HoaDonCT hdct ON hdct.IDCTSP = spct.ID
+LEFT JOIN 
+    HoaDon hd ON hd.ID = hdct.IDHoaDon
+WHERE 
+    spct.HienThi = 'Hien' AND hd.MaHD ='HD006' ;
+
+
+
+
+
+
+SELECT MaKhachHang, HoTen, GioiTinh, SoDT, DiaChi FROM [dbo].[KhachHang] WHERE ID != 1
+
+SELECT ID, MaKhachHang,HoTen, GioiTinh, SoDT, DiaChi    FROM KhachHang
+SELECT kh.id, 
+       kh.MaKhachHang, 
+       kh.hoTen, 
+       kh.gioiTinh, 
+       kh.soDT, 
+        
+       kh.diaChi, 
+       
+       
+       hd.tongGiaTriHoaDon
+FROM KhachHang kh
+INNER JOIN HoaDon hd ON kh.id = hd.IDKhachHang
+
+WHERE hd.ID = 4
+GROUP BY kh.id, 
+         kh.MaKhachHang, 
+         kh.hoTen, 
+         kh.gioiTinh, 
+         kh.soDT, 
+        
+         kh.diaChi, 
+         
+         hd.tongGiaTriHoaDon;
+
+
+
+		SELECT 
+    hd.ID AS id, 
+    hd.MaHD AS MaHD,
+    kh.hoTen AS khachHangHoTen, 
+    kh.soDT AS khachHangSoDT, 
+    hd.tongGiaTriHoaDon AS tongGiaTri, 
+    hd.TrangThai AS TrangThai,
+    hd.ngayTao AS ngayTao, 
+    nv.hoTen AS nhanVienHoTen
+FROM 
+    HoaDon hd
+INNER JOIN 
+    NhanVien nv ON nv.ID = hd.IDNhanVien
+LEFT JOIN 
+    KhachHang kh ON kh.ID = hd.IDKhachHang
+WHERE 
+    hd.TrangThai = 1 AND kh.SoDT LIKE '%09%'
+GROUP BY 
+    hd.ID, hd.MaHD, kh.hoTen, kh.soDT, hd.tongGiaTriHoaDon, hd.TrangThai, hd.ngayTao, nv.hoTen;
+
+
+			
+			select * from KhachHang
+			SELECT kh.id, 
+       kh.MaKhachHang, 
+       kh.hoTen, 
+       kh.gioiTinh, 
+       kh.soDT, 
+       kh.diaChi, 
+       hd.tongGiaTriHoaDon
+FROM KhachHang kh
+INNER JOIN HoaDon hd ON kh.id = hd.IDKhachHang
+WHERE hd.MaHD = 'HD006';
+
+
+
+
+SELECT hd.ID, hd.MaHD, kh.hoTen
+FROM HoaDon hd
+LEFT JOIN KhachHang kh ON kh.ID = hd.IDKhachHang
+WHERE kh.hoTen = 'Phạm Thị Dung';
+
+SELECT * FROM NhanVien;
+
+SELECT 
+            hd.ID AS id, 
+            hd.MaHD AS MaHD,
+            kh.hoTen AS khachHangHoTen, 
+            kh.soDT AS khachHangSoDT, 
+            hd.tongGiaTriHoaDon AS tongGiaTri, 
+            hd.TrangThai AS TrangThai,
+            hd.ngayTao AS ngayTao, 
+            nv.hoTen AS nhanVienHoTen
+        FROM 
+            HoaDon hd
+        INNER JOIN 
+            NhanVien nv ON nv.ID = hd.IDNhanVien
+        LEFT JOIN 
+            KhachHang kh ON kh.ID = hd.IDKhachHang
+        WHERE 
+            hd.TrangThai = 1 AND kh.HoTen LIKE '%Phạm
+			'
+        GROUP BY 
+            hd.ID, hd.MaHD, kh.hoTen, kh.soDT, hd.tongGiaTriHoaDon, hd.TrangThai, hd.ngayTao, nv.hoTen;
+
+
+
+SELECT ID, MaVoucher, GiaTriVoucher, NgayBatDau, NgayKetThuc, SoLuong, MoTa, TrangThai FROM Voucher;
+
+SELECT * FROM HoaDon WHERE IDKhachHang IS NOT NULL;
+SELECT * FROM KhachHang WHERE hoTen IS NOT NULL;
+
+DELETE Voucher 
+
+WHERE 
+    MaVoucher = ;
+
+
+
+
+
