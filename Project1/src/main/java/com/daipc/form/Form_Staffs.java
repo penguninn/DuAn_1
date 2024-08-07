@@ -26,8 +26,10 @@ public class Form_Staffs extends javax.swing.JPanel {
 
     QuanLiTaiKhoan qltk = new QuanLiTaiKhoan();
     private ArrayList<NhanVien> listNV;
+    private ArrayList<NhanVien> result;
     private int i = -1;
     private String getMaNVCuoi = null;
+    private String keyword = null;
 
     public Form_Staffs() {
         initComponents();
@@ -46,7 +48,7 @@ public class Form_Staffs extends javax.swing.JPanel {
 //        panel_tk.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
         TableCustom.apply(jScrollPane1, TableCustom.TableType.DEFAULT);
         TableCustom.apply(jScrollPane2, TableCustom.TableType.DEFAULT);
-        txt_timkiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm theo số CCCD");
+        txt_timkiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm theo Mã, tên, cccd, tài khoản");
     }
 
     public void fillTable(ArrayList<NhanVien> listNV) {
@@ -95,36 +97,10 @@ public class Form_Staffs extends javax.swing.JPanel {
             }
 
             private void performSearch() {
-                String keyword = txt_timkiem.getText().trim();
-                ArrayList<NhanVien> result = qltk.searchNhanVien(keyword);
+                keyword = txt_timkiem.getText().trim();
+                result = qltk.searchNhanVien(keyword);
                 
                 fillTable(result);
-                
-//                DefaultTableModel modelDangLam = (DefaultTableModel) tbl_danglam.getModel();
-//                DefaultTableModel modelDaNghi = (DefaultTableModel) tbl_danghi.getModel();
-//
-//                modelDangLam.setRowCount(0);
-//                modelDaNghi.setRowCount(0);
-//
-//                int sttDangLam = 1;
-//                int sttDaNghi = 1;
-//
-//                for (NhanVien nv : result) {
-//                    if (nv.isTrangThai()) {
-//                        modelDangLam.addRow(new Object[]{
-//                            sttDangLam++, nv.getMaNhanVien(), nv.getHoTen(), nv.getCccd(), nv.getChucVu().equals("ql") ? "Quản lý" : "Nhân viên"
-//                        });
-//                    } else {
-//                        modelDaNghi.addRow(new Object[]{
-//                            sttDaNghi++, nv.getMaNhanVien(), nv.getHoTen(), nv.getCccd(), nv.getChucVu().equals("ql") ? "Quản lý" : "Nhân viên"
-//                        });
-//                    }
-//                }
-
-//                NhanVien nv = result.get(result.size() - 1);
-//
-//                getMaNVCuoi = nv.getMaNhanVien();
-//                i = result.size();
             }
         });
     }
@@ -790,10 +766,20 @@ public class Form_Staffs extends javax.swing.JPanel {
                 int check = new QuanLiTaiKhoan().updateTrangThai(txt_MaNV.getText(), false);
                 if (check != 0) {
                     this.fillTable(listNV);
+                    if(keyword != null) {
+                        result = qltk.searchNhanVien(keyword);
+                        System.out.println("keyword" + keyword);
+                        this.fillTable(result);
+                    }
                 }
             } else {
                 if (qltk.updateTrangThai(txt_MaNV.getText(), true) != 0) {
                     this.fillTable(listNV);
+                    if(keyword != null) {
+                        result = qltk.searchNhanVien(keyword);
+                        System.out.println("keyword" + keyword);
+                        this.fillTable(result);
+                    }
                 }
             }
         }
@@ -807,6 +793,11 @@ public class Form_Staffs extends javax.swing.JPanel {
                 if (qltk.update(this.readform(), txt_MaNV.getText()) != 0) {
                     JOptionPane.showMessageDialog(this, "Sửa thành công!");
                     this.fillTable(listNV);
+                    if(keyword != null) {
+                        result = qltk.searchNhanVien(keyword);
+                        System.out.println("keyword" + keyword);
+                        this.fillTable(result);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "Sửa thất bại!");
                 }
