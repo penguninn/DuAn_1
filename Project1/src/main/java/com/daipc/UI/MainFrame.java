@@ -15,6 +15,7 @@ import com.daipc.form.Form_Profile;
 import com.daipc.form.Form_Promotion;
 import com.daipc.form.Form_Sell;
 import com.daipc.form.Form_Staffs;
+import com.daipc.model.NhanVien;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -47,29 +48,31 @@ public class MainFrame extends javax.swing.JFrame {
     private Form_Refund Form_Refund;
     private Form_Profile Form_Profile;
     public static MainFrame mainFrame;
-    private String role = "";
+    private Login login;
+    private NhanVien nv = new NhanVien();
 
-    public MainFrame() {
+    public MainFrame(NhanVien nv) {
         initComponents();
         this.setLocationRelativeTo(null);
         layerPane.removeAll();
+        this.nv = nv;
         init();
         setContentPane(layerPane);
         revalidate();
         repaint();
+
     }
 
     public void init() {
         mlayout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         layerPane.setLayout(mlayout);
-
-        if (!role.equals("ql")) {
+        if (!nv.getChucVu().equals("ql")) {
             menu = new Menu(5);
         } else {
             menu = new Menu(-1);
         }
 
-        header = new Header(this);
+        header = new Header(this, nv.getHoTen());
         Form_Home = new Form_Home();
         Form_Products = new Form_Products(this);
         Form_Sell = new Form_Sell();
@@ -77,8 +80,9 @@ public class MainFrame extends javax.swing.JFrame {
         Form_Promotion = new Form_Promotion();
         Form_Staffs = new Form_Staffs();
         Form_Customer = new Form_Customer();
-        Form_Profile = new Form_Profile();
+        Form_Profile = new Form_Profile(nv);
         Form_Refund = new Form_Refund();
+        login = new Login();
 
         menu.initMoving(MainFrame.this);
         header.initMoving(MainFrame.this);
@@ -103,42 +107,47 @@ public class MainFrame extends javax.swing.JFrame {
             @Override
             public void selectedIndex(int index) {
                 System.out.println(index);
-                switch (index) {
-                    case 0:
-                        cardLayout.show(cardPanel, "Home");
-                        break;
-                    case 1:
-                        cardLayout.show(cardPanel, "Form_Products");
-                        break;
-                    case 2:
-                        cardLayout.show(cardPanel, "Form_Sell");
-                        break;
-                    case 3:
-                        cardLayout.show(cardPanel, "Form_Bill");
-                        break;
-                    case 4:
-                        cardLayout.show(cardPanel, "Form_Promotion");
-                        break;
-                    case 5:
-                        cardLayout.show(cardPanel, "Form_Staffs");
-                        break;
-                    case 6:
-                        cardLayout.show(cardPanel, "Form_Customer");
-                        break;
-                    case 7:
-                        cardLayout.show(cardPanel, "Form_Refund");
-                        break;
-                    case 11:
-                        cardLayout.show(cardPanel, "Form_Profile");
-                        break;
-                    case 12:
-
-                        break;
-                    default:
-//                        throw new AssertionError();
-                }
+                showForm(index);
             }
         });
+    }
+
+    public void showForm(int index) {
+        switch (index) {
+            case 0:
+                cardLayout.show(cardPanel, "Home");
+                break;
+            case 1:
+                cardLayout.show(cardPanel, "Form_Products");
+                break;
+            case 2:
+                cardLayout.show(cardPanel, "Form_Sell");
+                break;
+            case 3:
+                cardLayout.show(cardPanel, "Form_Bill");
+                break;
+            case 4:
+                cardLayout.show(cardPanel, "Form_Promotion");
+                break;
+            case 5:
+                cardLayout.show(cardPanel, "Form_Staffs");
+                break;
+            case 6:
+                cardLayout.show(cardPanel, "Form_Customer");
+                break;
+            case 7:
+                cardLayout.show(cardPanel, "Form_Refund");
+                break;
+            case 11:
+                cardLayout.show(cardPanel, "Form_Profile");
+                break;
+            case 12:
+                this.dispose();
+                login.setVisible(true);
+                break;
+            default:
+//                        throw new AssertionError();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -186,7 +195,7 @@ public class MainFrame extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
-            mainFrame = new MainFrame();
+            mainFrame = new MainFrame(null);
             mainFrame.setVisible(true);
         });
     }

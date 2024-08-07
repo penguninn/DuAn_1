@@ -406,11 +406,23 @@ VALUES
 
 
 
+INSERT INTO NhanVien ( HoTen, SoDT, CCCD, NgaySinh, ChucVu, GioiTinh, DiaChi, TaiKhoan, MatKhau, NgayTao, TrangThai)
+VALUES 
+(N'Nguyễn Văn An', '0901234567', '001234567890', '1990-01-01', N'nv', 1, N'456 Đường Nguyễn Trãi, Quận 5, TP.HCM', 'nva', '123', GETDATE(), 1)
+
+
+SELECT MaNhanVien, HoTen, SoDT, CCCD, NgaySinh, ChucVu, GioiTinh, DiaChi, TaiKhoan, MatKhau, NgayTao, TrangThai FROM NhanVien WHERE MaNhanVien = 'NV001';
+
+UPDATE NhanVien SET TrangThai = 1 WHERE MaNhanVien = 'nv025'
+
+select * from NhanVien where MaNhanVien = 'nv001'
 
 select hd.MaHD, kh.HoTen, hd.NguoiTao, hd.NgayTao, hd.TongGiaTriHoaDon, hd.TrangThai
 from hoadon hd
     inner join KhachHang kh on hd.IDKhachHang = kh.ID
 WHERE hd.TrangThai = 0
+
+
 
 SELECT
     spct.MaSPCT,

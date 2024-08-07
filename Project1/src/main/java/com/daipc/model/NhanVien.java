@@ -22,12 +22,11 @@ public class NhanVien {
     private String taiKhoan; // TaiKhoan
     private String matKhau; // MatKhau
     private Date ngayTao; // NgayTao
-    private Date ngaySua; // NgaySua
     private boolean trangThai; // TrangThai
 
     // Constructor
     public NhanVien(String maNhanVien, String hoTen, String soDT, String cccd, Date ngaySinh, String chucVu,
-                    boolean gioiTinh, String diaChi, String taiKhoan, String matKhau, Date ngayTao, Date ngaySua,
+                    boolean gioiTinh, String diaChi, String taiKhoan, String matKhau, Date ngayTao,
                     boolean trangThai) {
         this.maNhanVien = maNhanVien;
         this.hoTen = hoTen;
@@ -40,7 +39,22 @@ public class NhanVien {
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
         this.ngayTao = ngayTao;
-        this.ngaySua = ngaySua;
+        this.trangThai = trangThai;
+    }
+    
+    public NhanVien(String maNhanVien, String hoTen, String soDT, String cccd, Date ngaySinh, String chucVu,
+                    boolean gioiTinh, String diaChi, String taiKhoan, String matKhau,
+                    boolean trangThai) {
+        this.maNhanVien = maNhanVien;
+        this.hoTen = hoTen;
+        this.soDT = soDT;
+        this.cccd = cccd;
+        this.ngaySinh = ngaySinh;
+        this.chucVu = chucVu;
+        this.gioiTinh = gioiTinh;
+        this.diaChi = diaChi;
+        this.taiKhoan = taiKhoan;
+        this.matKhau = matKhau;
         this.trangThai = trangThai;
     }
 
@@ -48,6 +62,9 @@ public class NhanVien {
         this.chucVu = chucVu;
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
+    }
+
+    public NhanVien() {
     }
     
     
@@ -139,14 +156,6 @@ public class NhanVien {
 
     public void setNgayTao(Date ngayTao) {
         this.ngayTao = ngayTao;
-    }
-
-    public Date getNgaySua() {
-        return ngaySua;
-    }
-
-    public void setNgaySua(Date ngaySua) {
-        this.ngaySua = ngaySua;
     }
 
     public boolean isTrangThai() {
