@@ -6,6 +6,7 @@ package com.daipc.repo;
 
 import com.daipc.model.NhaCungCap;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -52,9 +53,9 @@ public class NhaCungCapRepo {
     }
     
     public int update(NhaCungCap NhaCc) {
-        String sql = "UPDATE NhaCungCap SET MaNhaCungCap = ?, TenNhaCungCap = ?, DiaChi = ?, LienHe = ? WHERE id = ?";
+        String sql = "UPDATE NhaCungCap SET TenNhaCungCap = ?, DiaChi = ?, LienHe = ? WHERE MaNhaCungCap = ?";
         try {
-            return dbHelper.executeUpdate(sql, NhaCc.getMaNhaCungCap(),NhaCc.getTenNhaCungCap(),NhaCc.getDiaChi(), NhaCc.getLienHe(), NhaCc.getId());
+            return dbHelper.executeUpdate(sql, NhaCc.getTenNhaCungCap(),NhaCc.getDiaChi(), NhaCc.getLienHe(), NhaCc.getMaNhaCungCap());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -79,5 +80,43 @@ public class NhaCungCapRepo {
             e.printStackTrace();
         }
       return list;
+    }
+    public String generateMaNhaCungCap() {
+        String sql = "SELECT MAX(CAST(SUBSTRING(MaNhaCungCap, 4, LEN(MaNhaCungCap) - 3) AS INT)) FROM NhaCungCap WHERE MaNhaCungCap LIKE 'NCC%'";
+        String ma = ""; // Khởi tạo với chuỗi rỗng
+
+        try (Connection conn = dbHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) {
+                ma = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Kiểm tra nếu maMauSac là chuỗi rỗng
+        int nextId = 1;
+        if (!ma.isEmpty()) {
+            nextId = Integer.parseInt(ma) + 1;
+        }
+
+        return String.format("NCC%03d", nextId);
+    }
+    
+    public int deleteByMa(String maNhaCungCap) {
+        String sql = "DELETE FROM NhaCungCap WHERE maNhaCungCap = ?";
+        try {
+            PreparedStatement ps = dbHelper.getConnection().prepareStatement(sql);
+            ps.setString(1, maNhaCungCap);
+            int row = ps.executeUpdate();
+            if (row > 0) {
+                return row;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

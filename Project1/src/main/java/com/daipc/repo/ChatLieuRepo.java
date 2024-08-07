@@ -6,6 +6,7 @@ package com.daipc.repo;
 
 import com.daipc.model.ChatLieu;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -50,9 +51,9 @@ public class ChatLieuRepo {
     }
     
     public int update(ChatLieu chatLieu) {
-        String sql = "UPDATE ChatLieu SET MaChatLieu = ?, TenChatLieu = ? WHERE id = ?";
+        String sql = "UPDATE ChatLieu SET TenChatLieu = ? WHERE MaChatLieu = ?";
         try {
-            return dbHelper.executeUpdate(sql, chatLieu.getMaChatLieu(), chatLieu.getTenChatLieu(), chatLieu.getId());
+            return dbHelper.executeUpdate(sql, chatLieu.getTenChatLieu(), chatLieu.getMaChatLieu());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,5 +78,43 @@ public class ChatLieuRepo {
             e.printStackTrace();
         }
         return list;
+    }
+    public String generateMaChatLieu() {
+        String sql = "SELECT MAX(CAST(SUBSTRING(MaChatLieu, 3, LEN(MaChatLieu) - 2) AS INT)) FROM ChatLieu WHERE MaChatLieu LIKE 'CL%'";
+        String ma = ""; // Khởi tạo với chuỗi rỗng
+
+        try (Connection conn = dbHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) {
+                ma = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Kiểm tra nếu maMauSac là chuỗi rỗng
+        int nextId = 1;
+        if (!ma.isEmpty()) {
+            nextId = Integer.parseInt(ma) + 1;
+        }
+
+        return String.format("CL%03d", nextId);
+    }
+    
+    public int deleteByMa(String maChatLieu) {
+        String sql = "DELETE FROM ChatLieu WHERE maChatLieu = ?";
+        try {
+            PreparedStatement ps = dbHelper.getConnection().prepareStatement(sql);
+            ps.setString(1, maChatLieu);
+            int row = ps.executeUpdate();
+            if (row > 0) {
+                return row;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

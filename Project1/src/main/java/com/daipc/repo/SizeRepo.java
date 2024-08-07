@@ -6,6 +6,7 @@ package com.daipc.repo;
 
 import com.daipc.model.Size;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -49,9 +50,9 @@ public class SizeRepo {
     }
     
     public int update(Size size) {
-        String sql = "UPDATE Size SET MaSize = ?, TenSize = ? WHERE id = ?";
+        String sql = "UPDATE Size SET TenSize = ? WHERE MaSize = ?";
         try {
-            return dbHelper.executeUpdate(sql, size.getMaSize(),size.getTenSize(), size.getId());
+            return dbHelper.executeUpdate(sql, size.getTenSize(), size.getMaSize());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,5 +77,43 @@ public class SizeRepo {
             e.printStackTrace();
         }
         return list;
+    }
+    public String generateMaSize() {
+        String sql = "SELECT MAX(CAST(SUBSTRING(MaSize, 3, LEN(MaSize) - 2) AS INT)) FROM Size WHERE MaSize LIKE 'SZ%'";
+        String ma = ""; // Khởi tạo với chuỗi rỗng
+
+        try (Connection conn = dbHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) {
+                ma = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Kiểm tra nếu maMauSac là chuỗi rỗng
+        int nextId = 1;
+        if (!ma.isEmpty()) {
+            nextId = Integer.parseInt(ma) + 1;
+        }
+
+        return String.format("SZ%03d", nextId);
+    }
+    
+    public int deleteByMa(String maSize) {
+        String sql = "DELETE FROM Size WHERE maSize = ?";
+        try {
+            PreparedStatement ps = dbHelper.getConnection().prepareStatement(sql);
+            ps.setString(1, maSize);
+            int row = ps.executeUpdate();
+            if (row > 0) {
+                return row;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

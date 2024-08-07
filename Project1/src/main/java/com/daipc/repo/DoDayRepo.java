@@ -7,6 +7,7 @@ package com.daipc.repo;
 import com.daipc.model.DoDay;
 import com.daipc.model.SanPham;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -52,9 +53,9 @@ public class DoDayRepo {
     }
     
     public int update(DoDay doDay) {
-        String sql = "UPDATE DoDay SET maDoDay = ?, tenDoDay = ? WHERE id = ?";
+        String sql = "UPDATE DoDay SET tenDoDay = ? WHERE maDoDay = ?";
         try {
-            return dbHelper.executeUpdate(sql, doDay.getMaDoDay(),doDay.getTenDoDay(), doDay.getId());
+            return dbHelper.executeUpdate(sql, doDay.getTenDoDay(), doDay.getMaDoDay());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -79,5 +80,44 @@ public class DoDayRepo {
             e.printStackTrace();
         }
         return list;
+    }
+    
+    public String generateMaDoDay() {
+        String sql = "SELECT MAX(CAST(SUBSTRING(MaDoDay, 3, LEN(MaDoDay) - 2) AS INT)) FROM DoDay WHERE MaDoDay LIKE 'DD%'";
+        String ma = ""; // Khởi tạo với chuỗi rỗng
+
+        try (Connection conn = dbHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) {
+                ma = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Kiểm tra nếu maMauSac là chuỗi rỗng
+        int nextId = 1;
+        if (!ma.isEmpty()) {
+            nextId = Integer.parseInt(ma) + 1;
+        }
+
+        return String.format("DD%03d", nextId);
+    }
+    
+    public int deleteByMa(String maDoDay) {
+        String sql = "DELETE FROM DoDay WHERE maDoDay = ?";
+        try {
+            PreparedStatement ps = dbHelper.getConnection().prepareStatement(sql);
+            ps.setString(1, maDoDay);
+            int row = ps.executeUpdate();
+            if (row > 0) {
+                return row;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
