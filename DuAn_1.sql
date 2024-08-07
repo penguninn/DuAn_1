@@ -1042,3 +1042,42 @@ VALUES (1, 1, 500000, 1, 1),
     (9, 8, 650000, 1, 2),
     (9, 9, 630000, 1, 1),
     (10, 10, 570000, 1, 1);
+
+use  DuAn1_Final
+select * from SanPhamChiTiet
+	
+SELECT 
+                    spct.id,
+                    spct.MaSPCT,
+                    spct.TenSPCT,
+                    spct.GiaBan,
+                    ms.TenMauSac,
+                    s.TenSize,
+                    cl.TenChatLieu,
+                    dd.TenDoDay,
+                    ncc.TenNhaCungCap,
+                    spct.SoLuong
+                FROM 
+                    SanPhamChiTiet spct
+                LEFT JOIN 
+                    SanPham sp ON spct.IdSanPham = sp.ID
+                LEFT JOIN 
+                    MauSac ms ON spct.IdMauSac = ms.ID
+                LEFT JOIN 
+                    Size s ON spct.IdSize = s.ID
+                LEFT JOIN 
+                    ChatLieu cl ON spct.IdChatLieu = cl.ID
+                LEFT JOIN 
+                    DoDay dd ON spct.IdDoDay = dd.ID
+                LEFT JOIN 
+                    NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID
+                WHERE spct.hienthi = 'hien'
+                ORDER BY spct.SoLuong asc
+
+SELECT 
+    (SELECT COUNT(*) FROM HoaDon) AS TotalOrders,
+    (SELECT SUM(TongGiaTriHoaDon) FROM HoaDon) AS TotalRevenue,
+    (SELECT SUM(SoLuong * GiaNhap) FROM SanPhamChiTiet) AS TotalCost,
+    (SELECT SUM(TongGiaTriHoaDon) FROM HoaDon) - (SELECT SUM(SoLuong * GiaNhap) FROM SanPhamChiTiet) AS TotalProfit
+
+

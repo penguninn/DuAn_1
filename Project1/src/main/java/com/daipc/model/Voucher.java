@@ -29,6 +29,10 @@ public class Voucher {
         this.soLuong = soLuong;
         this.moTa = moTa;
     }
+    
+    public Object[] getObj() {
+        return new Object[]{id, maVoucher, giaTriVoucher, ngayBatDau, ngayKetThuc, soLuong, moTa};
+    }
 
     public int getId() {
         return id;

@@ -40,11 +40,11 @@ public class Card extends javax.swing.JPanel {
 
         lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/daipc/icon/stock.png"))); // NOI18N
 
-        lblTitle.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setText("Title");
 
-        lblPrice.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        lblPrice.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         lblPrice.setForeground(new java.awt.Color(255, 255, 255));
         lblPrice.setText("Price");
 
@@ -67,7 +67,7 @@ public class Card extends javax.swing.JPanel {
                             .addComponent(lblPrice)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTitle)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                                 .addComponent(lblIcon)))
                         .addGap(20, 20, 20))))
         );

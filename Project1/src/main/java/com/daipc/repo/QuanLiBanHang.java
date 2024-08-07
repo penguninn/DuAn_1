@@ -45,7 +45,8 @@ public class QuanLiBanHang {
                                 hd.TrangThai,
                                 COALESCE(SUM(CASE WHEN hdct.TrangThai = 1 THEN hdct.SoLuong * hdct.DonGia ELSE 0 END), 0) AS TongTien,
                                 kh.sodt,
-                                hd.ghiCHu
+                                hd.ghiCHu,
+                                vc.mota
                             FROM
                                 hoadon hd
                                 INNER JOIN KhachHang kh ON hd.IDKhachHang = kh.ID
@@ -65,7 +66,8 @@ public class QuanLiBanHang {
                                 hd.TrangThai,
                                 kh.sodt,
                                 pttt.TenPhuongThucTT,
-                                hd.ghiCHu
+                                hd.ghiCHu,
+                                vc.mota
                         """;
         List<HoaDonCho> listHD = new ArrayList<>();
         try {
@@ -84,7 +86,8 @@ public class QuanLiBanHang {
                                 rs.getInt(9),
                                 rs.getBigDecimal(10),
                                 rs.getString(11),
-                                rs.getString(12)
+                                rs.getString(12),
+                                rs.getString(13)
                         )
                 );
             }
@@ -160,36 +163,87 @@ public class QuanLiBanHang {
         return listGH;
     }
 
-    public List<ChiTietSP> selectAllSPCT() {
+    public List<ChiTietSP> selectAllSPCT(int column, int sort) {
         dBHelper = new JDBCHelper();
-        String sqlQuery = """
-                            SELECT 
-                                spct.id,
-                                spct.MaSPCT,
-                                spct.TenSPCT,
-                                spct.GiaBan,
-                                ms.TenMauSac,
-                                s.TenSize,
-                                cl.TenChatLieu,
-                                dd.TenDoDay,
-                                ncc.TenNhaCungCap,
-                                spct.SoLuong
-                            FROM 
-                                SanPhamChiTiet spct
-                            LEFT JOIN 
-                                SanPham sp ON spct.IdSanPham = sp.ID
-                            LEFT JOIN 
-                                MauSac ms ON spct.IdMauSac = ms.ID
-                            LEFT JOIN 
-                                Size s ON spct.IdSize = s.ID
-                            LEFT JOIN 
-                                ChatLieu cl ON spct.IdChatLieu = cl.ID
-                            LEFT JOIN 
-                                DoDay dd ON spct.IdDoDay = dd.ID
-                            LEFT JOIN 
-                                NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID
-                            where spct.hienthi = 'hien'
-                         """;
+
+        // Xác định tên cột để sắp xếp dựa trên số cột (column) được truyền vào
+        String[] columnNames = {
+            "spct.MaSPCT",
+            "spct.TenSPCT",
+            "spct.GiaBan",
+            "ms.TenMauSac",
+            "s.TenSize",
+            "cl.TenChatLieu",
+            "dd.TenDoDay",
+            "spct.SoLuong"
+        };
+        if (column < 0 || column >= columnNames.length) {
+            throw new IllegalArgumentException("Invalid column index");
+        }
+        String sqlQuery;
+        if (sort == 0) {
+            sqlQuery = """
+                SELECT 
+                    spct.id,
+                    spct.MaSPCT,
+                    spct.TenSPCT,
+                    spct.GiaBan,
+                    ms.TenMauSac,
+                    s.TenSize,
+                    cl.TenChatLieu,
+                    dd.TenDoDay,
+                    ncc.TenNhaCungCap,
+                    spct.SoLuong
+                FROM 
+                    SanPhamChiTiet spct
+                LEFT JOIN 
+                    SanPham sp ON spct.IdSanPham = sp.ID
+                LEFT JOIN 
+                    MauSac ms ON spct.IdMauSac = ms.ID
+                LEFT JOIN 
+                    Size s ON spct.IdSize = s.ID
+                LEFT JOIN 
+                    ChatLieu cl ON spct.IdChatLieu = cl.ID
+                LEFT JOIN 
+                    DoDay dd ON spct.IdDoDay = dd.ID
+                LEFT JOIN 
+                    NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID
+                WHERE spct.hienthi = 'hien'
+                """;
+        } else {
+            // Xây dựng câu lệnh SQL với sắp xếp động
+            String orderDirection = (sort == 1) ? "ASC" : "DESC";
+            sqlQuery = String.format("""
+                SELECT 
+                    spct.id,
+                    spct.MaSPCT,
+                    spct.TenSPCT,
+                    spct.GiaBan,
+                    ms.TenMauSac,
+                    s.TenSize,
+                    cl.TenChatLieu,
+                    dd.TenDoDay,
+                    ncc.TenNhaCungCap,
+                    spct.SoLuong
+                FROM 
+                    SanPhamChiTiet spct
+                LEFT JOIN 
+                    SanPham sp ON spct.IdSanPham = sp.ID
+                LEFT JOIN 
+                    MauSac ms ON spct.IdMauSac = ms.ID
+                LEFT JOIN 
+                    Size s ON spct.IdSize = s.ID
+                LEFT JOIN 
+                    ChatLieu cl ON spct.IdChatLieu = cl.ID
+                LEFT JOIN 
+                    DoDay dd ON spct.IdDoDay = dd.ID
+                LEFT JOIN 
+                    NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID
+                WHERE spct.hienthi = 'hien'
+                ORDER BY %s %s
+                """, columnNames[column], orderDirection);
+        }
+
         List<ChiTietSP> listSPCT = new ArrayList<>();
         try {
             ResultSet rs = dBHelper.executeQuery(sqlQuery);
@@ -241,16 +295,16 @@ public class QuanLiBanHang {
         return listKH;
     }
 
-    public List<Voucher> getAllVoucher() {
+    public Voucher getVoucher(String maVoucher) {
         dBHelper = new JDBCHelper();
-        List<Voucher> listVoucher = new ArrayList<>();
+        Voucher vc = new Voucher();
         String sqlQuery = """
-                            select * from Voucher where GETDATE() <= NgayKetThuc and SoLuong > 0
+                            select * from Voucher where GETDATE() <= NgayKetThuc and SoLuong > 0 and MaVoucher like ?
                           """;
         try {
-            ResultSet rs = dBHelper.executeQuery(sqlQuery);
+            ResultSet rs = dBHelper.executeQuery(sqlQuery, maVoucher);
             while (rs.next()) {
-                listVoucher.add(new Voucher(
+                vc = (new Voucher(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getDouble(3),
@@ -262,9 +316,9 @@ public class QuanLiBanHang {
             }
         } catch (Exception e) {
         }
-        return listVoucher;
+        return vc;
     }
-    
+
     public List<PhuongThucTT> getAllPhuongThucTT() {
         dBHelper = new JDBCHelper();
         List<PhuongThucTT> listPTTT = new ArrayList<>();
@@ -285,10 +339,6 @@ public class QuanLiBanHang {
         return listPTTT;
     }
 
-//    public ChiTietSP getSanPham() {
-//        
-//    }
-    
     public TrangThaiCRUD update(String sqlQuery, Object... params) {
         dBHelper = new JDBCHelper();
         try {

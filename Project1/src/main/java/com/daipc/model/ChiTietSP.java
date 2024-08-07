@@ -46,7 +46,7 @@ public class ChiTietSP {
         this.trangThai = trangThai;
     }
 
-    public ChiTietSP(int id, String maCTSP, String tenSPCT, BigDecimal giaBan, String tenNhaCungCap, String tenMauSac, String tenSize, String tenChatLieu, String tenDoDay, int soLuong) {
+    public ChiTietSP(int id, String maCTSP, String tenSPCT, BigDecimal giaBan, String tenMauSac, String tenSize, String tenChatLieu, String tenDoDay, String tenNhaCungCap , int soLuong) {
         this.id = id;
         this.maCTSP = maCTSP;
         this.tenSPCT = tenSPCT;
@@ -60,7 +60,7 @@ public class ChiTietSP {
     }
     
     public Object[] getSPCT() {
-        return new Object[] {maCTSP, tenSPCT, giaBan, tenMauSac, tenSize, tenChatLieu, tenDoDay, tenNhaCungCap, soLuong};
+        return new Object[] {maCTSP, tenSPCT, giaBan, tenMauSac, tenSize, tenChatLieu, tenDoDay, soLuong};
     }
     
     public int getId() {

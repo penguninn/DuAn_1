@@ -16,6 +16,7 @@ public class HoaDonCho {
     private String tenKhachHang;
     private String nguoiTao;
     private String voucher;
+    private String thongTinVoucher;
     private BigDecimal thanhToan;
     private String ngayTao;
     private int TrangThai;
@@ -27,7 +28,7 @@ public class HoaDonCho {
     public HoaDonCho() {
     }
 
-    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String voucher, BigDecimal thanhToan, String hinhThucTT, String ngayTao, int TrangThai, BigDecimal tong, String SDT, String ghiChu) {
+    public HoaDonCho(int id, String maHD, String tenKhachHang, String nguoiTao, String voucher, BigDecimal thanhToan, String hinhThucTT, String ngayTao, int TrangThai, BigDecimal tong, String SDT, String ghiChu, String thongTinVoucher) {
         this.id = id;
         this.maHD = maHD;
         this.tenKhachHang = tenKhachHang;
@@ -40,6 +41,15 @@ public class HoaDonCho {
         this.SDT = SDT;
         this.hinhThucTT = hinhThucTT;
         this.ghiChu = ghiChu;
+        this.thongTinVoucher = thongTinVoucher;
+    }
+
+    public String getThongTinVoucher() {
+        return thongTinVoucher;
+    }
+
+    public void setThongTinVoucher(String thongTinVoucher) {
+        this.thongTinVoucher = thongTinVoucher;
     }
 
     public String getGhiChu() {

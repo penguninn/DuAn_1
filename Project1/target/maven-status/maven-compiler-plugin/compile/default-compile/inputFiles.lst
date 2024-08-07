@@ -10,6 +10,7 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\blankchart\SeriesS
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\customTable\PanelBtnDeleteCellEditor.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\searchbar\DataSearch.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\enumm\TrangThai.java
+C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\QuanLiThongKe.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\component\Menu.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\DoDay.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\UI\PanelChart.java
@@ -36,6 +37,7 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\Voucher.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\SizeRepo.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Form_Profile.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\ProductDetaisDAO.java
+C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\ThongKe.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\ScrollBar\ModernScrollBarUI.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\KhachHang.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\swing\MaterialTabbed.java
@@ -99,5 +101,6 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\UI\MainFrame.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\chart\ModelChart.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\chart\LegendItem.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\MauSacRepo.java
+C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\customTable\HeaderRenderer.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\textfield\PasswordField.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\UI\Header.java

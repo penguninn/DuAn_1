@@ -93,7 +93,7 @@ public class Form_Products extends javax.swing.JPanel {
         }
     };
 
-    DefaultTableModel modelSPCT = new DefaultTableModel(new String[]{"", "Mã Sản Phẩm Chi Tiết", "Mã Sản Phẩm", "Tên Sản Phẩm", "Tên Sản Phẩm Chi Tiết",
+    DefaultTableModel modelSPCT = new DefaultTableModel(new String[]{"Mã Sản Phẩm Chi Tiết", "Mã Sản Phẩm", "Tên Sản Phẩm", "Tên Sản Phẩm Chi Tiết",
         "Giá Bán", "Giá Nhập", "Số Lượng", "Nhà Cung Cấp  ", "Chất Liệu", "Màu sắc",
         "Size", "Độ Dày", "Trạng Thái"}, 10) {
         @Override
@@ -437,7 +437,9 @@ public class Form_Products extends javax.swing.JPanel {
                         .addGap(50, 50, 50)
                         .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTenSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
-                            .addComponent(txtMaSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtMaSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelInfoProductsLayout.createSequentialGroup()
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
@@ -447,8 +449,6 @@ public class Form_Products extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(62, 62, 62)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollMoTa, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                 .addGap(192, 192, 192))
         );
@@ -1861,7 +1861,6 @@ public class Form_Products extends javax.swing.JPanel {
         Pattern pattern = Pattern.compile(patternString);
         Matcher matcher = pattern.matcher(text);
         if (matcher.matches()) {
-            System.out.println("SPCT");
             int id = 0;
             for (ChiTietSP sp : listCTSP) {
                 if (sp.getMaCTSP().equals(text)) {
@@ -1874,7 +1873,6 @@ public class Form_Products extends javax.swing.JPanel {
             }
         } else {
             int id = 0;
-            System.out.println("TenSP");
             for (ChiTietSP sp : listCTSP) {
                 if (sp.getTenSP().equals(text)) {
                     selectedRow.put("SPCT", id);
@@ -1893,7 +1891,7 @@ public class Form_Products extends javax.swing.JPanel {
         List<DataSearch> list = new ArrayList<>();
         for (ChiTietSP sp : listCTSP) {
             if (sp.getTenSP().toLowerCase().contains(search)) {
-                list.add(new DataSearch(sp.getTenSP()));
+                list.add(new DataSearch(sp.getTenSPCT()));
                 if (list.size() == limitData) {
                     break;
                 }
@@ -2938,7 +2936,6 @@ public class Form_Products extends javax.swing.JPanel {
         modelCTSP.setRowCount(0);
         for (ChiTietSP ctsp : listCTSP) {
             modelCTSP.addRow(new Object[]{
-                ctsp.getId(),
                 ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
                 ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
             });
@@ -3104,24 +3101,24 @@ public class Form_Products extends javax.swing.JPanel {
     }
 
     private void showDetailsCTSP(int row) {
-        String maCTSP = tblDetailsProducts.getValueAt(row, 1).toString();
-        String MaSP = tblDetailsProducts.getValueAt(row, 2).toString();
-        String TenSp = tblDetailsProducts.getValueAt(row, 3).toString();
-        String MoTa = tblDetailsProducts.getValueAt(row, 4).toString();
-        String GiaBan = tblDetailsProducts.getValueAt(row, 5).toString();
-        String GiaNhap = tblDetailsProducts.getValueAt(row, 6).toString();
-        String SoLuong = tblDetailsProducts.getValueAt(row, 7).toString();
-        String tenDD = tblDetailsProducts.getValueAt(row, 12).toString();
-        String tenSize = tblDetailsProducts.getValueAt(row, 11).toString();
-        String CL = tblDetailsProducts.getValueAt(row, 9).toString();
-        String mauSac = tblDetailsProducts.getValueAt(row, 10).toString();
-        String NCC = tblDetailsProducts.getValueAt(row, 8).toString();
-        String trangThai = tblDetailsProducts.getValueAt(row, 13).toString();
+        String maCTSP = tblDetailsProducts.getValueAt(row, 0).toString();
+        String MaSP = tblDetailsProducts.getValueAt(row, 1).toString();
+        String TenSp = tblDetailsProducts.getValueAt(row, 2).toString();
+        String TenSPCT = tblDetailsProducts.getValueAt(row, 3).toString();
+        String GiaBan = tblDetailsProducts.getValueAt(row, 4).toString();
+        String GiaNhap = tblDetailsProducts.getValueAt(row, 5).toString();
+        String SoLuong = tblDetailsProducts.getValueAt(row, 6).toString();
+        String tenDD = tblDetailsProducts.getValueAt(row, 11).toString();
+        String tenSize = tblDetailsProducts.getValueAt(row, 10).toString();
+        String CL = tblDetailsProducts.getValueAt(row, 8).toString();
+        String mauSac = tblDetailsProducts.getValueAt(row, 9).toString();
+        String NCC = tblDetailsProducts.getValueAt(row, 7).toString();
+        String trangThai = tblDetailsProducts.getValueAt(row, 12).toString();
         txt_MSPCT.setText(maCTSP);
         txt_Soluong.setText(SoLuong);
         txt_GiaBan.setText(GiaBan);
         txt_GiaNhap.setText(GiaNhap);
-        txt_TenSPCT.setText(MoTa);
+        txt_TenSPCT.setText(TenSPCT);
 
         cbb_SP.setSelectedItem(TenSp);
         cbb_Size.setSelectedItem(tenSize);
