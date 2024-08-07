@@ -6,6 +6,7 @@ package com.daipc.repo;
 
 import com.daipc.model.NhanVien;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -119,18 +120,18 @@ public class QuanLiTaiKhoan {
         }
     }
     
-    public NhanVien checkTrung(String MaNVMoi) {
+    public NhanVien checkTrung(String table, String Ma) {
         dbHelper = new JDBCHelper();
-        sql = "SELECT ChucVu, TaiKhoan, MatKhau FROM NhanVien WHERE MaNhanVien = ?";
+        sql = "SELECT MaNhanVien, CCCD FROM NhanVien WHERE " + table + " = ?";
         NhanVien nv = null;
         
         try {
-            ResultSet rs = dbHelper.executeQuery(sql, MaNVMoi);
+            ResultSet rs = dbHelper.executeQuery(sql, Ma);
             
             while(rs.next()) {
-                nv = new NhanVien(rs.getString("ChucVu"), 
-                        rs.getString("TaiKhoan"), 
-                        rs.getString("MatKhau"));
+                nv = new NhanVien(rs.getString("MaNhanVien"), 
+                        rs.getString("CCCD")
+                );
             }
             
             return nv;
@@ -195,5 +196,45 @@ public class QuanLiTaiKhoan {
             e.printStackTrace();
             return 0;
         }
+    }
+    
+    public ArrayList<NhanVien> searchNhanVien(String keyword) {
+        ArrayList<NhanVien> listNV = new ArrayList<>();
+        String sql = "SELECT MaNhanVien, HoTen, SoDT, CCCD, NgaySinh, ChucVu, GioiTinh, DiaChi, TaiKhoan, MatKhau, NgayTao, TrangThai "
+                   + "FROM NhanVien "
+                   + "WHERE MaNhanVien LIKE ? OR HoTen LIKE ? OR CCCD LIKE ? OR TaiKhoan LIKE ?";
+
+        try {
+            PreparedStatement stmt = dbHelper.getConnection().prepareStatement(sql);
+            stmt.setString(1, "%" + keyword + "%");
+            stmt.setString(2, "%" + keyword + "%");
+            stmt.setString(3, "%" + keyword + "%");
+            stmt.setString(4, "%" + keyword + "%");
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                NhanVien nv = new NhanVien();
+                nv.setMaNhanVien(rs.getString("MaNhanVien"));
+                nv.setHoTen(rs.getString("HoTen"));
+                nv.setSoDT(rs.getString("SoDT"));
+                nv.setCccd(rs.getString("CCCD"));
+                nv.setNgaySinh(rs.getDate("NgaySinh"));
+                nv.setChucVu(rs.getString("ChucVu"));
+                nv.setGioiTinh(rs.getBoolean("GioiTinh"));
+                nv.setDiaChi(rs.getString("DiaChi"));
+                nv.setTaiKhoan(rs.getString("TaiKhoan"));
+                nv.setMatKhau(rs.getString("MatKhau"));
+                nv.setNgayTao(rs.getDate("NgayTao"));
+                nv.setTrangThai(rs.getBoolean("TrangThai"));
+                
+                listNV.add(nv);
+            }
+            dbHelper.closeResultSet(rs);
+            dbHelper.closeStatement(stmt);
+            dbHelper.closeConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listNV;
     }
 }
