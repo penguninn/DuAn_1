@@ -7,12 +7,15 @@ package com.daipc.form;
 import com.daipc.model.NhanVien;
 import com.daipc.repo.QuanLiTaiKhoan;
 import com.daipc.table.TableCustom;
+import com.formdev.flatlaf.FlatClientProperties;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class Form_Staffs extends javax.swing.JPanel {
 
     QuanLiTaiKhoan qltk = new QuanLiTaiKhoan();
-    private ArrayList<NhanVien> dataNV;
+    private ArrayList<NhanVien> listNV;
     private int i = -1;
     private String getMaNVCuoi = null;
 
@@ -30,18 +33,23 @@ public class Form_Staffs extends javax.swing.JPanel {
         initComponents();
 
         this.init();
-        this.fillTable();
+        
+        ArrayList<NhanVien> listNV = qltk.getAccount();
+        this.fillTable(listNV);
+        this.search();
+
+        this.showData(tbl_danglam, 0);
+        tbl_danglam.setRowSelectionInterval(0, 0);
     }
 
     public void init() {
 //        panel_tk.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
         TableCustom.apply(jScrollPane1, TableCustom.TableType.DEFAULT);
         TableCustom.apply(jScrollPane2, TableCustom.TableType.DEFAULT);
-
+        txt_timkiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm theo số CCCD");
     }
 
-    public void fillTable() {
-        ArrayList<NhanVien> listNV = qltk.getAccount();
+    public void fillTable(ArrayList<NhanVien> listNV) {
         DefaultTableModel modelDangLam = (DefaultTableModel) tbl_danglam.getModel();
         DefaultTableModel modelDaNghi = (DefaultTableModel) tbl_danghi.getModel();
 
@@ -66,6 +74,59 @@ public class Form_Staffs extends javax.swing.JPanel {
         NhanVien nv = listNV.get(listNV.size() - 1);
 
         getMaNVCuoi = nv.getMaNhanVien();
+        i = listNV.size();
+    }
+    
+    public void search() {
+        txt_timkiem.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                performSearch();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                performSearch();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                performSearch();
+            }
+
+            private void performSearch() {
+                String keyword = txt_timkiem.getText().trim();
+                ArrayList<NhanVien> result = qltk.searchNhanVien(keyword);
+                
+                fillTable(result);
+                
+//                DefaultTableModel modelDangLam = (DefaultTableModel) tbl_danglam.getModel();
+//                DefaultTableModel modelDaNghi = (DefaultTableModel) tbl_danghi.getModel();
+//
+//                modelDangLam.setRowCount(0);
+//                modelDaNghi.setRowCount(0);
+//
+//                int sttDangLam = 1;
+//                int sttDaNghi = 1;
+//
+//                for (NhanVien nv : result) {
+//                    if (nv.isTrangThai()) {
+//                        modelDangLam.addRow(new Object[]{
+//                            sttDangLam++, nv.getMaNhanVien(), nv.getHoTen(), nv.getCccd(), nv.getChucVu().equals("ql") ? "Quản lý" : "Nhân viên"
+//                        });
+//                    } else {
+//                        modelDaNghi.addRow(new Object[]{
+//                            sttDaNghi++, nv.getMaNhanVien(), nv.getHoTen(), nv.getCccd(), nv.getChucVu().equals("ql") ? "Quản lý" : "Nhân viên"
+//                        });
+//                    }
+//                }
+
+//                NhanVien nv = result.get(result.size() - 1);
+//
+//                getMaNVCuoi = nv.getMaNhanVien();
+//                i = result.size();
+            }
+        });
     }
 
     public String handleMaMoi() {
@@ -75,6 +136,122 @@ public class Form_Staffs extends javax.swing.JPanel {
         String newMaNV = "NV" + String.format("%03d", number);
         return newMaNV;
     }
+    
+        public void showData(JTable table, int i) {
+        listNV = qltk.getDataNV(table.getValueAt(i, 1).toString());
+        NhanVien nv = listNV.get(0);
+
+        txt_MaNV.setText(nv.getMaNhanVien());
+        txt_NgayTao.setText(nv.getNgayTao().toString());
+        if (nv.getChucVu().equals("ql")) {
+            rdo_ql.setSelected(true);
+        } else {
+            rdo_nv.setSelected(true);
+        }
+        if (nv.isTrangThai()) {
+            rdo_danglam.setSelected(true);
+        } else {
+            rdo_danghi.setSelected(true);
+        }
+        txt_tk.setText(nv.getTaiKhoan());
+        txt_mk.setText(nv.getMatKhau());
+        txt_hoTen.setText(nv.getHoTen());
+        txt_ngaySinh.setText(nv.getNgaySinh().toString());
+        if (nv.isGioiTinh()) {
+            rdo_nam.setSelected(true);
+        } else {
+            rdo_nu.setSelected(true);
+        }
+        txt_sdt.setText(nv.getSoDT());
+        txt_cccd.setText(nv.getCccd());
+        txt_diachi.setText(nv.getDiaChi());
+
+        if (rdo_danglam.isSelected()) {
+            btn_xoa.setText("Xoá");
+        } else if (rdo_danghi.isSelected()) {
+            btn_xoa.setText("Hiện");
+        }
+    }
+
+    public boolean isEmpty() {
+        if (txt_tk.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Trường Tài khoản không được trống!");
+            return false;
+        }
+        if (txt_mk.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Trường Mật khẩu không được trống!");
+            return false;
+        }
+        if (txt_hoTen.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Trường Họ tên không được trống!");
+            return false;
+        }
+        if (txt_ngaySinh.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Trường Ngày sinh không được trống!");
+            return false;
+        }
+        if (txt_sdt.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Trường SĐT không được trống!");
+            return false;
+        }
+        if (txt_cccd.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Trường CCCD không được trống!");
+            return false;
+        }
+        if (txt_diachi.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Trường Địa chỉ không được trống!");
+            return false;
+        }
+        return true;
+    }
+
+    public NhanVien readform() {
+        String manv = handleMaMoi();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date ngaySinh = null;
+
+        try {
+            ngaySinh = formatter.parse(txt_ngaySinh.getText().trim());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String cv;
+        if (rdo_ql.isSelected()) {
+            cv = "ql";
+        } else {
+            cv = "nv";
+        }
+
+        boolean gt;
+        if (rdo_nam.isSelected()) {
+            gt = true;
+        } else {
+            gt = false;
+        }
+
+        boolean tt;
+        if (rdo_danglam.isSelected()) {
+            tt = true;
+        } else {
+            tt = false;
+        }
+
+        return new NhanVien(manv,
+                txt_hoTen.getText().trim(),
+                txt_sdt.getText().trim(),
+                txt_cccd.getText().trim(),
+                ngaySinh,
+                cv,
+                gt,
+                txt_diachi.getText().trim(),
+                txt_tk.getText().trim(),
+                txt_mk.getText().trim(),
+                tt
+        );
+    }
+
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -85,8 +262,7 @@ public class Form_Staffs extends javax.swing.JPanel {
         bgr_tt = new javax.swing.ButtonGroup();
         panelBorder1 = new com.daipc.swing.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
-        myTextField1 = new com.daipc.searchbar.MyTextField();
-        button1 = new com.daipc.swing.Button();
+        txt_timkiem = new com.daipc.searchbar.MyTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_danglam = new javax.swing.JTable();
@@ -135,8 +311,6 @@ public class Form_Staffs extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel1.setText("QUẢN LÝ NHÂN VIÊN");
-
-        button1.setText("Tìm Kiếm");
 
         tbl_danglam.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -203,13 +377,11 @@ public class Form_Staffs extends javax.swing.JPanel {
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(myTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addComponent(txt_timkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelBorder1Layout.setVerticalGroup(
@@ -218,8 +390,7 @@ public class Form_Staffs extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(myTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_timkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -233,6 +404,8 @@ public class Form_Staffs extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
         jLabel2.setText("Tài khoản");
+
+        txt_MaNV.setEditable(false);
 
         jLabel5.setText("Ngày tạo:");
 
@@ -505,10 +678,10 @@ public class Form_Staffs extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(panelBorder2Layout.createSequentialGroup()
-                        .addComponent(btn_sua, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBorder2Layout.createSequentialGroup()
+                        .addComponent(btn_sua, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_xoa, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_xoa, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_them, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(146, 146, 146))
             .addGroup(panelBorder2Layout.createSequentialGroup()
@@ -563,119 +736,8 @@ public class Form_Staffs extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void showData(JTable table, int i) {
-        dataNV = qltk.getDataNV(table.getValueAt(i, 1).toString());
-        NhanVien nv = dataNV.get(0);
 
-        txt_MaNV.setText(nv.getMaNhanVien());
-        txt_NgayTao.setText(nv.getNgayTao().toString());
-        if (nv.getChucVu().equals("ql")) {
-            rdo_ql.setSelected(true);
-        } else {
-            rdo_nv.setSelected(true);
-        }
-        if (nv.isTrangThai()) {
-            rdo_danglam.setSelected(true);
-        } else {
-            rdo_danghi.setSelected(true);
-        }
-        txt_tk.setText(nv.getTaiKhoan());
-        txt_mk.setText(nv.getMatKhau());
-        txt_hoTen.setText(nv.getHoTen());
-        txt_ngaySinh.setText(nv.getNgaySinh().toString());
-        if (nv.isGioiTinh()) {
-            rdo_nam.setSelected(true);
-        } else {
-            rdo_nu.setSelected(true);
-        }
-        txt_sdt.setText(nv.getSoDT());
-        txt_cccd.setText(nv.getCccd());
-        txt_diachi.setText(nv.getDiaChi());
 
-        if (rdo_danglam.isSelected()) {
-            btn_xoa.setText("Đã nghỉ");
-        } else if (rdo_danghi.isSelected()) {
-            btn_xoa.setText("Đang làm");
-        }
-    }
-
-    public boolean isEmpty() {
-        if (txt_tk.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Trường Tài khoản không được trống!");
-            return false;
-        }
-        if (txt_mk.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Trường Mật khẩu không được trống!");
-            return false;
-        }
-        if (txt_hoTen.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Trường Họ tên không được trống!");
-            return false;
-        }
-        if (txt_ngaySinh.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Trường Ngày sinh không được trống!");
-            return false;
-        }
-        if (txt_sdt.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Trường SĐT không được trống!");
-            return false;
-        }
-        if (txt_cccd.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Trường CCCD không được trống!");
-            return false;
-        }
-        if (txt_diachi.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Trường Địa chỉ không được trống!");
-            return false;
-        }
-        return true;
-    }
-
-    public NhanVien readform() {
-        String manv = handleMaMoi();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date ngaySinh = null;
-
-        try {
-            ngaySinh = formatter.parse(txt_ngaySinh.getText().trim());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        String cv;
-        if (rdo_ql.isSelected()) {
-            cv = "ql";
-        } else {
-            cv = "nv";
-        }
-
-        boolean gt;
-        if (rdo_nam.isSelected()) {
-            gt = true;
-        } else {
-            gt = false;
-        }
-
-        boolean tt;
-        if (rdo_danglam.isSelected()) {
-            tt = true;
-        } else {
-            tt = false;
-        }
-
-        return new NhanVien(manv,
-                txt_hoTen.getText().trim(),
-                txt_sdt.getText().trim(),
-                txt_cccd.getText().trim(),
-                ngaySinh,
-                cv,
-                gt,
-                txt_diachi.getText().trim(),
-                txt_tk.getText().trim(),
-                txt_mk.getText().trim(),
-                tt
-        );
-    }
 
     private void txt_cccdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cccdActionPerformed
         // TODO add your handling code here:
@@ -698,13 +760,16 @@ public class Form_Staffs extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         if (this.isEmpty()) {
-            if (qltk.checkTrung(this.handleMaMoi()) != null) {
-                JOptionPane.showMessageDialog(this, "Trùng mã nhân viên!");
+            if (qltk.checkTrung("CCCD", txt_cccd.getText()) != null) {
+                JOptionPane.showMessageDialog(this, "Trùng số CCCD!");
             } else {
                 qltk.add(this.readform(), this.handleMaMoi());
-                this.fillTable();
+                this.fillTable(listNV);
+                this.showData(tbl_danglam, i - 1);
+                tbl_danglam.setRowSelectionInterval(i - 1, i - 1);
             }
         }
+
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void tbl_danglamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_danglamMouseClicked
@@ -724,17 +789,11 @@ public class Form_Staffs extends javax.swing.JPanel {
             if (rdo_danglam.isSelected()) {
                 int check = new QuanLiTaiKhoan().updateTrangThai(txt_MaNV.getText(), false);
                 if (check != 0) {
-                    JOptionPane.showMessageDialog(this, "Đã thay đổi Nghỉ làm!");
-                    this.fillTable();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Thay đổi trạng thái thất bại!");
+                    this.fillTable(listNV);
                 }
             } else {
                 if (qltk.updateTrangThai(txt_MaNV.getText(), true) != 0) {
-                    JOptionPane.showMessageDialog(this, "Đã thay đổi Đang làm!");
-                    this.fillTable();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Thay đổi trạng thái thất bại!");
+                    this.fillTable(listNV);
                 }
             }
         }
@@ -747,7 +806,7 @@ public class Form_Staffs extends javax.swing.JPanel {
             if (this.isEmpty()) {
                 if (qltk.update(this.readform(), txt_MaNV.getText()) != 0) {
                     JOptionPane.showMessageDialog(this, "Sửa thành công!");
-                    this.fillTable();
+                    this.fillTable(listNV);
                 } else {
                     JOptionPane.showMessageDialog(this, "Sửa thất bại!");
                 }
@@ -763,7 +822,6 @@ public class Form_Staffs extends javax.swing.JPanel {
     private com.daipc.swing.Button btn_sua;
     private com.daipc.swing.Button btn_them;
     private com.daipc.swing.Button btn_xoa;
-    private com.daipc.swing.Button button1;
     private com.daipc.swing.Button button2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -785,7 +843,6 @@ public class Form_Staffs extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private com.daipc.searchbar.MyTextField myTextField1;
     private com.daipc.swing.PanelBorder panelBorder1;
     private com.daipc.swing.PanelBorder panelBorder2;
     private javax.swing.JPanel panel_tk;
@@ -806,6 +863,7 @@ public class Form_Staffs extends javax.swing.JPanel {
     private javax.swing.JTextField txt_mk;
     private javax.swing.JTextField txt_ngaySinh;
     private javax.swing.JTextField txt_sdt;
+    private com.daipc.searchbar.MyTextField txt_timkiem;
     private javax.swing.JTextField txt_tk;
     // End of variables declaration//GEN-END:variables
 }

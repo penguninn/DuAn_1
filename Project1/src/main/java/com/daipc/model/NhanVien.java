@@ -63,6 +63,11 @@ public class NhanVien {
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
     }
+    
+    public NhanVien(String maNhanVien, String cccd) {
+        this.maNhanVien = maNhanVien;
+        this.cccd = cccd;
+    }
 
     public NhanVien() {
     }
