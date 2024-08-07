@@ -4,15 +4,12 @@
  */
 package com.daipc.repo;
 
-import com.daipc.model.ChiTietSP;
 import com.daipc.model.KhachHang;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

@@ -1,6 +1,7 @@
 package com.daipc.UI;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,17 +16,22 @@ public class Header extends javax.swing.JPanel {
 
     private Color color1;
     private Color color2;
-    private JFrame frame;
+    private MainFrame frame;
     private boolean isMaximized = false;
 
-    public Header(JFrame frame) {
+    public Header(MainFrame frame, String hoTen) {
         initComponents();
         setOpaque(false);
         color1 = Color.decode("#36D1DC");
         color2 = Color.decode("#5B86E5");
         this.frame = frame;
         init();
+        
+        if(hoTen != null) {
+            txt_name.setText(hoTen);
+        }
     }
+    
 
     @SuppressWarnings("unchecked")
 
@@ -35,7 +41,7 @@ public class Header extends javax.swing.JPanel {
         panel = new javax.swing.JPanel();
         lblClose = new javax.swing.JLabel();
         lblMinimize = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        txt_name = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblMaximize = new javax.swing.JLabel();
 
@@ -50,10 +56,32 @@ public class Header extends javax.swing.JPanel {
         lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/daipc/icon/minimize1.png"))); // NOI18N
 
-        jLabel1.setText("Admin");
+        txt_name.setText("Admin");
+        txt_name.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_nameMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txt_nameMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txt_nameMouseExited(evt);
+            }
+        });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/daipc/icon/user.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel3MouseExited(evt);
+            }
+        });
 
         lblMaximize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMaximize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/daipc/icon/maximize1.png"))); // NOI18N
@@ -64,7 +92,7 @@ public class Header extends javax.swing.JPanel {
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                 .addGap(0, 378, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(txt_name)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -78,7 +106,7 @@ public class Header extends javax.swing.JPanel {
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblMinimize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
             .addComponent(lblClose, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txt_name, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblMaximize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
@@ -95,7 +123,32 @@ public class Header extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        frame.showForm(11);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void txt_nameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_nameMouseClicked
+        frame.showForm(11);
+    }//GEN-LAST:event_txt_nameMouseClicked
+
+    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+        jLabel3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jLabel3MouseEntered
+
+    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+        jLabel3.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jLabel3MouseExited
+
+    private void txt_nameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_nameMouseEntered
+        txt_name.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_txt_nameMouseEntered
+
+    private void txt_nameMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_nameMouseExited
+        txt_name.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_txt_nameMouseExited
+
     public void init() {
+        
         lblClose.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -213,11 +266,11 @@ public class Header extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblMaximize;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JPanel panel;
+    private javax.swing.JLabel txt_name;
     // End of variables declaration//GEN-END:variables
 }

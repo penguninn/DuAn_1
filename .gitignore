@@ -1,1 +1,5 @@
 /Project1/target/
+/Project1/target/classes/com/daipc/repo/DatabaseHelper.class
+/Project1/target/classes/com/daipc/repo/JDBCHelper.class
+*.class
+*.DS_Store
