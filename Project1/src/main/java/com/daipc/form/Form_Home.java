@@ -20,10 +20,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -52,17 +55,29 @@ public class Form_Home extends javax.swing.JPanel {
     private ButtonGroup groupBtn;
     private JLabel labelHeader;
     private JTabbedPane tabbedPane;
+
     private JPanel doanhThu;
     private JPanel khachHang;
     private JPanel nhanVien;
     private JPanel sanPham;
+
+    private JPanel doanhThuFilter;
+    private JPanel khachHangFilter;
+    private JPanel nhanVienFilter;
+    private JPanel sanPhamFilter;
+
     private JTable doanhThuTable;
     private JTable sanPhamTable;
     private JTable nhanVienTable;
     private JTable khachHangTable;
 
+    private JComboBox cboFilterDT;
+    private JComboBox cboFilterSP;
+    private JComboBox cboFilterNV;
+    private JComboBox cboFilterKH;
+
     private QuanLiThongKe QLTK = new QuanLiThongKe();
-    private DefaultTableModel modelSP = new DefaultTableModel(new String[] {"Mã Sản Phẩm", "Tên Sản Phẩm", "Giá Bán", "Màu Sắc", "Size", "Chất Liệu", "Độ Dày", "Số Lượng"}, 0);
+    private DefaultTableModel modelSP = new DefaultTableModel(new String[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Giá Bán", "Màu Sắc", "Size", "Chất Liệu", "Độ Dày", "Số Lượng"}, 0);
     private DefaultTableModel modelDT;
     private DefaultTableModel modelNV;
     private DefaultTableModel modelKH;
@@ -74,6 +89,14 @@ public class Form_Home extends javax.swing.JPanel {
     public Form_Home() {
         initComponents();
         init();
+        
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                panel.removeAll();
+                init();
+            }
+        });
     }
 
     public void init() {
@@ -90,15 +113,41 @@ public class Form_Home extends javax.swing.JPanel {
         chartDas = new JRadioButton();
         tableDas = new FlatRadioButton();
         tabbedPane = new JTabbedPane();
-        doanhThu = new JPanel(new MigLayout("fill"));
-        sanPham = new JPanel(new MigLayout("fill"));
-        nhanVien = new JPanel(new MigLayout("fill"));
-        khachHang = new JPanel(new MigLayout("fill"));
+        tabbedPane.setBackground(Color.WHITE);
+        cboFilterDT = new JComboBox<>();
+        cboFilterSP = new JComboBox<>();
+        cboFilterNV = new JComboBox<>();
+        cboFilterKH = new JComboBox<>();
+
+        doanhThu = new JPanel(new MigLayout("fill", "0[]0", "0[fill]5[grow]0"));
+        sanPham = new JPanel(new MigLayout("fill", "0[]0", "0[fill]5[grow]0"));
+        nhanVien = new JPanel(new MigLayout("fill", "0[]0", "0[fill]5[grow]0"));
+        khachHang = new JPanel(new MigLayout("fill", "0[]0", "0[fill]5[grow]0"));
+        
+        doanhThuFilter = new JPanel(new MigLayout("fill", "[grow][right]", "[]"));
+        sanPhamFilter = new JPanel(new MigLayout("fill", "[grow][right]", "[]"));
+        nhanVienFilter = new JPanel(new MigLayout("fill"));
+        khachHangFilter = new JPanel(new MigLayout("fill"));
+
+        doanhThuFilter.setBackground(Color.white);
+        sanPhamFilter.setBackground(Color.white);
+        nhanVienFilter.setBackground(Color.white);
+        khachHangFilter.setBackground(Color.white);
+        doanhThu.setBackground(Color.white);
+        sanPham.setBackground(Color.white);
+        nhanVien.setBackground(Color.white);
+        khachHang.setBackground(Color.white);
+        
+        cboFilterSP.setPreferredSize(new Dimension(350, cboFilterSP.getPreferredSize().height));
+
+        
+        sanPhamFilter.add(cboFilterSP, "align right, gapright 30");
+        
         doanhThuTable = new JTable();
         sanPhamTable = new JTable();
         nhanVienTable = new JTable();
         khachHangTable = new JTable();
-        
+
         labelHeader = new JLabel("Tổng Hợp Thống Kê");
         labelHeader.setFont(new Font("SansSerif", Font.BOLD, 20));
         labelHeader.setForeground(Color.BLACK);
@@ -109,21 +158,16 @@ public class Form_Home extends javax.swing.JPanel {
         cardPanel.setBackground(Color.white);
         panelBorder.setBackground(Color.white);
         panelHeader.setBackground(Color.white);
-        
+
         cardPanel.setLayout(cardLayout);
         cardPanel.add(panelChart, "Chart");
         cardPanel.add(panelTable, "Table");
-        
-        tabbedPane.add(doanhThu);
-        tabbedPane.add(sanPham);
-        tabbedPane.add(nhanVien);
-        tabbedPane.add(khachHang);
-        
+
         loadDoanhThuData();
         loadSanPhamData();
         loadNhanVienData();
         loadKhachHangData();
-        
+
         FlatScrollPane scrollPaneDoanhThu = new FlatScrollPane();
         scrollPaneDoanhThu.setViewportView(doanhThuTable);
         FlatScrollPane scrollPaneSanPham = new FlatScrollPane();
@@ -133,26 +177,29 @@ public class Form_Home extends javax.swing.JPanel {
         FlatScrollPane scrollPaneKhachHang = new FlatScrollPane();
         scrollPaneKhachHang.setViewportView(khachHangTable);
 
-        doanhThu.add(scrollPaneDoanhThu, "grow");
-        sanPham.add(scrollPaneSanPham, "grow");
-        nhanVien.add(scrollPaneNhanVien, "grow");
-        khachHang.add(scrollPaneKhachHang, "grow");
-        
         TableCustom.apply(scrollPaneDoanhThu, TableCustom.TableType.DEFAULT);
         TableCustom.apply(scrollPaneSanPham, TableCustom.TableType.DEFAULT);
         TableCustom.apply(scrollPaneNhanVien, TableCustom.TableType.DEFAULT);
         TableCustom.apply(scrollPaneKhachHang, TableCustom.TableType.DEFAULT);
 
+        doanhThu.add(doanhThuFilter, "h 50!, span, growx, wrap");
+        doanhThu.add(scrollPaneDoanhThu, "grow");
         tabbedPane.addTab("Doanh Thu", doanhThu);
+
+        sanPham.add(sanPhamFilter, "h 50!, span, growx, wrap");
+        sanPham.add(scrollPaneSanPham, "grow");
         tabbedPane.addTab("Sản Phẩm", sanPham);
+
+        nhanVien.add(nhanVienFilter, "h 50!, span, growx, wrap");
+        nhanVien.add(scrollPaneNhanVien, "grow");
         tabbedPane.addTab("Nhân Viên", nhanVien);
+
+        khachHang.add(khachHangFilter, "h 50!, span, growx, wrap");
+        khachHang.add(scrollPaneKhachHang, "grow");
         tabbedPane.addTab("Khách Hàng", khachHang);
-        
-        
-        
+
         panelTable.setLayout(new MigLayout("fill"));
         panelTable.add(tabbedPane, "grow");
-
         groupBtn.add(chartDas);
         groupBtn.add(tableDas);
         chartDas.setText("Biểu đồ");
@@ -185,7 +232,7 @@ public class Form_Home extends javax.swing.JPanel {
 
         this.setLayout(new MigLayout("fill", "0[fill]0", "0[grow]0"));
         this.add(panel, "grow");
-        
+
         chartDas.addActionListener(e -> {
             index = 0;
             swicthForm();
@@ -210,15 +257,15 @@ public class Form_Home extends javax.swing.JPanel {
                 throw new AssertionError();
         }
     }
-    
+
     private void loadDoanhThuData() {
         // Sample data for Doanh Thu table
         DefaultTableModel model = new DefaultTableModel(
-            new Object[][] {
-                {"Tháng 1", "10000000"},
-                {"Tháng 2", "15000000"}
-            },
-            new String[] {"Tháng", "Doanh Thu"}
+                new Object[][]{
+                    {"Tháng 1", "10000000"},
+                    {"Tháng 2", "15000000"}
+                },
+                new String[]{"Tháng", "Doanh Thu"}
         );
         doanhThuTable.setModel(model);
     }
@@ -235,11 +282,11 @@ public class Form_Home extends javax.swing.JPanel {
     private void loadNhanVienData() {
         // Sample data for Nhân Viên table
         DefaultTableModel model = new DefaultTableModel(
-            new Object[][] {
-                {"NV001", "Nguyễn Văn A", "Kế toán"},
-                {"NV002", "Trần Thị B", "Nhân sự"}
-            },
-            new String[] {"Mã NV", "Tên NV", "Chức Vụ"}
+                new Object[][]{
+                    {"NV001", "Nguyễn Văn A", "Kế toán"},
+                    {"NV002", "Trần Thị B", "Nhân sự"}
+                },
+                new String[]{"Mã NV", "Tên NV", "Chức Vụ"}
         );
         nhanVienTable.setModel(model);
     }
@@ -247,11 +294,11 @@ public class Form_Home extends javax.swing.JPanel {
     private void loadKhachHangData() {
         // Sample data for Khách Hàng table
         DefaultTableModel model = new DefaultTableModel(
-            new Object[][] {
-                {"KH001", "Lê Văn C", "0123456789"},
-                {"KH002", "Hoàng Thị D", "0987654321"}
-            },
-            new String[] {"Mã KH", "Tên KH", "Số Điện Thoại"}
+                new Object[][]{
+                    {"KH001", "Lê Văn C", "0123456789"},
+                    {"KH002", "Hoàng Thị D", "0987654321"}
+                },
+                new String[]{"Mã KH", "Tên KH", "Số Điện Thoại"}
         );
         khachHangTable.setModel(model);
     }
