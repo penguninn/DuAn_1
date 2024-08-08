@@ -120,13 +120,13 @@ public class QuanLiTaiKhoan {
         }
     }
     
-    public NhanVien checkTrung(String table, String Ma) {
+    public NhanVien checkTrung(String column, String value) {
         dbHelper = new JDBCHelper();
-        sql = "SELECT MaNhanVien, CCCD FROM NhanVien WHERE " + table + " = ?";
+        sql = "SELECT MaNhanVien, CCCD FROM NhanVien WHERE " + column + " = ?";
         NhanVien nv = null;
         
         try {
-            ResultSet rs = dbHelper.executeQuery(sql, Ma);
+            ResultSet rs = dbHelper.executeQuery(sql, value);
             
             while(rs.next()) {
                 nv = new NhanVien(rs.getString("MaNhanVien"), 
