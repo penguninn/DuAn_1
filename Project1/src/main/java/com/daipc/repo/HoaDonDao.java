@@ -82,7 +82,6 @@ private Connection conn = DatabaseHelper.getConnection();
     return list;
 }
 
-
     public List<HoaDonModel> selectBySQL(String sql, Object... args) {
     List<HoaDonModel> listHD = new ArrayList<>();
     ResultSet rs = null;
@@ -124,5 +123,190 @@ rs = DatabaseHelper.query(sql, args); // Lấy kết quả truy vấn
         }
     }
     return listHD; // Trả về danh sách hóa đơn không trùng lặp
+}
+    
+    public List<HoaDonModel> getSeachListHD(String HoaDon) {
+    List<HoaDonModel> list = new ArrayList<>();
+    String sql = """
+                 
+            SELECT 
+                hd.ID AS id, 
+                hd.MaHD AS MaHD,
+                kh.hoTen AS khachHangHoTen, 
+                kh.soDT AS khachHangSoDT, 
+                hd.tongGiaTriHoaDon AS tongGiaTri, 
+                hd.TrangThai AS TrangThai,
+                hd.ngayTao AS ngayTao, 
+                nv.hoTen AS nhanVienHoTen
+            FROM 
+                HoaDon hd
+            INNER JOIN 
+                HoaDonCT hdct ON hdct.IDHoaDon = hd.ID
+            RIGHT JOIN 
+                NhanVien nv ON nv.ID = hd.IDNhanVien
+            LEFT JOIN 
+                KhachHang kh ON kh.ID = hd.IDKhachHang
+            WHERE 
+                hd.TrangThai = 1 AND hd.MaHD LIKE ? 
+            GROUP BY 
+                hd.ID, hd.MaHD, kh.hoTen, kh.soDT, hd.tongGiaTriHoaDon, hd.TrangThai, hd.ngayTao, nv.hoTen;
+        """;
+
+        try (
+                Connection conn = DatabaseHelper.getConnection();
+                PreparedStatement stm = conn.prepareStatement(sql)) {
+
+                stm.setString(1, "%" + HoaDon + "%"); // Correctly set the MaHD parameter
+
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String maHD = rs.getString("MaHD");
+                    String tenKH = rs.getString("khachHangHoTen");
+                    String sdtKH = rs.getString("khachHangSoDT");
+                    BigDecimal tongGiaTri = rs.getBigDecimal("tongGiaTri");
+                    String trangThai = rs.getString("TrangThai");
+                    Timestamp ngayTao = rs.getTimestamp("ngayTao");
+                    String tenNV = rs.getString("nhanVienHoTen");
+
+                    HoaDonModel hoaDonModel = new HoaDonModel();
+                    hoaDonModel.setId(id);
+                    hoaDonModel.setMaHD(maHD); // Assuming MaHD is a String field
+                    hoaDonModel.setTenKH(tenKH);
+                    hoaDonModel.setSdt(sdtKH);
+                    hoaDonModel.setDonGia(tongGiaTri);
+                    hoaDonModel.setTrangThai(trangThai);
+                    hoaDonModel.setNgayTao(ngayTao);
+                    hoaDonModel.setTenNguoiTao(tenNV);
+
+                    list.add(hoaDonModel);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+}
+
+    public List<HoaDonModel> getSeachList_SDT_HD(String sdt) {
+    List<HoaDonModel> list = new ArrayList<>();
+    String sql = """
+        SELECT 
+            hd.ID AS id, 
+            hd.MaHD AS MaHD,
+            kh.hoTen AS khachHangHoTen, 
+            kh.soDT AS khachHangSoDT, 
+            hd.tongGiaTriHoaDon AS tongGiaTri, 
+            hd.TrangThai AS TrangThai,
+            hd.ngayTao AS ngayTao, 
+            nv.hoTen AS nhanVienHoTen
+        FROM 
+            HoaDon hd
+        INNER JOIN 
+            NhanVien nv ON nv.ID = hd.IDNhanVien
+        LEFT JOIN 
+            KhachHang kh ON kh.ID = hd.IDKhachHang
+        WHERE 
+            hd.TrangThai = 1 AND kh.SoDT LIKE ?
+        GROUP BY 
+            hd.ID, hd.MaHD, kh.hoTen, kh.soDT, hd.tongGiaTriHoaDon, hd.TrangThai, hd.ngayTao, nv.hoTen;
+    """;
+
+    try (
+        Connection conn = DatabaseHelper.getConnection();
+        PreparedStatement stm = conn.prepareStatement(sql)) {
+
+        // Thiết lập tham số tìm kiếm số điện thoại
+        stm.setString(1, "%" + sdt + "%");
+
+        try (ResultSet rs = stm.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String maHD = rs.getString("MaHD");
+                String tenKH = rs.getString("khachHangHoTen");
+                String sdtKH = rs.getString("khachHangSoDT");
+                BigDecimal tongGiaTri = rs.getBigDecimal("tongGiaTri");
+                String trangThai = rs.getString("TrangThai");
+                Timestamp ngayTao = rs.getTimestamp("ngayTao");
+                String tenNV = rs.getString("nhanVienHoTen");
+
+                HoaDonModel hoaDonModel = new HoaDonModel();
+                hoaDonModel.setId(id);
+                hoaDonModel.setMaHD(maHD);
+                hoaDonModel.setTenKH(tenKH);
+                hoaDonModel.setSdt(sdtKH);
+                hoaDonModel.setDonGia(tongGiaTri);
+                hoaDonModel.setTrangThai(trangThai);
+                hoaDonModel.setNgayTao(ngayTao);
+                hoaDonModel.setTenNguoiTao(tenNV);
+
+                list.add(hoaDonModel);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+}
+
+    public List<HoaDonModel> getSeachList_TenKH_HD(String Ho_Ten) {
+    List<HoaDonModel> list = new ArrayList<>();
+    String sql = """
+        SELECT 
+                    hd.ID AS id, 
+                    hd.MaHD AS MaHD,
+                    kh.hoTen AS khachHangHoTen, 
+                    kh.soDT AS khachHangSoDT, 
+                    hd.tongGiaTriHoaDon AS tongGiaTri, 
+                    hd.TrangThai AS TrangThai,
+                    hd.ngayTao AS ngayTao, 
+                    nv.hoTen AS nhanVienHoTen
+                FROM 
+                    HoaDon hd
+                INNER JOIN 
+                    NhanVien nv ON nv.ID = hd.IDNhanVien
+                LEFT JOIN 
+                    KhachHang kh ON kh.ID = hd.IDKhachHang
+                WHERE 
+                    hd.TrangThai = 1 AND kh.HoTen LIKE ?
+                GROUP BY 
+                    hd.ID, hd.MaHD, kh.hoTen, kh.soDT, hd.tongGiaTriHoaDon, hd.TrangThai, hd.ngayTao, nv.hoTen;
+    """;
+
+    try (
+        Connection conn = DatabaseHelper.getConnection();
+        PreparedStatement stm = conn.prepareStatement(sql)) {
+
+        // Thiết lập tham số tìm kiếm số điện thoại
+        stm.setString(1, "%" + Ho_Ten + "%");
+
+        try (ResultSet rs = stm.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String maHD = rs.getString("MaHD");
+                String tenKH = rs.getString("khachHangHoTen");
+                String sdtKH = rs.getString("khachHangSoDT");
+                BigDecimal tongGiaTri = rs.getBigDecimal("tongGiaTri");
+                String trangThai = rs.getString("TrangThai");
+                Timestamp ngayTao = rs.getTimestamp("ngayTao");
+                String tenNV = rs.getString("nhanVienHoTen");
+
+                HoaDonModel hoaDonModel = new HoaDonModel();
+                hoaDonModel.setId(id);
+                hoaDonModel.setMaHD(maHD);
+                hoaDonModel.setTenKH(tenKH);
+                hoaDonModel.setSdt(sdtKH);
+                hoaDonModel.setDonGia(tongGiaTri);
+                hoaDonModel.setTrangThai(trangThai);
+                hoaDonModel.setNgayTao(ngayTao);
+                hoaDonModel.setTenNguoiTao(tenNV);
+
+                list.add(hoaDonModel);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
 }
 }

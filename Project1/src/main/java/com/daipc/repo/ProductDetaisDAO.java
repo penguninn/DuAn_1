@@ -18,43 +18,41 @@ import java.util.logging.Logger;
  * @author admin
  */
 public class ProductDetaisDAO {
-    public List<ChiTietSP> selectAll_By_ID_MaHD(int maHD) {// Dùng cho truy vấn trong HĐ
+    public List<ChiTietSP> selectAll_By_ID_MaHD(String maHD) {
         String sql = """
-                	SELECT
-                        spct.ID,
-                        sp.TenSP AS tenSanPham,
-
-                        ncc.TenNhaCungCap AS tenThuongHieu,
-                        sz.TenSize AS kichCo,
-                        ms.TenMauSac AS tenMauSac,
-                        hdct.SoLuong AS soLuong,
-                        hdct.DonGia AS giaBan,
-                        cl.TenChatLieu AS tenChatLieu,
-                        dd.TenDoDay AS tenDoDay,
-                        spct.TrangThai,
-                    	spct.MaSPCT
-
-                    FROM
-                        SanPhamChiTiet spct
-                    LEFT JOIN
-                        SanPham sp ON spct.IdSanPham = sp.ID
-                    LEFT JOIN
-                        NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID
-                    LEFT JOIN
-                        ChatLieu cl ON spct.IdChatLieu = cl.ID
-                    LEFT JOIN
-                        DoDay dd ON spct.IdDoDay = dd.ID
-                    LEFT JOIN
-                        Size sz ON spct.IdSize = sz.ID
-                    LEFT JOIN
-                        MauSac ms ON spct.IdMauSac = ms.ID
-                    LEFT JOIN
-                        HoaDonCT hdct ON hdct.IDCTSP = spct.ID
-                    LEFT JOIN
-                        HoaDon hd ON hd.ID = hdct.IDHoaDon
-                    WHERE
-                        spct.HienThi = 'Hien' AND hd.ID = ?;
-                """;
+            SELECT 
+                spct.ID, 
+                sp.TenSP AS tenSanPham, 
+                ncc.TenNhaCungCap AS tenThuongHieu,
+                sz.TenSize AS kichCo,
+                ms.TenMauSac AS tenMauSac, 
+                hdct.SoLuong AS soLuong,  
+                hdct.DonGia AS giaBan,
+                cl.TenChatLieu AS tenChatLieu, 
+                dd.TenDoDay AS tenDoDay,  
+                spct.TrangThai,
+                spct.MaSPCT
+            FROM 
+                SanPhamChiTiet spct
+            LEFT JOIN 
+                SanPham sp ON spct.IdSanPham = sp.ID
+            LEFT JOIN 
+                NhaCungCap ncc ON spct.IdNhaCungCap = ncc.ID
+            LEFT JOIN 
+                ChatLieu cl ON spct.IdChatLieu = cl.ID
+            LEFT JOIN 
+                DoDay dd ON spct.IdDoDay = dd.ID
+            LEFT JOIN 
+                Size sz ON spct.IdSize = sz.ID
+            LEFT JOIN 
+                MauSac ms ON spct.IdMauSac = ms.ID
+            LEFT JOIN 
+                HoaDonCT hdct ON hdct.IDCTSP = spct.ID
+            LEFT JOIN 
+                HoaDon hd ON hd.ID = hdct.IDHoaDon
+            WHERE 
+                spct.HienThi = 'Hien' AND hd.MaHD = ?;
+        """;
         return selectBySQL(sql, maHD);
     }
 
@@ -92,6 +90,6 @@ public class ProductDetaisDAO {
 
     public static void main(String[] args) {
         ProductDetaisDAO detaisDAO = new ProductDetaisDAO();
-        System.out.println(detaisDAO.selectAll_By_ID_MaHD(1));
+        System.out.println(detaisDAO.selectAll_By_ID_MaHD("HD003"));
     }
 }

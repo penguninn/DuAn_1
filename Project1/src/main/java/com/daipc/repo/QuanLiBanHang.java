@@ -307,9 +307,9 @@ public class QuanLiBanHang {
                 vc = (new Voucher(
                         rs.getInt(1),
                         rs.getString(2),
-                        rs.getDouble(3),
-                        rs.getString(4),
-                        rs.getString(5),
+                        rs.getBigDecimal(3),
+                        rs.getDate(4),
+                        rs.getDate(5),
                         rs.getInt(6),
                         rs.getString(7)
                 ));

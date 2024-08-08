@@ -281,6 +281,249 @@ public class QuanLiChiTietSP {
         return list;
     }
 
+    public List<ChiTietSP> seachtTT(String TT) {
+        ArrayList<ChiTietSP> list = new ArrayList<>();
+        String sql = """
+                     SELECT 
+                                                               A.ID,
+                                                              A.MaSPCT,
+                                                             B.MaSP,
+                                                            B.TenSP,
+                                                             A.TenSPCT,
+                                                              A.GiaBan,
+                                                              A.SoLuong,
+                                                             G.TenDoDay,
+                                                              E.TenSize,
+                                                              F.TenChatLieu,
+                                                              D.TenMauSac,
+                                                              C.TenNhaCungCap,
+                                                            A.TrangThai,
+                                                              A.GiaNhap
+                                                          FROM 
+                                                             SanPhamChiTiet A 
+                                                          LEFT JOIN 
+                                                              SanPham B ON A.IdSanPham = B.ID
+                                                          LEFT JOIN 
+                                                              NhaCungCap C ON A.IdNhaCungCap = C.ID 
+                                                          LEFT JOIN 
+                                                              MauSac D ON A.IdMauSac = D.ID
+                                                          LEFT JOIN 
+                                                              Size E ON A.IdSize = E.ID
+                                                          LEFT JOIN 
+                                                            ChatLieu F ON A.IdChatLieu = F.ID
+                                                          LEFT JOIN 
+                                                             DoDay G ON A.IdDoDay = G.ID where A.hienthi like 'Hien'  AND A.TrangThai = ?
+                     """;
+        try {
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setObject(1, TT);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String MaSPCT = rs.getString(2);
+                String MaSP = rs.getString(3);
+                String TenSP = rs.getString(4);
+                String TenSPCT = rs.getString(5);
+                BigDecimal GiaBan = rs.getBigDecimal(6);
+                BigDecimal GiaNhap = rs.getBigDecimal(14);
+                int Soluong = rs.getInt(7);
+                String tenDoDay = rs.getString(8);
+                String tenSize = rs.getString(9);
+                String tenCL = rs.getString(10);
+                String tenMS = rs.getString(12);
+                String tenNCC = rs.getString(11);
+                String trangThai = rs.getString(13);
+
+                ChiTietSP chiTietSP = new ChiTietSP(id, MaSPCT, MaSP, TenSP, TenSPCT, GiaBan, GiaNhap, Soluong,
+                        tenMS, tenNCC, tenSize, tenCL, tenDoDay, trangThai);
+                list.add(chiTietSP);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public List<ChiTietSP> timKiemGiaNhap(BigDecimal minValue, BigDecimal maxValue) {
+        ArrayList<ChiTietSP> list = new ArrayList<>();
+        String sql = """
+                     SELECT 
+                                          A.ID,
+                                         A.MaSPCT,
+                                        B.MaSP,
+                                       B.TenSP,
+                                        A.TenSPCT,
+                                         A.GiaBan,
+                                         A.SoLuong,
+                                        G.TenDoDay,
+                                         E.TenSize,
+                                         F.TenChatLieu,
+                                         D.TenMauSac,
+                                         C.TenNhaCungCap,
+                                       A.TrangThai,
+                                         A.GiaNhap
+                                     FROM 
+                                        SanPhamChiTiet A 
+                                     LEFT JOIN 
+                                         SanPham B ON A.IdSanPham = B.ID
+                                     LEFT JOIN 
+                                         NhaCungCap C ON A.IdNhaCungCap = C.ID 
+                                     LEFT JOIN 
+                                         MauSac D ON A.IdMauSac = D.ID
+                                     LEFT JOIN 
+                                         Size E ON A.IdSize = E.ID
+                                     LEFT JOIN 
+                                       ChatLieu F ON A.IdChatLieu = F.ID
+                                     LEFT JOIN 
+                                        DoDay G ON A.IdDoDay = G.ID where A.hienthi like 'Hien'  AND a.GiaNhap BETWEEN ? AND ?
+                     """;
+        try {
+            Connection conn = DatabaseHelper.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setObject(1, minValue);
+            stm.setObject(2, maxValue);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                ChiTietSP chiTietSP = new ChiTietSP();
+                chiTietSP.setId(rs.getInt(1));
+                chiTietSP.setMaCTSP(rs.getString(2));
+                chiTietSP.setMaSP(rs.getString(3));
+                chiTietSP.setTenSP(rs.getString(4));
+                chiTietSP.setTenSPCT(rs.getString(5));
+                chiTietSP.setGiaBan(rs.getBigDecimal(6));
+                chiTietSP.setSoLuong(rs.getInt(7));
+                chiTietSP.setTenDoDay(rs.getString(8));
+                chiTietSP.setTenSize(rs.getString(9));
+                chiTietSP.setTenChatLieu(rs.getString(10));
+                chiTietSP.setTenMauSac(rs.getString(11));
+                chiTietSP.setTenNhaCungCap(rs.getString(12));
+                chiTietSP.setTrangThai(rs.getString(13));
+                chiTietSP.setGiaNhap(rs.getBigDecimal(14));
+                list.add(chiTietSP);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+
+    }
+
+    public List<ChiTietSP> timKiemGiaBan(BigDecimal minValue, BigDecimal maxValue) {
+        ArrayList<ChiTietSP> list = new ArrayList<>();
+        String sql = """
+                     SELECT 
+                                          A.ID,
+                                         A.MaSPCT,
+                                        B.MaSP,
+                                       B.TenSP,
+                                        A.TenSPCT,
+                                         A.GiaBan,
+                                         A.SoLuong,
+                                        G.TenDoDay,
+                                         E.TenSize,
+                                         F.TenChatLieu,
+                                         D.TenMauSac,
+                                         C.TenNhaCungCap,
+                                       A.TrangThai,
+                                         A.GiaNhap
+                                     FROM 
+                                        SanPhamChiTiet A 
+                                     LEFT JOIN 
+                                         SanPham B ON A.IdSanPham = B.ID
+                                     LEFT JOIN 
+                                         NhaCungCap C ON A.IdNhaCungCap = C.ID 
+                                     LEFT JOIN 
+                                         MauSac D ON A.IdMauSac = D.ID
+                                     LEFT JOIN 
+                                         Size E ON A.IdSize = E.ID
+                                     LEFT JOIN 
+                                       ChatLieu F ON A.IdChatLieu = F.ID
+                                     LEFT JOIN 
+                                        DoDay G ON A.IdDoDay = G.ID where A.hienthi like 'Hien'  AND A.GiaBan BETWEEN ? AND ?
+                     """;
+        try {
+            Connection conn = DatabaseHelper.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setObject(1, minValue);
+            stm.setObject(2, maxValue);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                ChiTietSP chiTietSP = new ChiTietSP();
+                chiTietSP.setId(rs.getInt(1));
+                chiTietSP.setMaCTSP(rs.getString(2));
+                chiTietSP.setMaSP(rs.getString(3));
+                chiTietSP.setTenSP(rs.getString(4));
+                chiTietSP.setTenSPCT(rs.getString(5));
+                chiTietSP.setGiaBan(rs.getBigDecimal(6));
+                chiTietSP.setSoLuong(rs.getInt(7));
+                chiTietSP.setTenDoDay(rs.getString(8));
+                chiTietSP.setTenSize(rs.getString(9));
+                chiTietSP.setTenChatLieu(rs.getString(10));
+                chiTietSP.setTenMauSac(rs.getString(11));
+                chiTietSP.setTenNhaCungCap(rs.getString(12));
+                chiTietSP.setTrangThai(rs.getString(13));
+                chiTietSP.setGiaNhap(rs.getBigDecimal(14));
+                list.add(chiTietSP);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+
+    }
+    
+    public List<ChiTietSP> Get_GiaBan() {
+        ArrayList<ChiTietSP> list = new ArrayList<>();
+        String sql = """
+                     SELECT MAX(GiaBan) AS MaxGiaBan 
+                                                                                                        
+                                        FROM SanPhamChiTiet 
+                     """;
+        try {
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet resultSet = stm.executeQuery();
+
+            while (resultSet.next()) {
+                // Retrieve the maximum value
+                BigDecimal maxGiaBan = resultSet.getBigDecimal("MaxGiaBan");
+                ChiTietSP chiTietSP = new ChiTietSP(0, sql, sql, maxGiaBan, sql, sql, sql, sql, sql, 0);
+                list.add(chiTietSP);
+                System.out.println("The maximum GiaBan value is: " + maxGiaBan);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public List<ChiTietSP> Get_GiaNhap() {
+        ArrayList<ChiTietSP> list = new ArrayList<>();
+        String sql = """
+                        SELECT MAX(GiaNhap) AS MaxGiaNhap 
+                         FROM SanPhamChiTiet 
+                     """;
+        try {
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet resultSet = stm.executeQuery();
+
+            while (resultSet.next()) {
+                // Retrieve the maximum value
+                BigDecimal maxGiaNhap = resultSet.getBigDecimal("MaxGiaNhap");
+                ChiTietSP chiTietSP = new ChiTietSP(0, sql, sql, maxGiaNhap, sql, sql, sql, sql, sql, 0);
+                list.add(chiTietSP);
+                System.out.println("The maximum GiaNhap value is: " + maxGiaNhap);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 
     public static void main(String[] args) {
         QuanLiChiTietSP ctsps = new QuanLiChiTietSP();
