@@ -1,5 +1,7 @@
 /Project1/target/
 /Project1/target/classes/com/daipc/repo/DatabaseHelper.class
 /Project1/target/classes/com/daipc/repo/JDBCHelper.class
+/Project1/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/Project1/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 *.class
 *.DS_Store
