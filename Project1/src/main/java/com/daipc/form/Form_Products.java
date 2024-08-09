@@ -256,8 +256,6 @@ public class Form_Products extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         btnClearFiltersDetails = new com.daipc.swing.Button();
         jLabel18 = new javax.swing.JLabel();
-        txt_searchGN = new javax.swing.JTextField();
-        txt_searchGB = new javax.swing.JTextField();
         cbb_searchGN = new javax.swing.JComboBox<>();
         cbb_searchGB = new javax.swing.JComboBox<>();
         cbb_TT_Fil = new com.daipc.combo_suggestion.ComboBoxSuggestion();
@@ -582,7 +580,7 @@ public class Form_Products extends javax.swing.JPanel {
 
         jLabel22.setText("Giá Bán");
 
-        cbb_TT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kinh doanh", "Ngừng kinh doanh " }));
+        cbb_TT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Còn hàng", "Hết hàng " }));
 
         jLabel23.setText("Size");
 
@@ -848,6 +846,11 @@ public class Form_Products extends javax.swing.JPanel {
                 txtSearchDetailsMouseClicked(evt);
             }
         });
+        txtSearchDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchDetailsActionPerformed(evt);
+            }
+        });
         txtSearchDetails.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchDetailsKeyReleased(evt);
@@ -867,23 +870,6 @@ public class Form_Products extends javax.swing.JPanel {
         jLabel18.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel18.setText("Giá Nhập");
 
-        txt_searchGN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_searchGNActionPerformed(evt);
-            }
-        });
-        txt_searchGN.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_searchGNKeyReleased(evt);
-            }
-        });
-
-        txt_searchGB.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_searchGBKeyReleased(evt);
-            }
-        });
-
         cbb_searchGN.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dưới 500.000đ", "500.000 - 1 triệu", "1 - 2 triệu ", "Giá trên 3 triệu " }));
         cbb_searchGN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -898,7 +884,7 @@ public class Form_Products extends javax.swing.JPanel {
             }
         });
 
-        cbb_TT_Fil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kinh doanh", "Ngừng kinh doanh " }));
+        cbb_TT_Fil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Còn hàng", "Hết hàng " }));
         cbb_TT_Fil.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 cbb_TT_FilFocusGained(evt);
@@ -927,34 +913,25 @@ public class Form_Products extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelFilter1Layout.createSequentialGroup()
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelFilter1Layout.createSequentialGroup()
-                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbb_searchGN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 58, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFilter1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txt_searchGN, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbb_searchGN, 0, 201, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelFilter1Layout.createSequentialGroup()
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbb_searchGB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txt_searchGB, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cbb_searchGB, 0, 201, Short.MAX_VALUE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbb_SP_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                            .addComponent(cbb_SP_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
-                            .addComponent(cbb_TT_Fil, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cbb_TT_Fil, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelFilter1Layout.createSequentialGroup()
-                                .addComponent(txtSearchDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                                .addComponent(txtSearchDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                .addGap(28, 28, 28)
                                 .addComponent(btnClearFiltersDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelFilter1Layout.createSequentialGroup()
                                 .addComponent(jLabel15)
@@ -972,25 +949,21 @@ public class Form_Products extends javax.swing.JPanel {
                     .addComponent(jLabel14)
                     .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelFilter1Layout.createSequentialGroup()
-                            .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel18)
-                                .addComponent(cbb_searchGN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(37, 37, 37))
+                            .addComponent(jLabel18)
+                            .addGap(40, 40, 40))
                         .addGroup(panelFilter1Layout.createSequentialGroup()
                             .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel16)
-                                    .addComponent(cbb_searchGB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel16)
                                 .addComponent(jLabel15))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txt_searchGN, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cbb_searchGB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txt_searchGB, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbb_SP_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtSearchDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbb_TT_Fil, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnClearFiltersDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(btnClearFiltersDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbb_searchGN, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -1010,7 +983,7 @@ public class Form_Products extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailsProductsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelFilter1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelDetailsProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -2007,7 +1980,6 @@ public class Form_Products extends javax.swing.JPanel {
             for (ChiTietSP sp : listCTSP) {
                 if (sp.getMaCTSP().equals(text)) {
                     selectedRow.put("SPCT", id);
-                    System.out.println(selectedRow.get("SPCT"));
                     showDetailsCTSP(selectedRow.get("SPCT"));
                     break;
                 }
@@ -2016,9 +1988,8 @@ public class Form_Products extends javax.swing.JPanel {
         } else {
             int id = 0;
             for (ChiTietSP sp : listCTSP) {
-                if (sp.getTenSP().equals(text)) {
+                if (sp.getTenSPCT().equals(text)) {
                     selectedRow.put("SPCT", id);
-                    System.out.println(selectedRow.get("SPCT"));
                     showDetailsCTSP(selectedRow.get("SPCT"));
                     break;
                 }
@@ -3055,7 +3026,7 @@ public class Form_Products extends javax.swing.JPanel {
                 if (coHoi == JOptionPane.YES_OPTION) {
                     int row = tblDetailsProducts.getSelectedRow();
                     String maCTSP = txt_MSPCT.getText();
-                    System.out.println("maSPCT Sua : " +maCTSP);
+                    System.out.println("maSPCT Sua : " + maCTSP);
                     SPCT spct = getCTSP();
                     chiTietSPService.Update(spct, maCTSP);
                     txt_MSPCT.setText("");
@@ -3273,20 +3244,6 @@ public class Form_Products extends javax.swing.JPanel {
         loadDataCTSP();
     }//GEN-LAST:event_btnClearFiltersDetailsActionPerformed
 
-    private void txt_searchGNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_searchGNActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_searchGNActionPerformed
-
-    private void txt_searchGNKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchGNKeyReleased
-        // TODO add your handling code here:
-        searchGiaNhap();
-    }//GEN-LAST:event_txt_searchGNKeyReleased
-
-    private void txt_searchGBKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchGBKeyReleased
-        // TODO add your handling code here:
-        searchGiaBan();
-    }//GEN-LAST:event_txt_searchGBKeyReleased
-
     private void cbb_searchGNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_searchGNActionPerformed
         // TODO add your handling code here:
         String cbbGiaNhap = String.valueOf(cbb_searchGN.getSelectedItem()).trim();
@@ -3358,7 +3315,6 @@ public class Form_Products extends javax.swing.JPanel {
             modelCTSP.setRowCount(0);
             for (ChiTietSP ctsp : list) {
                 modelCTSP.addRow(new Object[]{
-                    ctsp.getId(),
                     ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
                     ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
                 });
@@ -3444,7 +3400,6 @@ public class Form_Products extends javax.swing.JPanel {
             modelCTSP.setRowCount(0);
             for (ChiTietSP ctsp : list) {
                 modelCTSP.addRow(new Object[]{
-                    ctsp.getId(),
                     ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
                     ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
                 });
@@ -3477,12 +3432,11 @@ public class Form_Products extends javax.swing.JPanel {
             {
                 System.out.println("Lua chọn cua ban : " + cbbTT);
                 ArrayList<ChiTietSP> listCTSP = (ArrayList<ChiTietSP>) chiTietSPService.seachtTT(cbbTT);
+
                 modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
                 modelCTSP.setRowCount(0);
                 for (ChiTietSP ctsp : listCTSP) {
-                    System.out.println("NCC : " + ctsp.getTenNhaCungCap());
                     modelCTSP.addRow(new Object[]{
-                        ctsp.getId(),
                         ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
                         ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
                     });
@@ -3490,6 +3444,10 @@ public class Form_Products extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_cbb_TT_FilActionPerformed
+
+    private void txtSearchDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchDetailsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchDetailsActionPerformed
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void loadCbbSP() {
@@ -3733,108 +3691,6 @@ public class Form_Products extends javax.swing.JPanel {
         return true;
     }
     
-    public void searchGiaNhap() {
-        int GiaNhapMin = 1000;
-        int GiaNhapMax = 1000;
-        BigDecimal MinGN = new BigDecimal(GiaNhapMin);
-        BigDecimal MaxGN = new BigDecimal(GiaNhapMax);
-        int GiaN = Integer.parseInt(txt_searchGN.getText());
-        try {
-
-            if (GiaN <= 100000) {
-                GiaNhapMin = GiaN - 50000;
-                GiaNhapMax = GiaN + 50000;
-            } else if (GiaN <= 1000000) {
-                GiaNhapMin = GiaN - 200000;
-                GiaNhapMax = GiaN + 200000;
-            } else if (GiaN <= 10000000) {
-                GiaNhapMin = GiaN - 1000000;
-                GiaNhapMax = GiaN + 1000000;
-            } else if (GiaN <= 100000000) {
-                GiaNhapMin = GiaN - 10000000;
-                GiaNhapMax = GiaN + 10000000;
-            }
-
-            // Convert updated int values to BigDecimal
-            MinGN = BigDecimal.valueOf(GiaNhapMin);
-            MaxGN = BigDecimal.valueOf(GiaNhapMax);
-
-            // Print the results for verification
-            System.out.println("GiaNhapMin: " + GiaNhapMin);
-            System.out.println("GiaNhapMax: " + GiaNhapMax);
-            System.out.println("MinGN: " + MinGN);
-            System.out.println("MaxGN: " + MaxGN);
-
-        } catch (NumberFormatException e) {
-            System.err.println("Invalid number format: " + e.getMessage());
-        }
-
-        List<ChiTietSP> list = chiTietSPService.timKiemGiaNhap(MinGN, MaxGN);
-//        loadDataCTSP();
-
-        modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
-        modelCTSP.setRowCount(0);
-        for (ChiTietSP ctsp : list) {
-            modelCTSP.addRow(new Object[]{
-                ctsp.getId(),
-                ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
-                ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
-            });
-        }
-
-    }
-
-    public void searchGiaBan() {
-        int GiaNhapMin = 1000;
-        int GiaNhapMax = 1000;
-        BigDecimal MinGN = new BigDecimal(GiaNhapMin);
-        BigDecimal MaxGN = new BigDecimal(GiaNhapMax);
-        int GiaN = Integer.parseInt(txt_searchGB.getText());
-        try {
-
-            if (GiaN <= 100000) {
-                GiaNhapMin = GiaN - 50000;
-                GiaNhapMax = GiaN + 50000;
-            } else if (GiaN <= 1000000) {
-                GiaNhapMin = GiaN - 200000;
-                GiaNhapMax = GiaN + 200000;
-            } else if (GiaN <= 10000000) {
-                GiaNhapMin = GiaN - 1000000;
-                GiaNhapMax = GiaN + 1000000;
-            } else if (GiaN <= 100000000) {
-                GiaNhapMin = GiaN - 10000000;
-                GiaNhapMax = GiaN + 10000000;
-            }
-
-            // Convert updated int values to BigDecimal
-            MinGN = BigDecimal.valueOf(GiaNhapMin);
-            MaxGN = BigDecimal.valueOf(GiaNhapMax);
-
-            // Print the results for verification
-            System.out.println("GiaNhapMin: " + GiaNhapMin);
-            System.out.println("GiaNhapMax: " + GiaNhapMax);
-            System.out.println("MinGN: " + MinGN);
-            System.out.println("MaxGN: " + MaxGN);
-
-        } catch (NumberFormatException e) {
-            System.err.println("Invalid number format: " + e.getMessage());
-        }
-
-        List<ChiTietSP> list = chiTietSPService.timKiemGiaNhap(MinGN, MaxGN);
-//        loadDataCTSP();
-
-        modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
-        modelCTSP.setRowCount(0);
-        for (ChiTietSP ctsp : list) {
-            modelCTSP.addRow(new Object[]{
-                ctsp.getId(),
-                ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
-                ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
-            });
-        }
-
-    }
-    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3986,7 +3842,5 @@ public class Form_Products extends javax.swing.JPanel {
     private javax.swing.JTextField txt_MSPCT;
     private javax.swing.JTextField txt_Soluong;
     private javax.swing.JTextField txt_TenSPCT;
-    private javax.swing.JTextField txt_searchGB;
-    private javax.swing.JTextField txt_searchGN;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,23 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.daipc.repo;
 
 import com.daipc.model.ChiTietSP;
-import com.daipc.model.SanPham;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author admin
+ * DAO class for product details
  */
 public class ProductDetaisDAO {
+
+    /**
+     * Select all product details by invoice ID
+     * 
+     * @param maHD Invoice ID
+     * @return List of ChiTietSP objects
+     */
     public List<ChiTietSP> selectAll_By_ID_MaHD(String maHD) {
         String sql = """
             SELECT 
@@ -55,32 +55,47 @@ public class ProductDetaisDAO {
         """;
         return selectBySQL(sql, maHD);
     }
+    
+    
+    
 
+    /**
+     * Execute a SQL query and return a list of ChiTietSP
+     * 
+     * @param sql SQL query string
+     * @param args Parameters for the SQL query
+     * @return List of ChiTietSP objects
+     */
     public List<ChiTietSP> selectBySQL(String sql, Object... args) {
         List<ChiTietSP> listProdetails = new ArrayList<>();
-        try {
-            ResultSet rs = DatabaseHelper.query(sql, args);
-            while (rs.next()) {
-                ChiTietSP prodetails = new ChiTietSP();
-                prodetails.setId(rs.getInt("ID"));
-
-                prodetails.setTenChatLieu(rs.getString("tenChatLieu"));
-                prodetails.setTenDoDay(rs.getString("tenDoDay"));
-                prodetails.setTenSize(rs.getString("kichCo"));
-                prodetails.setTenMauSac(rs.getString("tenMauSac"));
-                prodetails.setTenSP(rs.getString("tenSanPham"));
-                prodetails.setTenNhaCungCap(rs.getString("tenThuongHieu"));
-                prodetails.setSoLuong(rs.getInt("soLuong"));
-                prodetails.setGiaBan(rs.getBigDecimal("giaBan"));
-                prodetails.setTrangThai(rs.getString("TrangThai"));
-
-                prodetails.setMaCTSP(rs.getString("MaSPCT"));
-                // Note: Ensure field name matches
-                // prodetails.setNgayTao(rs.getDate("NgayTao")); // Ensure correct date format
-
-                listProdetails.add(prodetails);
+        
+        try (Connection conn = DatabaseHelper.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             
+            // Set parameters
+            for (int i = 0; i < args.length; i++) {
+                pstmt.setObject(i + 1, args[i]);
             }
-            rs.getStatement().getConnection().close();
+            
+            // Execute query
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    ChiTietSP prodetails = new ChiTietSP();
+                    prodetails.setId(rs.getInt("ID"));
+                    prodetails.setTenChatLieu(rs.getString("tenChatLieu"));
+                    prodetails.setTenDoDay(rs.getString("tenDoDay"));
+                    prodetails.setTenSize(rs.getString("kichCo"));
+                    prodetails.setTenMauSac(rs.getString("tenMauSac"));
+                    prodetails.setTenSP(rs.getString("tenSanPham"));
+                    prodetails.setTenNhaCungCap(rs.getString("tenThuongHieu"));
+                    prodetails.setSoLuong(rs.getInt("soLuong"));
+                    prodetails.setGiaBan(rs.getBigDecimal("giaBan"));
+                    prodetails.setTrangThai(rs.getString("TrangThai"));
+                    prodetails.setMaCTSP(rs.getString("MaSPCT"));
+                    listProdetails.add(prodetails);
+                }
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(ProductDetaisDAO.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();

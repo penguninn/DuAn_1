@@ -437,7 +437,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelFilter1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="panelDetailsProducts" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -674,8 +674,8 @@
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="2">
-                        <StringItem index="0" value="Kinh doanh"/>
-                        <StringItem index="1" value="Ng&#x1eeb;ng kinh doanh "/>
+                        <StringItem index="0" value="C&#xf2;n h&#xe0;ng"/>
+                        <StringItem index="1" value="H&#x1ebf;t h&#xe0;ng "/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -904,41 +904,29 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel18" min="-2" pref="60" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="cbb_searchGN" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="58" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Component id="txt_searchGN" min="-2" pref="189" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel18" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Component id="cbb_searchGN" alignment="0" pref="201" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel16" min="-2" pref="60" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="cbb_searchGB" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="txt_searchGB" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
+                                      <Component id="cbb_searchGB" alignment="0" pref="201" max="32767" attributes="0"/>
+                                      <Component id="jLabel16" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel13" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
-                                      <Component id="cbb_SP_Filter" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
+                                      <Component id="cbb_SP_Filter" alignment="0" pref="208" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="63" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbb_TT_Fil" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                                      <Component id="cbb_TT_Fil" alignment="0" pref="215" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txtSearchDetails" min="-2" pref="213" max="-2" attributes="0"/>
-                                          <EmptySpace pref="106" max="32767" attributes="0"/>
+                                          <Component id="txtSearchDetails" pref="300" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="btnClearFiltersDetails" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -963,29 +951,23 @@
                               <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="cbb_searchGN" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                              <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="cbb_searchGB" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jLabel16" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel15" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="txt_searchGN" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                              <Component id="txt_searchGB" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="cbb_searchGB" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                               <Component id="cbb_SP_Filter" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                               <Component id="txtSearchDetails" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                               <Component id="cbb_TT_Fil" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                               <Component id="btnClearFiltersDetails" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                              <Component id="cbb_searchGN" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -1044,6 +1026,7 @@
                 <Component class="com.daipc.searchbar.MyTextField" name="txtSearchDetails">
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchDetailsMouseClicked"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSearchDetailsActionPerformed"/>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchDetailsKeyReleased"/>
                   </Events>
                 </Component>
@@ -1070,17 +1053,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Gi&#xe1; Nh&#x1ead;p"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txt_searchGN">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_searchGNActionPerformed"/>
-                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_searchGNKeyReleased"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txt_searchGB">
-                  <Events>
-                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_searchGBKeyReleased"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cbb_searchGN">
                   <Properties>
@@ -1122,8 +1094,8 @@
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="2">
-                        <StringItem index="0" value="Kinh doanh"/>
-                        <StringItem index="1" value="Ng&#x1eeb;ng kinh doanh "/>
+                        <StringItem index="0" value="C&#xf2;n h&#xe0;ng"/>
+                        <StringItem index="1" value="H&#x1ebf;t h&#xe0;ng "/>
                       </StringArray>
                     </Property>
                   </Properties>

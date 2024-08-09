@@ -413,7 +413,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Helvetica Neue" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; NH&#xc2;N VI&#xca;N"/>
+            <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; Voucher"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -226,7 +226,7 @@ public class Form_Promotion extends javax.swing.JPanel {
         jScrollPane2.setViewportView(txtmota);
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel3.setText("QUẢN LÝ NHÂN VIÊN");
+        jLabel3.setText("QUẢN LÝ Voucher");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);

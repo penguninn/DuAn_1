@@ -7,9 +7,7 @@ import com.daipc.model.HoaDon;
 import com.daipc.model.HoaDonCho;
 import com.daipc.model.HoaDonModel;
 import com.daipc.model.KhachHang;
-import com.daipc.model.NhanVien;
 import com.daipc.model.PhuongThucTT;
-import com.daipc.model.SanPham;
 import com.daipc.model.Voucher;
 import com.daipc.repo.HoaDonDao;
 import com.daipc.repo.KhachHangService;
@@ -17,19 +15,11 @@ import com.daipc.repo.ProductDetaisDAO;
 import com.daipc.repo.QuanLiBanHang;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 public class Form_Bill extends javax.swing.JPanel {
 
@@ -63,13 +53,7 @@ public class Form_Bill extends javax.swing.JPanel {
     public Form_Bill() {
         initComponents();
         init();
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentShown(ComponentEvent e) {
-                init();
-                
-            }
-        });
+
     }
 
     @SuppressWarnings("unchecked")
@@ -118,7 +102,7 @@ public class Form_Bill extends javax.swing.JPanel {
 
         txt_searchHD.setBackground(new java.awt.Color(242, 242, 242));
         txt_searchHD.setForeground(java.awt.Color.gray);
-        txt_searchHD.setText("Tìm kiếm hóa đơn theo mã , tên khách hàng, SĐT ....");
+        txt_searchHD.setText("Tìm kiếm hóa đơn theo tên khách hàng, SĐT ....");
         txt_searchHD.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 51, 255)));
         txt_searchHD.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -376,7 +360,7 @@ public class Form_Bill extends javax.swing.JPanel {
     }//GEN-LAST:event_tbl_HDMouseClicked
 
     private void txt_searchHDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_searchHDFocusGained
-        if (txt_searchHD.getText().equals("Tìm kiếm hóa đơn theo mã , tên khách hàng, SĐT ....")) {
+        if (txt_searchHD.getText().equals("Tìm kiếm hóa đơn theo tên khách hàng, SĐT ....")) {
             txt_searchHD.setText(null);
             txt_searchHD.requestFocus(); //Yêu cầu tập trung Focus vào 1 component nào đó.
             //remove placeholder style
@@ -389,7 +373,7 @@ public class Form_Bill extends javax.swing.JPanel {
         if (txt_searchHD.getText().length() == 0) {
             //add Placeholder style
             addPlaceholderStyle(txt_searchHD);
-            txt_searchHD.setText("Tìm kiếm sản phẩm theo mã sản phẩm , tên ....");
+            txt_searchHD.setText("Tìm kiếm hóa đơn theo tên khách hàng, SĐT ....");
         }
     }//GEN-LAST:event_txt_searchHDFocusLost
 
@@ -424,6 +408,8 @@ public class Form_Bill extends javax.swing.JPanel {
     private void btnClearFiltersDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFiltersDetailsActionPerformed
         init();
         txt_searchHD.setText("");
+        loadtxtseachHD();
+        
     }//GEN-LAST:event_btnClearFiltersDetailsActionPerformed
 
     private void txt_searchHDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchHDKeyTyped
@@ -488,7 +474,7 @@ public class Form_Bill extends javax.swing.JPanel {
             Object[] row = new Object[]{
                 i++, // Số thứ tự
                 hd.getMaHD(), // Mã hóa đơn
-                (hd.getTenKH() == null) ? "Khách vãng lai" : hd.getTenKH(), // Tên khách hàng
+                (hd.getTenKH() == null) ? "Khách Bán lẻ" : hd.getTenKH(), // Tên khách hàng
                 (hd.getSdt() == null) ? "Trống" : hd.getSdt(), // Số điện thoại
                 //            hdd.getTienMatByIDHD(hd.getMaHD(), 1), // Tiền mặt
                 //            hdd.getTienMatByIDHD(hd.getMaHD(), 2), // Chuyển khoản
@@ -567,7 +553,7 @@ public class Form_Bill extends javax.swing.JPanel {
         dtmHD = (DefaultTableModel) this.tbl_HD.getModel();
         dtmHD.setRowCount(0); // Xóa tất cả các hàng hiện tại trong bảng
 
-        int i = 0;
+        int i = 1;
         for (HoaDonModel hd : list) {
             if (hd.getMaHD().isEmpty()) {
                 init();
@@ -668,5 +654,24 @@ public class Form_Bill extends javax.swing.JPanel {
             System.out.println("Ma la : " + text);
         }
         return text.matches(".*[a-zA-Z]+.*") && text.matches(".*\\d+.*");
+    }
+    
+    
+    public void loadtxtseachHD(){
+        if (txt_searchHD.getText().length() == 0) {
+            //add Placeholder style
+            addPlaceholderStyle(txt_searchHD);
+            txt_searchHD.setText("Tìm kiếm hóa đơn theo tên khách hàng, SĐT ....");
+            return;
+        }
+//        if (txt_searchHD.getText().equals("Tìm kiếm hóa đơn theo tên khách hàng, SĐT ....")) {
+//            txt_searchHD.setText(null);
+//            txt_searchHD.requestFocus(); //Yêu cầu tập trung Focus vào 1 component nào đó.
+//            //remove placeholder style
+//            removePlaceholderStyle(txt_searchHD);
+//            return;
+//        }
+        
+        
     }
 }
