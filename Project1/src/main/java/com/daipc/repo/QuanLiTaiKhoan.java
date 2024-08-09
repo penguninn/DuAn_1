@@ -122,14 +122,14 @@ public class QuanLiTaiKhoan {
     
     public NhanVien checkTrung(String column, String value) {
         dbHelper = new JDBCHelper();
-        sql = "SELECT MaNhanVien, CCCD FROM NhanVien WHERE " + column + " = ?";
+        sql = "SELECT TaiKhoan, CCCD FROM NhanVien WHERE " + column + " = ?";
         NhanVien nv = null;
         
         try {
             ResultSet rs = dbHelper.executeQuery(sql, value);
             
             while(rs.next()) {
-                nv = new NhanVien(rs.getString("MaNhanVien"), 
+                nv = new NhanVien(rs.getString("TaiKhoan"), 
                         rs.getString("CCCD")
                 );
             }

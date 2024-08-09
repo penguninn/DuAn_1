@@ -65,7 +65,7 @@ public class NhanVien {
     }
     
     public NhanVien(String maNhanVien, String cccd) {
-        this.maNhanVien = maNhanVien;
+        this.taiKhoan = taiKhoan;
         this.cccd = cccd;
     }
 
