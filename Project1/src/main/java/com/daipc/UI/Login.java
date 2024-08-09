@@ -317,7 +317,7 @@ public class Login extends javax.swing.JFrame {
         description.setForeground(new java.awt.Color(153, 153, 153));
         description.setText("Đăng nhập để sử dụng phần mềm");
 
-        txtUsername.setText("mth");
+        txtUsername.setText("nva");
 
         jLabel3.setFont(new java.awt.Font("Helvetica", 0, 13)); // NOI18N
         jLabel3.setText("Tài khoản");
@@ -325,7 +325,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Helvetica", 0, 13)); // NOI18N
         jLabel4.setText("Mật khẩu");
 
-        txtPassword.setText("456");
+        txtPassword.setText("123");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 

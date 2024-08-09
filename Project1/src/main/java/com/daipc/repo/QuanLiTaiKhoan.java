@@ -23,7 +23,8 @@ public class QuanLiTaiKhoan {
         Connection con = dbHelper.getConnection();
         ArrayList<NhanVien> listNV = new ArrayList<>();
 
-        sql = "SELECT \n"
+        sql =   "SELECT \n"
+                + "id, \n"
                 + "MaNhanVien,\n"
                 + "HoTen,\n"
                 + "SoDT,\n"
@@ -44,6 +45,7 @@ public class QuanLiTaiKhoan {
 
             while (rs.next()) {
                 listNV.add(new NhanVien(
+                        rs.getInt("id"),
                         rs.getString("MaNhanVien"),
                         rs.getString("HoTen"),
                         rs.getString("SoDT"),

@@ -17,6 +17,8 @@ import com.daipc.repo.ProductDetaisDAO;
 import com.daipc.repo.QuanLiBanHang;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +63,13 @@ public class Form_Bill extends javax.swing.JPanel {
     public Form_Bill() {
         initComponents();
         init();
-
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                init();
+                
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -452,12 +460,10 @@ public class Form_Bill extends javax.swing.JPanel {
     private javax.swing.JTextField txt_tenKH;
     private javax.swing.JTextField txt_tongGTHD;
     // End of variables declaration//GEN-END:variables
-//Cho bảng Hóa đơn
+
     HoaDonDao hdd = new HoaDonDao();
     DefaultTableModel dtmHD;
 
-//
-//    //Truy vấn cho bảng sản phẩm
     ProductDetaisDAO prdd = new ProductDetaisDAO();
     DefaultTableModel dtmSCPT;
 
@@ -472,7 +478,6 @@ public class Form_Bill extends javax.swing.JPanel {
 //            MsgBox.alter(this, "Chưa có hóa đơn nào được thanh toán");
         }
     }
-//
 
     private void fillHD(List<HoaDonModel> listHD) {
         dtmHD = (DefaultTableModel) this.tbl_HD.getModel();
@@ -496,8 +501,6 @@ public class Form_Bill extends javax.swing.JPanel {
         }
     }
 
-//
-//    //----------------------------------
     public void fillSPCT_By_IdHD(String idHD) {//fill SPCT
         dtmSCPT = (DefaultTableModel) tbl_SPCT.getModel();
         dtmSCPT.setRowCount(0);
@@ -520,21 +523,6 @@ public class Form_Bill extends javax.swing.JPanel {
             }
         }
     }
-//
-//    public void fill_TTKH(String idHD) {
-//        KhachHang kh = khs.get_TTKH_In_HD(idHD);
-//        txt_maKH.setText(kh.getMaKhachHang());
-//        txt_tenKH.setText(kh.getHoTen());
-//
-//        txt_sdt.setText((kh.getSoDT() == null) ? "Trống" : kh.getSoDT());
-//        
-//        txt_diaChi.setText((kh.getDiaChi() == null) ? "Trống" : kh.getDiaChi());
-//        
-//        txt_tongGTHD.setText(String.valueOf(kh.getTongGTHD()));
-//        txt_GT.setText(kh.isGioiTinh() ? "Nam" : "Nữ");
-//
-////        txt_tienThua.setText(String.valueOf(kh.getTienThua()));
-//    }
 
     public void fill_TTKH(String idHD) {
         KhachHang kh = khs.get_TTKH_In_HD(idHD);

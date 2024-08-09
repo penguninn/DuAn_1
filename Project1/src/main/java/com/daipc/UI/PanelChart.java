@@ -1,39 +1,45 @@
 package com.daipc.UI;
 
 import com.daipc.chart.ModelChart;
+import com.daipc.model.ThongKeNV;
+import com.daipc.repo.QuanLiThongKe;
 import com.daipc.swing.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.List;
 
 public class PanelChart extends javax.swing.JPanel {
+
+    private QuanLiThongKe QLTK = new QuanLiThongKe();
+    private List<ThongKeNV> listNV;
 
     public PanelChart() {
         initComponents();
         setOpaque(false);
         init();
-        
+
     }
 
     public void init() {
         updateChart();
     }
-    
+
     private void updateChart() {
-//        chart.resetChart();
-//        if (rdoDays.isSelected()) {
-//            chart.addLegend("Ngày", Color.BLUE);
-//            for (int i = 1; i <= 31; i++) {
-//                chart.addData(new ModelChart(String.valueOf(i), new double[]{i}));
-//            }
-//        } else if (rdoWeeks.isSelected()) {
-//            chart.addLegend("Tuần", Color.GREEN);
-//            for (int i = 1; i <= 4; i++) {
-//                chart.addData(new ModelChart(String.valueOf(i), new double[]{i}));
-//            }
-//        }
-//        chart.start();
+        chart.resetChart();
+        thongKeNV();
+        chart.start();
+    }
+
+    public void thongKeNV() {
+        listNV = QLTK.getThongKeNV();
+        chart.addLegend("Số lượng hóa đơn", Color.RED);
+        chart.addLegend("Số lượng khách hàng tiếp thị", Color.BLUE);
+
+        for (ThongKeNV nv : listNV) {
+            chart.addData(new ModelChart(nv.getHoTen(), new double[]{nv.getTongDonHang(), nv.getSoLuongKachHang()}));
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -100,7 +106,7 @@ public class PanelChart extends javax.swing.JPanel {
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
         super.paintComponent(grphcs);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private com.daipc.chart.Chart chart;
