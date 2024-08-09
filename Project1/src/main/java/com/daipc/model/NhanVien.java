@@ -90,6 +90,11 @@ public class NhanVien {
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
     }
+    
+    public NhanVien(String maNhanVien, String cccd) {
+        this.taiKhoan = taiKhoan;
+        this.cccd = cccd;
+    }
 
     public NhanVien() {
     }
