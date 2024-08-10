@@ -21,6 +21,7 @@ import com.daipc.customTable.TableEvent;
 import com.daipc.enumm.TrangThaiCRUD;
 import com.daipc.model.HoaDon;
 import com.daipc.model.KhachHang;
+import com.daipc.model.NhanVien;
 import com.daipc.model.PhuongThucTT;
 import com.daipc.model.Voucher;
 import java.awt.event.ComponentAdapter;
@@ -69,8 +70,9 @@ public class Form_Sell extends javax.swing.JPanel {
     private boolean toggle = false;
     private int column = 0;
     private int sort = 0;
+    private NhanVien nv;
 
-    public Form_Sell() {
+    public Form_Sell(NhanVien nv) {
         initComponents();
         TableCustom.apply(scrollHoaDonCho, TableCustom.TableType.DEFAULT);
         TableCustom.apply(scrollGioHang, TableCustom.TableType.DEFAULT);
@@ -85,6 +87,7 @@ public class Form_Sell extends javax.swing.JPanel {
         sp.setOrientation(JScrollBar.HORIZONTAL);
         scrollMoTa.setHorizontalScrollBar(sp);
 
+        this.nv = nv;
         initTableHD();
         initTableGH();
         loadDataHDC();
@@ -693,7 +696,7 @@ public class Form_Sell extends javax.swing.JPanel {
         txtSDT.setLabelText("SĐT Khách Hàng");
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel13.setText("Khách Hàng");
+        jLabel13.setText("Tên Khách Hàng");
 
         txtTenKH.setText("Khách Bán Lẻ ");
 
@@ -868,11 +871,11 @@ public class Form_Sell extends javax.swing.JPanel {
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(txtTenKH))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnKiemTra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSDT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jLabel22)
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelBorder7Layout.createSequentialGroup()
@@ -881,38 +884,38 @@ public class Form_Sell extends javax.swing.JPanel {
                             .addComponent(jLabel14)
                             .addComponent(txtMaHD)
                             .addComponent(btnTaoHD, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
                             .addComponent(txtTongTien)
                             .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(txtVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelBorder7Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCheckVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMoTaVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(txtThanhToan)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(txtTienThua)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(cboHinhThucTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(scrollMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollMoTa, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1030,7 +1033,7 @@ public class Form_Sell extends javax.swing.JPanel {
                  (MaHD, IDKhachHang, IDNhanVien, IDVoucher, TongGiaTriHoaDon, ThanhToan, NgayTao, TrangThai)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """;
-        if (QLBH.update(sqlInsert, txtMaHD.getText(), 1, 1, null, 0, 0, LocalDate.now(),
+        if (QLBH.update(sqlInsert, txtMaHD.getText(), 1, nv.getId(), null, 0, 0, LocalDate.now(),
                 0) == TrangThaiCRUD.ThanhCong) {
             JOptionPane.showMessageDialog(null, "Tạo Hóa Đơn Thành Công !!!");
         }
@@ -1092,12 +1095,23 @@ public class Form_Sell extends javax.swing.JPanel {
     }// GEN-LAST:event_btnHuyActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThanhToanActionPerformed
-        String sqlUpdate = "update HoaDon set IDVoucher = ?, IDPhuongThucTT = ?, trangThai = ?, GhiChu = ?, TongGiaTriHoaDon = ? where ID = ?";
+        String sqlUpdate = """
+                            UPDATE HoaDon 
+                            SET 
+                                IDVoucher = CASE WHEN ? > 0 THEN ? ELSE IDVoucher END, 
+                                IDPhuongThucTT = ?, 
+                                trangThai = ?, 
+                                GhiChu = ?, 
+                                TongGiaTriHoaDon = ?,
+                                idnhanvien = ?
+                            WHERE ID = ?;
+                           """;
         if (validateForm()) {
             if (cboHinhThucTT.getSelectedIndex() == 0) {
-                if (QLBH.update(sqlUpdate, voucher.getId(),
+                if (QLBH.update(sqlUpdate, voucher.getId(), voucher.getId(),
                         listPTTT.get(cboHinhThucTT.getSelectedIndex()).getId(), 1, txtGhiChu.getText(),
                         BigDecimal.valueOf(Double.parseDouble(txtThanhToan.getText())),
+                        nv.getId(),
                         listHDC.get(tblHoaDonCho.getSelectedRow()).getId()) == TrangThaiCRUD.ThanhCong) {
                     JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công !");
                     loadDataHDC();
@@ -1106,9 +1120,10 @@ public class Form_Sell extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Thanh Toán Thất Bại !");
                 }
             } else {
-                if (QLBH.update(sqlUpdate, voucher.getId(),
+                if (QLBH.update(sqlUpdate, voucher.getId(), voucher.getId(),
                         listPTTT.get(cboHinhThucTT.getSelectedIndex()).getId(), 1, txtGhiChu.getText(),
                         BigDecimal.valueOf(Double.parseDouble(txtThanhToan.getText())),
+                        nv.getId(),
                         listHDC.get(tblHoaDonCho.getSelectedRow()).getId()) == TrangThaiCRUD.ThanhCong) {
                     JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công !");
                     loadDataHDC();

@@ -12,6 +12,8 @@ import java.math.BigDecimal;
  */
 public class ThongKe {
     private int donHang;
+    private int donThanhCong;
+    private int donHuy;
     private BigDecimal doanhThu;
     private BigDecimal chiPhi;
     private BigDecimal loiNhuan;
@@ -24,6 +26,31 @@ public class ThongKe {
         this.doanhThu = doanhThu;
         this.chiPhi = chiPhi;
         this.loiNhuan = loiNhuan;
+    }
+
+    public ThongKe(int donHang, int donThanhCong, int donHuy, BigDecimal doanhThu, BigDecimal chiPhi, BigDecimal loiNhuan) {
+        this.donHang = donHang;
+        this.donThanhCong = donThanhCong;
+        this.donHuy = donHuy;
+        this.doanhThu = doanhThu;
+        this.chiPhi = chiPhi;
+        this.loiNhuan = loiNhuan;
+    }
+
+    public int getDonThanhCong() {
+        return donThanhCong;
+    }
+
+    public void setDonThanhCong(int donThanhCong) {
+        this.donThanhCong = donThanhCong;
+    }
+
+    public int getDonHuy() {
+        return donHuy;
+    }
+
+    public void setDonHuy(int donHuy) {
+        this.donHuy = donHuy;
     }
 
     public int getDonHang() {

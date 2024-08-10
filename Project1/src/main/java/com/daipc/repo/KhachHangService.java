@@ -46,8 +46,7 @@ public class KhachHangService {
     }
     
     
-    public KhachHang get_TTKH_In_HD(int maHD) {
-    // Câu lệnh SQL với tham số placeholder cho ID hóa đơn
+    public KhachHang get_TTKH_In_HD(String maHD) {
     String sql = """
         SELECT kh.id, 
                kh.MaKhachHang, 
@@ -58,40 +57,34 @@ public class KhachHangService {
                hd.tongGiaTriHoaDon
         FROM KhachHang kh
         INNER JOIN HoaDon hd ON kh.id = hd.IDKhachHang
-        WHERE hd.ID = ?
-        GROUP BY kh.id, 
-                 kh.MaKhachHang, 
-                 kh.hoTen, 
-                 kh.gioiTinh, 
-                 kh.soDT, 
-                 kh.diaChi, 
-                 hd.tongGiaTriHoaDon;
+        WHERE hd.MaHD = ?;
     """;
+    
     KhachHang kh = null;
-    try {
-        // Tạo PreparedStatement từ câu lệnh SQL
-        PreparedStatement stm = conn.prepareStatement(sql);
+    
+    try (Connection conn = DatabaseHelper.getConnection();
+         PreparedStatement stm = conn.prepareStatement(sql)) {
         
         // Gán tham số vào câu lệnh SQL
-        stm.setInt(1, maHD);
+        stm.setString(1, maHD);
         
         // Thực thi câu lệnh và lấy kết quả
-        ResultSet rs = stm.executeQuery();
-        
-        // Xử lý kết quả
-        if (rs.next()) {
-            kh = new KhachHang();
-            kh.setId(rs.getInt("id"));
-            kh.setMaKhachHang(rs.getString("MaKhachHang"));
-            kh.setHoTen(rs.getString("hoTen"));
-            kh.setGioiTinh(rs.getBoolean("gioiTinh"));
-            kh.setSoDT(rs.getString("soDT"));
-            kh.setDiaChi(rs.getString("diaChi"));
-            kh.setTongGTHD(rs.getInt("tongGiaTriHoaDon"));
+        try (ResultSet rs = stm.executeQuery()) {
+            if (rs.next()) {
+                kh = new KhachHang();
+                kh.setId(rs.getInt("id"));
+                kh.setMaKhachHang(rs.getString("MaKhachHang"));
+                kh.setHoTen(rs.getString("hoTen"));
+                kh.setGioiTinh(rs.getBoolean("gioiTinh"));
+                kh.setSoDT(rs.getString("soDT"));
+                kh.setDiaChi(rs.getString("diaChi"));
+                kh.setTongGTHD(rs.getInt("tongGiaTriHoaDon")); // Đảm bảo thuộc tính này có trong lớp KhachHang
+            }
         }
     } catch (SQLException e) {
         e.printStackTrace(); // In lỗi ra console để dễ dàng gỡ lỗi
     }
+    
     return kh;
 }
 

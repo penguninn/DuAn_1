@@ -24,7 +24,8 @@ public class QuanLiTaiKhoan {
         Connection con = dbHelper.getConnection();
         ArrayList<NhanVien> listNV = new ArrayList<>();
 
-        sql = "SELECT \n"
+        sql =   "SELECT \n"
+                + "id, \n"
                 + "MaNhanVien,\n"
                 + "HoTen,\n"
                 + "SoDT,\n"
@@ -45,6 +46,7 @@ public class QuanLiTaiKhoan {
 
             while (rs.next()) {
                 listNV.add(new NhanVien(
+                        rs.getInt("id"),
                         rs.getString("MaNhanVien"),
                         rs.getString("HoTen"),
                         rs.getString("SoDT"),
@@ -120,16 +122,16 @@ public class QuanLiTaiKhoan {
         }
     }
     
-    public NhanVien checkTrung(String table, String Ma) {
+    public NhanVien checkTrung(String column, String value) {
         dbHelper = new JDBCHelper();
-        sql = "SELECT MaNhanVien, CCCD FROM NhanVien WHERE " + table + " = ?";
+        sql = "SELECT TaiKhoan, CCCD FROM NhanVien WHERE " + column + " = ?";
         NhanVien nv = null;
         
         try {
-            ResultSet rs = dbHelper.executeQuery(sql, Ma);
+            ResultSet rs = dbHelper.executeQuery(sql, value);
             
             while(rs.next()) {
-                nv = new NhanVien(rs.getString("MaNhanVien"), 
+                nv = new NhanVien(rs.getString("TaiKhoan"), 
                         rs.getString("CCCD")
                 );
             }

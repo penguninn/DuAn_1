@@ -422,11 +422,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelFilter1" max="32767" attributes="0"/>
-                          <Component id="panelDetailsProducts" max="32767" attributes="0"/>
+                          <Component id="panelFilter1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="panelDetailsProducts" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -437,7 +437,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelFilter1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="panelDetailsProducts" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -455,9 +455,9 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -467,7 +467,7 @@
                                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jLabel11" max="32767" attributes="0"/>
+                                                  <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="jLabel28" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="jLabel17" alignment="0" max="32767" attributes="0"/>
                                               </Group>
@@ -475,13 +475,13 @@
                                           </Group>
                                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="txt_Soluong" pref="253" max="32767" attributes="0"/>
+                                                      <Component id="txt_Soluong" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="txt_MSPCT" alignment="1" max="32767" attributes="0"/>
-                                                      <Component id="cbb_SP" alignment="0" pref="253" max="32767" attributes="0"/>
+                                                      <Component id="cbb_SP" alignment="0" max="32767" attributes="0"/>
                                                       <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="txt_TenSPCT" pref="251" max="32767" attributes="0"/>
+                                                          <Component id="txt_TenSPCT" max="32767" attributes="0"/>
                                                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
@@ -494,27 +494,27 @@
                                                   </Group>
                                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="txt_GiaNhap" pref="252" max="32767" attributes="0"/>
+                                                      <Component id="txt_GiaNhap" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="txt_GiaBan" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="cbb_Size" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="cbb_MauSac" alignment="0" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel27" min="-2" pref="49" max="-2" attributes="0"/>
-                                                      <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel27" alignment="0" min="-2" pref="49" max="-2" attributes="0"/>
+                                                      <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="cbb_TT" pref="252" max="32767" attributes="0"/>
-                                                      <Component id="cbb_ChatLieu" pref="252" max="32767" attributes="0"/>
-                                                      <Component id="cbb_DoDay" alignment="0" pref="252" max="32767" attributes="0"/>
-                                                      <Component id="cbb_NCC" alignment="0" pref="252" max="32767" attributes="0"/>
+                                                      <Component id="cbb_TT" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="cbb_ChatLieu" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="cbb_DoDay" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="cbb_NCC" alignment="0" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <Group type="102" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
                                                   <Component id="btnThemDetails" min="-2" pref="80" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Component id="btnSuaDetails" min="-2" pref="80" max="-2" attributes="0"/>
@@ -548,10 +548,10 @@
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="cbb_ChatLieu" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="cbb_SP" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -578,7 +578,7 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="3" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                           <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="cbb_MauSac" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -595,7 +595,7 @@
                                   <Component id="cbb_DoDay" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="btnClearDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
@@ -603,13 +603,13 @@
                                   <Component id="btnThemDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="btnXoaDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" groupAlignment="3" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="btnImportDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="btnExportDetails" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="scrollDetailsProducts" pref="381" max="32767" attributes="0"/>
+                          <Component id="scrollDetailsProducts" pref="368" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -652,6 +652,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt_MSPCT">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt_Soluong">
                 </Component>
@@ -670,7 +673,10 @@
                 <Component class="com.daipc.combo_suggestion.ComboBoxSuggestion" name="cbb_TT">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="0"/>
+                      <StringArray count="2">
+                        <StringItem index="0" value="C&#xf2;n h&#xe0;ng"/>
+                        <StringItem index="1" value="H&#x1ebf;t h&#xe0;ng "/>
+                      </StringArray>
                     </Property>
                   </Properties>
                 </Component>
@@ -892,34 +898,40 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jSlider1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel18" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Component id="cbb_searchGN" alignment="0" pref="201" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jSlider2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbb_searchGB" alignment="0" pref="201" max="32767" attributes="0"/>
+                                      <Component id="jLabel16" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbb_SP_Filter" alignment="0" pref="223" max="32767" attributes="0"/>
                                       <Component id="jLabel13" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Component id="cbb_SP_Filter" alignment="0" pref="208" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbb_TT_Filter" alignment="0" pref="223" max="32767" attributes="0"/>
                                       <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbb_TT_Fil" alignment="0" pref="215" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txtSearchDetails" min="-2" pref="250" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                                          <Component id="txtSearchDetails" pref="300" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="btnClearFiltersDetails" min="-2" pref="85" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -935,32 +947,33 @@
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jSlider1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtSearchDetails" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="cbb_SP_Filter" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="btnClearFiltersDetails" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="jSlider2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel16" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel15" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="cbb_searchGB" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                              <Component id="cbb_SP_Filter" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                              <Component id="txtSearchDetails" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                              <Component id="cbb_TT_Fil" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                              <Component id="btnClearFiltersDetails" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                              <Component id="cbb_searchGN" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbb_TT_Filter" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                          <EmptySpace pref="15" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1002,8 +1015,6 @@
                     <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng Th&#xe1;i"/>
                   </Properties>
                 </Component>
-                <Component class="com.daipc.combo_suggestion.ComboBoxSuggestion" name="cbb_TT_Filter">
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1015,6 +1026,7 @@
                 <Component class="com.daipc.searchbar.MyTextField" name="txtSearchDetails">
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchDetailsMouseClicked"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSearchDetailsActionPerformed"/>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchDetailsKeyReleased"/>
                   </Events>
                 </Component>
@@ -1023,7 +1035,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Gi&#xe1; B&#xe1;n Max"/>
+                    <Property name="text" type="java.lang.String" value="Gi&#xe1; B&#xe1;n"/>
                   </Properties>
                 </Component>
                 <Component class="com.daipc.swing.Button" name="btnClearFiltersDetails">
@@ -1039,12 +1051,59 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Gi&#xe1; B&#xe1;n Min"/>
+                    <Property name="text" type="java.lang.String" value="Gi&#xe1; Nh&#x1ead;p"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSlider" name="jSlider1">
+                <Component class="javax.swing.JComboBox" name="cbb_searchGN">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="4">
+                        <StringItem index="0" value="D&#x1b0;&#x1edb;i 500.000&#x111;"/>
+                        <StringItem index="1" value="500.000 - 1 tri&#x1ec7;u"/>
+                        <StringItem index="2" value="1 - 2 tri&#x1ec7;u "/>
+                        <StringItem index="3" value="Gi&#xe1; tr&#xea;n 3 tri&#x1ec7;u "/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbb_searchGNActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
                 </Component>
-                <Component class="javax.swing.JSlider" name="jSlider2">
+                <Component class="javax.swing.JComboBox" name="cbb_searchGB">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="4">
+                        <StringItem index="0" value="D&#x1b0;&#x1edb;i 500.000&#x111;"/>
+                        <StringItem index="1" value="500.000 - 1 tri&#x1ec7;u"/>
+                        <StringItem index="2" value="1 - 2 tri&#x1ec7;u "/>
+                        <StringItem index="3" value="Gi&#xe1; tr&#xea;n 3 tri&#x1ec7;u "/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbb_searchGBActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="com.daipc.combo_suggestion.ComboBoxSuggestion" name="cbb_TT_Fil">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="2">
+                        <StringItem index="0" value="C&#xf2;n h&#xe0;ng"/>
+                        <StringItem index="1" value="H&#x1ebf;t h&#xe0;ng "/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cbb_TT_FilFocusGained"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cbb_TT_FilMouseClicked"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbb_TT_FilActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

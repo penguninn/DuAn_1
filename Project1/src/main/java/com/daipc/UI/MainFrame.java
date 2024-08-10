@@ -75,7 +75,7 @@ public class MainFrame extends javax.swing.JFrame {
         header = new Header(this, nv.getHoTen());
         Form_Home = new Form_Home();
         Form_Products = new Form_Products(this);
-        Form_Sell = new Form_Sell();
+        Form_Sell = new Form_Sell(nv);
         Form_Bill = new Form_Bill();
         Form_Promotion = new Form_Promotion();
         Form_Staffs = new Form_Staffs();

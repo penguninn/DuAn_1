@@ -1044,8 +1044,25 @@ VALUES (1, 1, 500000, 1, 1),
     (10, 10, 570000, 1, 1);
 
 use  DuAn1_Final
+
+SELECT
+    nv.HoTen AS TenNhanVien,
+    COUNT(hd.ID) AS SoLuongDonThanhCong,
+    SUM(hd.TongGiaTriHoaDon) AS TongGiaTriDonThanhCong,
+    COUNT(DISTINCT kh.ID) AS SoKhachHang
+FROM
+    NhanVien nv
+LEFT JOIN
+    HoaDon hd ON nv.ID = hd.IDNhanVien
+LEFT JOIN
+    KhachHang kh ON hd.IDKhachHang = kh.ID
+WHERE
+    hd.TrangThai = 1 
+GROUP BY
+    nv.HoTen;
+go
 select * from SanPhamChiTiet
-	
+
 SELECT 
                     spct.id,
                     spct.MaSPCT,

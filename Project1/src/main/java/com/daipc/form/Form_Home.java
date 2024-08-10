@@ -38,7 +38,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
 
-public class Form_Home extends javax.swing.JPanel {
+public final class Form_Home extends javax.swing.JPanel {
 
     private JPanel panel;
     private JLayeredPane layerPane;
@@ -75,6 +75,11 @@ public class Form_Home extends javax.swing.JPanel {
     private JComboBox cboFilterSP;
     private JComboBox cboFilterNV;
     private JComboBox cboFilterKH;
+    
+    private Card card1;
+    private Card card2;
+    private Card card3;
+    private Card card4;
 
     private QuanLiThongKe QLTK = new QuanLiThongKe();
     private DefaultTableModel modelSP = new DefaultTableModel(new String[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Giá Bán", "Màu Sắc", "Size", "Chất Liệu", "Độ Dày", "Số Lượng"}, 0);
@@ -85,16 +90,36 @@ public class Form_Home extends javax.swing.JPanel {
     private List<ChiTietSP> listDT;
     private List<ChiTietSP> listNV;
     private List<ChiTietSP> listKH;
+    
 
     public Form_Home() {
         initComponents();
         init();
+        loadDataCard();
+        loadDoanhThuData();
+        loadSanPhamData();
+        loadNhanVienData();
+        loadKhachHangData();
+        
+        chartDas.addActionListener(e -> {
+            index = 0;
+            swicthForm();
+        });
+
+        tableDas.addActionListener(e -> {
+            index = 1;
+            swicthForm();
+        });
         
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
-                panel.removeAll();
-                init();
+                loadDataCard();
+                loadDoanhThuData();
+                loadSanPhamData();
+                loadNhanVienData();
+                loadKhachHangData();
+                
             }
         });
     }
@@ -118,12 +143,13 @@ public class Form_Home extends javax.swing.JPanel {
         cboFilterSP = new JComboBox<>();
         cboFilterNV = new JComboBox<>();
         cboFilterKH = new JComboBox<>();
+        
 
         doanhThu = new JPanel(new MigLayout("fill", "0[]0", "0[fill]5[grow]0"));
         sanPham = new JPanel(new MigLayout("fill", "0[]0", "0[fill]5[grow]0"));
         nhanVien = new JPanel(new MigLayout("fill", "0[]0", "0[fill]5[grow]0"));
         khachHang = new JPanel(new MigLayout("fill", "0[]0", "0[fill]5[grow]0"));
-        
+
         doanhThuFilter = new JPanel(new MigLayout("fill", "[grow][right]", "[]"));
         sanPhamFilter = new JPanel(new MigLayout("fill", "[grow][right]", "[]"));
         nhanVienFilter = new JPanel(new MigLayout("fill"));
@@ -137,12 +163,11 @@ public class Form_Home extends javax.swing.JPanel {
         sanPham.setBackground(Color.white);
         nhanVien.setBackground(Color.white);
         khachHang.setBackground(Color.white);
-        
+
         cboFilterSP.setPreferredSize(new Dimension(350, cboFilterSP.getPreferredSize().height));
 
-        
         sanPhamFilter.add(cboFilterSP, "align right, gapright 30");
-        
+
         doanhThuTable = new JTable();
         sanPhamTable = new JTable();
         nhanVienTable = new JTable();
@@ -162,11 +187,6 @@ public class Form_Home extends javax.swing.JPanel {
         cardPanel.setLayout(cardLayout);
         cardPanel.add(panelChart, "Chart");
         cardPanel.add(panelTable, "Table");
-
-        loadDoanhThuData();
-        loadSanPhamData();
-        loadNhanVienData();
-        loadKhachHangData();
 
         FlatScrollPane scrollPaneDoanhThu = new FlatScrollPane();
         scrollPaneDoanhThu.setViewportView(doanhThuTable);
@@ -214,34 +234,47 @@ public class Form_Home extends javax.swing.JPanel {
         panelBorder.add(panelHeader, "h 50!, wrap");
         panelBorder.add(cardPanel, "grow");
 
-        panel.setLayout(new MigLayout("fill", "10[fill]10", "10[]8[grow]10"));
-        panel.add(layerPane, "h 120!, wrap");
-        panel.add(panelBorder, "grow");
         layerPane.setLayout(new GridLayout(0, 4, 10, 0));
-
-        ThongKe tk = QLTK.getCardThongKe();
-        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
-        Model_Card model1 = new Model_Card("1", "Tổng Đơn Hàng", String.valueOf(tk.getDonHang()), "", "#FF3333", "#FF6666");
-        Model_Card model2 = new Model_Card("2", "Tổng Doanh Thu", numberFormat.format(tk.getDoanhThu()) + " VNĐ", "", "#9999FF", "#0066FF");
-        Model_Card model3 = new Model_Card("3", "Tổng Chi Phí", numberFormat.format(tk.getChiPhi()) + " VNĐ", "", "#66FF66", "#00CCCC");
-        Model_Card model4 = new Model_Card("4", "Tổng Lợi Nhuận", numberFormat.format(tk.getLoiNhuan()) + " VNĐ", "", "#FFCC00", "#FF6633");
-        layerPane.add(new Card(model1));
-        layerPane.add(new Card(model2));
-        layerPane.add(new Card(model3));
-        layerPane.add(new Card(model4));
+        panel.setLayout(new MigLayout("fill", "10[fill]10", "10[]8[grow]10"));
+        panel.add(layerPane, "h 150!, wrap");
+        panel.add(panelBorder, "grow");
 
         this.setLayout(new MigLayout("fill", "0[fill]0", "0[grow]0"));
         this.add(panel, "grow");
+        
+        Model_Card model1 = new Model_Card("1", "", "", "#FF3333", "#FF6666");
+        Model_Card model2 = new Model_Card("2", "Tổng Doanh Thu", "", "#9999FF", "#0066FF");
+        Model_Card model3 = new Model_Card("3", "Tổng Chi Phí", "", "#66FF66", "#00CCCC");
+        Model_Card model4 = new Model_Card("4", "Tổng Lợi Nhuận", "", "#FFCC00", "#FF6633");
+        card1 = new Card(model1);
+        card2 = new Card(model2);
+        card3 = new Card(model3);
+        card4 = new Card(model4);
+        layerPane.add(card1);
+        layerPane.add(card2);
+        layerPane.add(card3);
+        layerPane.add(card4);
+    }
 
-        chartDas.addActionListener(e -> {
-            index = 0;
-            swicthForm();
-        });
-
-        tableDas.addActionListener(e -> {
-            index = 1;
-            swicthForm();
-        });
+    public void loadDataCard() {
+        ThongKe tk = QLTK.getCardThongKe();
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+        String htmlText = String.format(
+                "<html><table border='0' cellpadding='5'>"
+                + "<tr><td>Đơn Thành Công</td><td>%d</td></tr>"
+                + "<tr><td>Đơn Hủy</td><td>%d</td></tr>"
+                + "</table></html>",
+                tk.getDonThanhCong(),
+                tk.getDonHuy()
+        );
+        Model_Card model1 = new Model_Card("1", String.format("Tổng Đơn Hàng   %d", tk.getDonHang()), htmlText, "#FF3333", "#FF6666");
+        Model_Card model2 = new Model_Card("2", "Tổng Doanh Thu", numberFormat.format(tk.getDoanhThu()) + " VNĐ", "#9999FF", "#0066FF");
+        Model_Card model3 = new Model_Card("3", "Tổng Chi Phí", numberFormat.format(tk.getChiPhi()) + " VNĐ", "#66FF66", "#00CCCC");
+        Model_Card model4 = new Model_Card("4", "Tổng Lợi Nhuận", numberFormat.format(tk.getLoiNhuan()) + " VNĐ", "#FFCC00", "#FF6633");
+        card1.setData(model1);
+        card2.setData(model2);
+        card3.setData(model3);
+        card4.setData(model4);
     }
 
     public void swicthForm() {
