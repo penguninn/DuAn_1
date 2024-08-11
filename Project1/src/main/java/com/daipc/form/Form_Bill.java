@@ -15,6 +15,8 @@ import com.daipc.repo.ProductDetaisDAO;
 import com.daipc.repo.QuanLiBanHang;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +55,14 @@ public class Form_Bill extends javax.swing.JPanel {
     public Form_Bill() {
         initComponents();
         init();
+        
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                init();
+            }
 
+        });
     }
 
     @SuppressWarnings("unchecked")

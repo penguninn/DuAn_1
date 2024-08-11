@@ -7,10 +7,13 @@ package com.daipc.repo;
 import com.daipc.model.ChiTietSP;
 import com.daipc.model.NhanVien;
 import com.daipc.model.ThongKe;
+import com.daipc.model.ThongKeDT;
+import com.daipc.model.ThongKeKH;
 import com.daipc.model.ThongKeNV;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  *
@@ -49,9 +52,205 @@ public class QuanLiThongKe {
         return thongKe;
     }
 
+    public List<ThongKeNV> getThongKeNV() {
+        dBHelper = new JDBCHelper();
+        String sqlQuery = """
+                            SELECT
+                                nv.HoTen AS TenNhanVien,
+                                COUNT(hd.ID) AS SoLuongDonThanhCong,
+                                SUM(hd.TongGiaTriHoaDon) AS TongGiaTriDonThanhCong,
+                                COUNT(DISTINCT kh.ID) AS SoKhachHang
+                            FROM
+                                NhanVien nv
+                            LEFT JOIN
+                                HoaDon hd ON nv.ID = hd.IDNhanVien
+                            LEFT JOIN
+                                KhachHang kh ON hd.IDKhachHang = kh.ID
+                            WHERE
+                                hd.TrangThai = 1 
+                            GROUP BY
+                                nv.HoTen
+                          """;
+        List<ThongKeNV> listNV = new ArrayList<>();
+        try {
+            ResultSet rs = dBHelper.executeQuery(sqlQuery);
+            while (rs.next()) {
+                listNV.add(
+                        new ThongKeNV(
+                                rs.getString(1),
+                                rs.getInt(2),
+                                rs.getBigDecimal(3),
+                                rs.getInt(4)
+                        )
+                );
+            }
+            dBHelper.closeResultSet(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listNV;
+    }
+
+    public List<Integer> getYears() {
+        dBHelper = new JDBCHelper();
+        String sqlThang = """
+                            SELECT DISTINCT
+                                        YEAR(NgayTao) AS Nam
+                                    FROM
+                                        HoaDon
+                                    WHERE
+                                        TrangThai = 1
+                                    ORDER BY
+                                        Nam;
+                          """;
+        List<Integer> listYears = new ArrayList<>();
+        try {
+            ResultSet rs = dBHelper.executeQuery(sqlThang);
+            while (rs.next()) {
+                listYears.add(rs.getInt(1));
+            }
+            dBHelper.closeResultSet(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listYears;
+    }
+
+    public List<ThongKeDT> getThongKeDTMonth(int year) {
+        dBHelper = new JDBCHelper();
+        String sqlThang = """
+                            SELECT
+                                CONVERT(VARCHAR(4), YEAR(hd.NgayTao)) + '-' + RIGHT('0' + CONVERT(VARCHAR(2), MONTH(hd.NgayTao)), 2) AS NamThang,
+                                SUM(hd.TongGiaTriHoaDon) AS DoanhThu,
+                                SUM(hd.TongGiaTriHoaDon) - SUM(ISNULL(costs.TotalCost, 0)) AS LoiNhuan
+                            FROM
+                                HoaDon hd
+                            LEFT JOIN (
+                                SELECT 
+                                    hdct.IDHoaDon,
+                                    SUM(spct.GiaNhap * hdct.SoLuong) AS TotalCost
+                                FROM 
+                                    HoaDonCT hdct
+                                JOIN 
+                                    SanPhamChiTiet spct ON spct.ID = hdct.IDCTSP
+                                GROUP BY 
+                                    hdct.IDHoaDon
+                            ) costs ON hd.ID = costs.IDHoaDon
+                            WHERE
+                                hd.TrangThai = 1
+                                AND YEAR(hd.NgayTao) = ?
+                            GROUP BY
+                                YEAR(hd.NgayTao),
+                                MONTH(hd.NgayTao)
+                            ORDER BY
+                                NamThang;
+                          """;
+        List<ThongKeDT> listDT = new ArrayList<>();
+        try {
+
+            ResultSet rs = dBHelper.executeQuery(sqlThang, year);
+            while (rs.next()) {
+                listDT.add(
+                        new ThongKeDT(
+                                rs.getString(1),
+                                rs.getBigDecimal(2),
+                                rs.getBigDecimal(3)
+                        )
+                );
+            }
+            dBHelper.closeResultSet(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listDT;
+    }
+
+    public List<ThongKeDT> getThongKeDTYear() {
+        dBHelper = new JDBCHelper();
+
+        String sqlNam = """
+                            SELECT
+                                    CONVERT(VARCHAR(4), YEAR(hd.NgayTao)) AS Nam,
+                                    SUM(hd.TongGiaTriHoaDon) AS DoanhThu,
+                                    SUM(hd.TongGiaTriHoaDon) - SUM(ISNULL(costs.TotalCost, 0)) AS LoiNhuan
+                                FROM
+                                    HoaDon hd
+                                LEFT JOIN (
+                                    SELECT 
+                                        hdct.IDHoaDon,
+                                        SUM(spct.GiaNhap * hdct.SoLuong) AS TotalCost
+                                    FROM 
+                                        HoaDonCT hdct
+                                    JOIN 
+                                        SanPhamChiTiet spct ON spct.ID = hdct.IDCTSP
+                                    GROUP BY 
+                                        hdct.IDHoaDon
+                                ) costs ON hd.ID = costs.IDHoaDon
+                                WHERE
+                                    hd.TrangThai = 1 
+                                GROUP BY
+                                    CONVERT(VARCHAR(4), YEAR(hd.NgayTao))
+                                ORDER BY
+                                    Nam;
+                          """;
+        List<ThongKeDT> listDT = new ArrayList<>();
+        try {
+            ResultSet rs = dBHelper.executeQuery(sqlNam);
+            while (rs.next()) {
+                listDT.add(
+                        new ThongKeDT(
+                                rs.getString(1),
+                                rs.getBigDecimal(2),
+                                rs.getBigDecimal(3)
+                        )
+                );
+            }
+            dBHelper.closeResultSet(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listDT;
+    }
+
+    public List<ThongKeKH> getThongKeKH() {
+        dBHelper = new JDBCHelper();
+        String sqlQuery = """
+                            SELECT TOP 10
+                                    kh.MaKhachHang,
+                                    kh.HoTen,
+                                    COUNT(hd.ID) AS SoDonHang,
+                                    SUM(hd.TongGiaTriHoaDon) AS TongGiaTriDonHang
+                                FROM KhachHang kh
+                                LEFT JOIN HoaDon hd ON kh.ID = hd.IDKhachHang
+                                WHERE hd.TrangThai = 1 -- Giả sử 1 là trạng thái "thành công"
+                                GROUP BY kh.MaKhachHang, kh.HoTen
+                                ORDER BY TongGiaTriDonHang DESC;
+                          """;
+        List<ThongKeKH> listKH = new ArrayList<>();
+        try {
+
+            ResultSet rs = dBHelper.executeQuery(sqlQuery);
+            while (rs.next()) {
+                listKH.add(
+                        new ThongKeKH(
+                                rs.getString(1),
+                                rs.getString(2),
+                                rs.getInt(3),
+                                rs.getBigDecimal(4)
+                        )
+                );
+            }
+            dBHelper.closeResultSet(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listKH;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
     public List<ChiTietSP> getThongKeSP() {
         dBHelper = new JDBCHelper();
-        String sqlQuery =   """
+        String sqlQuery = """
                                 SELECT 
                                         spct.id,
                                         spct.MaSPCT,
@@ -103,44 +302,5 @@ public class QuanLiThongKe {
             e.printStackTrace();
         }
         return listSPCT;
-    }
-    
-    public List<ThongKeNV> getThongKeNV() {
-        dBHelper = new JDBCHelper();
-        String sqlQuery = """
-                            SELECT
-                                nv.HoTen AS TenNhanVien,
-                                COUNT(hd.ID) AS SoLuongDonThanhCong,
-                                SUM(hd.TongGiaTriHoaDon) AS TongGiaTriDonThanhCong,
-                                COUNT(DISTINCT kh.ID) AS SoKhachHang
-                            FROM
-                                NhanVien nv
-                            LEFT JOIN
-                                HoaDon hd ON nv.ID = hd.IDNhanVien
-                            LEFT JOIN
-                                KhachHang kh ON hd.IDKhachHang = kh.ID
-                            WHERE
-                                hd.TrangThai = 1 
-                            GROUP BY
-                                nv.HoTen
-                          """;
-        List<ThongKeNV> listNV = new ArrayList<>();
-        try {
-            ResultSet rs = dBHelper.executeQuery(sqlQuery);
-            while (rs.next()) {
-                listNV.add(
-                        new ThongKeNV(
-                                rs.getString(1),
-                                rs.getInt(2),
-                                rs.getBigDecimal(3),
-                                rs.getInt(4)
-                        )
-                );
-            }
-            dBHelper.closeResultSet(rs);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listNV;
     }
 }

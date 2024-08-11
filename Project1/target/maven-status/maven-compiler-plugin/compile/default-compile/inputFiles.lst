@@ -27,6 +27,7 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\swing\PanelBorder.
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\blankchart\NiceScale.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Form_Home.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Popup_UpdateHoaDon.java
+C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\ThongKeKH.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\modelUI\Model_Card.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\HoaDon.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\searchbar\EventClick.java
@@ -67,6 +68,7 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Form_Refund.j
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\form\Popup_ReviewDataImport.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\radiobutton\RadioButtonCustom.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\PhuongThucTT.java
+C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\ThongKeSP.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\combo_suggestion\ComboSuggestionUI.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\IO\Import.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\NhaCungCapRepo.java
@@ -92,6 +94,7 @@ C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\NhaCungCap.j
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\enumm\TrangThaiCRUD.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\Repository.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\repo\QuanLiChiTietSP.java
+C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\ThongKeDT.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\chart\ModelLegend.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\blankchart\BlankPlotChatRender.java
 C:\Users\DaiPc\Desktop\DuAn1\Project1\src\main\java\com\daipc\model\Size.java

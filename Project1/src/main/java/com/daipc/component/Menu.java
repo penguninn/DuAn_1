@@ -68,7 +68,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/daipc/icon/shopping-cart.png"))); // NOI18N
-        jLabel1.setText("Abidas");
+        jLabel1.setText("Adidas");
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 20));
         jLabel1.setIconTextGap(20);
 

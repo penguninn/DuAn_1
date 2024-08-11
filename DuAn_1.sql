@@ -1098,3 +1098,67 @@ SELECT
     (SELECT SUM(TongGiaTriHoaDon) FROM HoaDon) - (SELECT SUM(SoLuong * GiaNhap) FROM SanPhamChiTiet) AS TotalProfit
 
 
+-- Thống kê theo năm
+SELECT
+    CONVERT(VARCHAR(4), YEAR(hd.NgayTao)) AS Nam,
+    SUM(hd.TongGiaTriHoaDon) AS DoanhThu,
+    SUM(hd.TongGiaTriHoaDon) - SUM(ISNULL(costs.TotalCost, 0)) AS LoiNhuan
+FROM
+    HoaDon hd
+LEFT JOIN (
+    SELECT 
+        hdct.IDHoaDon,
+        SUM(spct.GiaNhap * hdct.SoLuong) AS TotalCost
+    FROM 
+        HoaDonCT hdct
+    JOIN 
+        SanPhamChiTiet spct ON spct.ID = hdct.IDCTSP
+    GROUP BY 
+        hdct.IDHoaDon
+) costs ON hd.ID = costs.IDHoaDon
+WHERE
+    hd.TrangThai = 1 
+GROUP BY
+    CONVERT(VARCHAR(4), YEAR(hd.NgayTao))
+ORDER BY
+    Nam;
+
+
+-- Thống kê theo tháng
+SELECT
+    CONVERT(VARCHAR(4), YEAR(hd.NgayTao)) + '-' + RIGHT('0' + CONVERT(VARCHAR(2), MONTH(hd.NgayTao)), 2) AS NamThang,
+    SUM(hd.TongGiaTriHoaDon) AS DoanhThu,
+    SUM(hd.TongGiaTriHoaDon) - SUM(ISNULL(costs.TotalCost, 0)) AS LoiNhuan
+FROM
+    HoaDon hd
+LEFT JOIN (
+    SELECT 
+        hdct.IDHoaDon,
+        SUM(spct.GiaNhap * hdct.SoLuong) AS TotalCost
+    FROM 
+        HoaDonCT hdct
+    JOIN 
+        SanPhamChiTiet spct ON spct.ID = hdct.IDCTSP
+    GROUP BY 
+        hdct.IDHoaDon
+) costs ON hd.ID = costs.IDHoaDon
+WHERE
+    hd.TrangThai = 1
+    AND YEAR(hd.NgayTao) = 2024  -- Thay 2023 bằng năm bạn muốn lọc
+GROUP BY
+    YEAR(hd.NgayTao),
+    MONTH(hd.NgayTao)
+ORDER BY
+    NamThang;
+
+
+	SELECT DISTINCT
+    YEAR(NgayTao) AS Nam
+FROM
+    HoaDon
+WHERE
+    TrangThai = 1
+ORDER BY
+    Nam;
+
+

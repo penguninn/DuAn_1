@@ -231,7 +231,7 @@ public final class Form_Home extends javax.swing.JPanel {
         panelHeader.add(tableDas, "left");
 
         panelBorder.setLayout(new MigLayout("fill", "0[fill]0", "0[]8[grow]5"));
-        panelBorder.add(panelHeader, "h 50!, wrap");
+        panelBorder.add(panelHeader, "h 40!, wrap");
         panelBorder.add(cardPanel, "grow");
 
         layerPane.setLayout(new GridLayout(0, 4, 10, 0));

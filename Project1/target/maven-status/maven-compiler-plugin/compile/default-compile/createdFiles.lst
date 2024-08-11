@@ -44,11 +44,11 @@ com\daipc\combobox\Combobox$ComboUI$3.class
 com\daipc\model\GioHang.class
 com\daipc\form\Form_Sell$10.class
 com\daipc\table\TableCustom$1.class
+com\daipc\model\ThongKeKH.class
 com\daipc\form\Form_Sell$1.class
 com\daipc\form\Popup_DoiMK$1.class
 com\daipc\blankchart\BlankPlotChatRender.class
 com\daipc\form\Form_ChooserChoice$2.class
-com\daipc\form\Form_Products$73.class
 com\daipc\form\Form_Promotion.class
 com\daipc\model\NhanVien.class
 com\daipc\swing\PanelBorder.class
@@ -87,6 +87,7 @@ com\daipc\form\Form_Customer$4.class
 com\daipc\modelUI\Model_Card.class
 com\daipc\swing\Button.class
 com\daipc\model\ThongKe.class
+com\daipc\form\Form_Products$71.class
 com\daipc\repo\KhachHangRepo.class
 com\daipc\model\KhachHang.class
 com\daipc\table\TextAreaCellRenderer.class
@@ -142,6 +143,7 @@ com\daipc\form\Form_Customer$11.class
 com\daipc\form\Form_ChooserChoice$3$1.class
 com\daipc\form\Form_Sell$7.class
 com\daipc\form\Form_Profile.class
+com\daipc\model\ThongKeSP.class
 com\daipc\textfield\PasswordField$2.class
 com\daipc\UI\Login$8.class
 com\daipc\form\Form_DanhSachAn$5$1.class
@@ -181,6 +183,7 @@ com\daipc\form\Form_ChooserChoice.class
 com\daipc\model\NhaCungCap.class
 com\daipc\form\Form_Sell$5.class
 com\daipc\UI\Login$6.class
+com\daipc\UI\PanelChart$2.class
 com\daipc\customTable\MiniButton.class
 com\daipc\form\Form_DanhSachAn$3.class
 com\daipc\chart\Chart$2.class
@@ -202,6 +205,7 @@ com\daipc\customTable\QtySpinnerCellEditor$2.class
 com\daipc\form\Form_Sell$6.class
 com\daipc\model\ChatLieu.class
 com\daipc\UI\Header$6.class
+com\daipc\UI\PanelChart$1.class
 com\daipc\searchbar\Search_Item$1.class
 com\daipc\modelUI\GradientPainter$3.class
 com\daipc\form\Form_Staffs$6.class
@@ -225,10 +229,13 @@ com\daipc\model\SPCT.class
 com\daipc\table\TableCustom.class
 com\daipc\searchbar\PanelSearch.class
 com\daipc\form\Form_DanhSachAn$2.class
+com\daipc\model\ThongKeDT.class
+com\daipc\UI\PanelChart$3.class
 com\daipc\textfield\TextField.class
 com\daipc\blankchart\NiceScale.class
 com\daipc\modelUI\Model_Menu.class
 com\daipc\textfield\TextField$3.class
+com\daipc\form\Form_Bill$6.class
 com\daipc\form\Form_DanhSachAn$1.class
 com\daipc\combo_suggestion\ComboSuggestionUI$2.class
 com\daipc\UI\Login$4.class

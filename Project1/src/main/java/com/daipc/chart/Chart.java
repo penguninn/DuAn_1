@@ -51,6 +51,7 @@ public class Chart extends javax.swing.JPanel {
                     x += seriesSpace + seriesSize;
                 }
             }
+
         });
     }
 
@@ -88,7 +89,7 @@ public class Chart extends javax.swing.JPanel {
             animator.start();
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
