@@ -8,6 +8,8 @@ import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.border.EmptyBorder;
 
@@ -139,16 +141,62 @@ public class BlankPlotChart extends JComponent {
             double locationX = insets.left + textWidth + spaceText;
             double locationText = getHeight() - insets.bottom;
             FontMetrics ft = g2.getFontMetrics();
+
             for (int i = 0; i < labelCount; i++) {
-                double centerX = ((locationX + space / 2));
+                double centerX = (locationX + space / 2);
                 g2.setColor(getForeground());
                 String text = getChartText(i);
                 Rectangle2D r2 = ft.getStringBounds(text, g2);
-                double textX = centerX - r2.getWidth() / 2;
-                g2.drawString(text, (int) textX, (int) locationText);
+
+                // Kiểm tra nếu văn bản quá dài để vừa trong khoảng không gian
+                if (r2.getWidth() > space) {
+                    // Tách văn bản thành nhiều dòng
+                    List<String> lines = splitTextIntoLines(text, space, g2);
+                    int lineHeight = ft.getHeight();
+
+                    // Vẽ từng dòng của văn bản từ dưới lên
+                    double textY = locationText;
+                    for (int j = lines.size() - 1; j >= 0; j--) {
+                        String line = lines.get(j);
+                        double textX = centerX - ft.getStringBounds(line, g2).getWidth() / 2;
+                        g2.drawString(line, (int) textX, (int) textY);
+                        textY -= lineHeight;
+                    }
+                } else {
+                    // Vẽ văn bản bình thường
+                    double textX = centerX - r2.getWidth() / 2;
+                    g2.drawString(text, (int) textX, (int) locationText);
+                }
+
                 locationX += space;
             }
         }
+    }
+
+    private List<String> splitTextIntoLines(String text, double maxWidth, Graphics2D g2) {
+        FontMetrics ft = g2.getFontMetrics();
+        List<String> lines = new ArrayList<>();
+        StringBuilder currentLine = new StringBuilder();
+        StringBuilder currentWord = new StringBuilder();
+
+        for (char c : text.toCharArray()) {
+            currentWord.append(c);
+            if (c == ' ' || c == '-') {
+                if (ft.getStringBounds(currentLine.toString() + currentWord, g2).getWidth() > maxWidth) {
+                    lines.add(currentLine.toString().trim());
+                    currentLine = new StringBuilder(currentWord.toString());
+                } else {
+                    currentLine.append(currentWord);
+                }
+                currentWord = new StringBuilder();
+            }
+        }
+
+        if (currentLine.length() > 0) {
+            lines.add(currentLine.toString().trim());
+        }
+
+        return lines;
     }
 
     private void renderSeries(Graphics2D g2) {
@@ -198,7 +246,7 @@ public class BlankPlotChart extends JComponent {
 
     public SeriesSize getRectangle(int index, double height, double space, double startX, double startY) {
         double x = startX + space * index;
-        SeriesSize size = new SeriesSize(x, startY+1, space, height);
+        SeriesSize size = new SeriesSize(x, startY + 1, space, height);
         return size;
     }
 

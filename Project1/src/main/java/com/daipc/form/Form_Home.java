@@ -1,9 +1,6 @@
 package com.daipc.form;
 
-import com.daipc.ScrollBar.ScrollbarCustom;
 import com.daipc.UI.PanelChart;
-import com.daipc.blankchart.BlankPlotChart;
-import com.daipc.chart.Chart;
 import com.daipc.component.Card;
 import com.daipc.model.ChiTietSP;
 import com.daipc.model.ThongKe;
@@ -13,8 +10,6 @@ import com.daipc.swing.PanelBorder;
 import com.daipc.table.TableCustom;
 import com.formdev.flatlaf.extras.components.FlatRadioButton;
 import com.formdev.flatlaf.extras.components.FlatScrollPane;
-import com.formdev.flatlaf.extras.components.FlatTabbedPane;
-import com.formdev.flatlaf.extras.components.FlatTable;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,8 +26,6 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -43,7 +36,6 @@ public final class Form_Home extends javax.swing.JPanel {
     private JPanel panel;
     private JLayeredPane layerPane;
     private PanelChart panelChart;
-    private Chart chart;
     private PanelBorder panelBorder;
     private PanelBorder panelHeader;
     private JPanel panelTable;
@@ -119,7 +111,7 @@ public final class Form_Home extends javax.swing.JPanel {
                 loadSanPhamData();
                 loadNhanVienData();
                 loadKhachHangData();
-                
+                panelChart.reloadData();
             }
         });
     }
@@ -128,7 +120,6 @@ public final class Form_Home extends javax.swing.JPanel {
         panel = new JPanel();
         layerPane = new JLayeredPane();
         panelChart = new PanelChart();
-        chart = new Chart();
         panelBorder = new PanelBorder();
         panelHeader = new PanelBorder();
         panelTable = new JPanel();
@@ -305,7 +296,7 @@ public final class Form_Home extends javax.swing.JPanel {
 
     private void loadSanPhamData() {
         modelSP.setRowCount(0);
-        listSP = QLTK.getThongKeSP();
+        listSP = QLTK.getThongKeSP_TBL();
         for (ChiTietSP sp : listSP) {
             modelSP.addRow(sp.getSPCT());
         }

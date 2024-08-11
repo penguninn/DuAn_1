@@ -53,6 +53,7 @@ public class Chart extends javax.swing.JPanel {
             }
 
         });
+        
     }
 
     public void addLegend(String name, Color color) {

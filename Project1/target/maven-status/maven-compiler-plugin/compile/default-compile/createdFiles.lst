@@ -238,6 +238,7 @@ com\daipc\textfield\TextField$3.class
 com\daipc\form\Form_Bill$6.class
 com\daipc\form\Form_DanhSachAn$1.class
 com\daipc\combo_suggestion\ComboSuggestionUI$2.class
+com\daipc\UI\PanelChart$4.class
 com\daipc\UI\Login$4.class
 com\daipc\combobox\Combobox$ComboUI.class
 com\daipc\combo_suggestion\ComboSuggestionUI$1.class

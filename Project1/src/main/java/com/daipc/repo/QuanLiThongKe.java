@@ -10,6 +10,7 @@ import com.daipc.model.ThongKe;
 import com.daipc.model.ThongKeDT;
 import com.daipc.model.ThongKeKH;
 import com.daipc.model.ThongKeNV;
+import com.daipc.model.ThongKeSP;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -246,9 +247,87 @@ public class QuanLiThongKe {
         }
         return listKH;
     }
+   
+    public int getSoLuongKH() {
+        dBHelper = new JDBCHelper();
+        String sqlQuery = """
+                            SELECT COUNT(*) AS TongSoKhachHang
+                                        FROM KhachHang;
+                          """;
+        int result = 0;
+        try {
+            ResultSet rs = dBHelper.executeQuery(sqlQuery);
+            while (rs.next()) {
+                result = rs.getInt(1);
+            }
+            dBHelper.closeResultSet(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public List<ThongKeSP> getThongKeSP() {
+        dBHelper = new JDBCHelper();
+        String sqlQuery = """
+                            WITH SanPhamBanChay AS (
+                                        SELECT TOP 10
+                                            sp.ID AS SanPhamID,
+                                            sp.MaSP,
+                                            sp.TenSP,
+                                            SUM(hdct.SoLuong) AS SoLuongBan
+                                        FROM 
+                                            SanPham sp
+                                        JOIN 
+                                            SanPhamChiTiet spct ON sp.ID = spct.IdSanPham
+                                        JOIN 
+                                            HoaDonCT hdct ON spct.ID = hdct.IDCTSP
+                                        JOIN 
+                                            HoaDon hd ON hdct.IDHoaDon = hd.ID
+                                        WHERE 
+                                            hd.TrangThai = 1 -- Giả sử trạng thái 1 là hoàn thành
+                                        GROUP BY 
+                                            sp.ID, sp.MaSP, sp.TenSP
+                                        ORDER BY 
+                                            SoLuongBan DESC
+                                    )
+                                    SELECT 
+                                        spbc.MaSP,
+                                        spbc.TenSP,
+                                        spbc.SoLuongBan,
+                                        ISNULL(SUM(spct.SoLuong), 0) AS SoLuongTonKho
+                                    FROM 
+                                        SanPhamBanChay spbc
+                                    LEFT JOIN 
+                                        SanPhamChiTiet spct ON spbc.SanPhamID = spct.IdSanPham
+                                    GROUP BY 
+                                        spbc.SanPhamID, spbc.MaSP, spbc.TenSP, spbc.SoLuongBan
+                                    ORDER BY 
+                                        spbc.SoLuongBan DESC
+                          """;
+        List<ThongKeSP> listSP = new ArrayList<>();
+        try {
+
+            ResultSet rs = dBHelper.executeQuery(sqlQuery);
+            while (rs.next()) {
+                listSP.add(
+                        new ThongKeSP(
+                                rs.getString(1),
+                                rs.getString(2),
+                                rs.getInt(3),
+                                rs.getInt(4)
+                        )
+                );
+            }
+            dBHelper.closeResultSet(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listSP;
+    }
 
     ////////////////////////////////////////////////////////////////////////////
-    public List<ChiTietSP> getThongKeSP() {
+    public List<ChiTietSP> getThongKeSP_TBL() {
         dBHelper = new JDBCHelper();
         String sqlQuery = """
                                 SELECT 
