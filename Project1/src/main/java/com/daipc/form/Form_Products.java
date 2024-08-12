@@ -2,6 +2,7 @@ package com.daipc.form;
 
 import com.daipc.IO.Export;
 import com.daipc.IO.Import;
+import com.daipc.IO.printBill;
 import com.daipc.ScrollBar.ScrollbarCustom;
 import com.daipc.enumm.HienThi;
 import com.daipc.enumm.TrangThai;
@@ -33,6 +34,7 @@ import com.daipc.textfield.TextField;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.channels.FileChannel;
@@ -94,7 +96,7 @@ public class Form_Products extends javax.swing.JPanel {
         }
     };
 
-    DefaultTableModel modelSPCT = new DefaultTableModel(new String[]{"", "Mã Sản Phẩm Chi Tiết", "Mã Sản Phẩm", "Tên Sản Phẩm", "Tên Sản Phẩm Chi Tiết",
+    DefaultTableModel modelSPCT = new DefaultTableModel(new String[]{"Mã Sản Phẩm Chi Tiết", "Mã Sản Phẩm", "Tên Sản Phẩm", "Tên Sản Phẩm Chi Tiết",
         "Giá Bán", "Giá Nhập", "Số Lượng", "Nhà Cung Cấp  ", "Chất Liệu", "Màu sắc",
         "Size", "Độ Dày", "Trạng Thái"}, 10) {
         @Override
@@ -184,20 +186,6 @@ public class Form_Products extends javax.swing.JPanel {
         initSearchDetails();
        
     }
-    
-    public void loadCbbGia() {
-        List<ChiTietSP> chiTietSPs = chiTietSPService.getAll();
-        cbb_SP_Filter.removeAllItems();
-
-        DefaultComboBoxModel comboboxGiaB = (DefaultComboBoxModel) cbb_GiaNhap.getModel();
-        DefaultComboBoxModel comboboxGiaN = (DefaultComboBoxModel) cbb_GiaBan.getModel();
-        for (ChiTietSP chiTietSP : chiTietSPs) {
-            comboboxGiaB.addElement("");
-            comboboxGiaN.addElement("");
-            comboboxGiaB.addElement(chiTietSP.getGiaBan());
-            comboboxGiaN.addElement(chiTietSP.getGiaNhap());
-        }
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -219,7 +207,6 @@ public class Form_Products extends javax.swing.JPanel {
         txtMoTa = new javax.swing.JTextArea();
         btnThem = new com.daipc.swing.Button();
         btnSua = new com.daipc.swing.Button();
-        btnChiTiet = new com.daipc.swing.Button();
         btnXoaMem = new com.daipc.swing.Button();
         btnClear = new com.daipc.swing.Button();
         panelFilter = new com.daipc.swing.PanelBorder();
@@ -266,14 +253,14 @@ public class Form_Products extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         cbb_SP_Filter = new com.daipc.combo_suggestion.ComboBoxSuggestion();
         jLabel14 = new javax.swing.JLabel();
-        cbb_TT_Filter = new com.daipc.combo_suggestion.ComboBoxSuggestion();
         jLabel15 = new javax.swing.JLabel();
         txtSearchDetails = new com.daipc.searchbar.MyTextField();
         jLabel16 = new javax.swing.JLabel();
-        cbb_GiaBan = new com.daipc.combo_suggestion.ComboBoxSuggestion();
         btnClearFiltersDetails = new com.daipc.swing.Button();
         jLabel18 = new javax.swing.JLabel();
-        cbb_GiaNhap = new com.daipc.combo_suggestion.ComboBoxSuggestion();
+        cbb_searchGN = new javax.swing.JComboBox<>();
+        cbb_searchGB = new javax.swing.JComboBox<>();
+        cbb_TT_Fil = new com.daipc.combo_suggestion.ComboBoxSuggestion();
         attributesProducts = new javax.swing.JPanel();
         panelTong = new com.daipc.swing.PanelBorder();
         panelMauSac = new com.daipc.swing.PanelBorder();
@@ -421,13 +408,6 @@ public class Form_Products extends javax.swing.JPanel {
             }
         });
 
-        btnChiTiet.setText("Chi Tiết");
-        btnChiTiet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChiTietActionPerformed(evt);
-            }
-        });
-
         btnXoaMem.setText("Xóa");
         btnXoaMem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -465,25 +445,20 @@ public class Form_Products extends javax.swing.JPanel {
                             .addComponent(jLabel3))
                         .addGap(50, 50, 50)
                         .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTenSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(txtTenSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
                             .addComponent(txtMaSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(62, 62, 62)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelInfoProductsLayout.createSequentialGroup()
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
+                        .addGap(30, 30, 30)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addComponent(btnXoaMem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollMoTa, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-                    .addGroup(panelInfoProductsLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(62, 62, 62)
+                .addComponent(scrollMoTa, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                 .addGap(192, 192, 192))
         );
         panelInfoProductsLayout.setVerticalGroup(
@@ -509,7 +484,6 @@ public class Form_Products extends javax.swing.JPanel {
                 .addGroup(panelInfoProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoaMem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -549,7 +523,7 @@ public class Form_Products extends javax.swing.JPanel {
                         .addGap(155, 155, 155)
                         .addGroup(panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE))))
+                            .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE))))
                 .addGap(190, 190, 190))
         );
         panelFilterLayout.setVerticalGroup(
@@ -602,9 +576,13 @@ public class Form_Products extends javax.swing.JPanel {
 
         jLabel20.setText("Nhà Cung Cấp");
 
+        txt_MSPCT.setEditable(false);
+
         jLabel21.setText("Trạng Thái");
 
         jLabel22.setText("Giá Bán");
+
+        cbb_TT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Còn hàng", "Hết hàng " }));
 
         jLabel23.setText("Size");
 
@@ -728,11 +706,11 @@ public class Form_Products extends javax.swing.JPanel {
                                 .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelDetailsProductsLayout.createSequentialGroup()
                                         .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_Soluong, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                            .addComponent(txt_Soluong)
                                             .addComponent(txt_MSPCT, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(cbb_SP, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                            .addComponent(cbb_SP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addGroup(panelDetailsProductsLayout.createSequentialGroup()
-                                                .addComponent(txt_TenSPCT, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                                                .addComponent(txt_TenSPCT)
                                                 .addGap(2, 2, 2)))
                                         .addGap(70, 70, 70)
                                         .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -742,7 +720,7 @@ public class Form_Products extends javax.swing.JPanel {
                                             .addComponent(jLabel45))
                                         .addGap(30, 30, 30)
                                         .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_GiaNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                            .addComponent(txt_GiaNhap)
                                             .addComponent(txt_GiaBan)
                                             .addComponent(cbb_Size, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(cbb_MauSac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -754,10 +732,10 @@ public class Form_Products extends javax.swing.JPanel {
                                             .addComponent(jLabel21))
                                         .addGap(30, 30, 30)
                                         .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cbb_TT, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                            .addComponent(cbb_ChatLieu, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                            .addComponent(cbb_DoDay, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                            .addComponent(cbb_NCC, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)))
+                                            .addComponent(cbb_TT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cbb_ChatLieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cbb_DoDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cbb_NCC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(panelDetailsProductsLayout.createSequentialGroup()
                                         .addComponent(btnThemDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -820,7 +798,7 @@ public class Form_Products extends javax.swing.JPanel {
                     .addGroup(panelDetailsProductsLayout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(cbb_DoDay, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDetailsProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnClearDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -831,7 +809,7 @@ public class Form_Products extends javax.swing.JPanel {
                         .addComponent(btnImportDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnExportDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(scrollDetailsProducts, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+                .addComponent(scrollDetailsProducts, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -870,6 +848,11 @@ public class Form_Products extends javax.swing.JPanel {
                 txtSearchDetailsMouseClicked(evt);
             }
         });
+        txtSearchDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchDetailsActionPerformed(evt);
+            }
+        });
         txtSearchDetails.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchDetailsKeyReleased(evt);
@@ -889,6 +872,37 @@ public class Form_Products extends javax.swing.JPanel {
         jLabel18.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel18.setText("Giá Nhập");
 
+        cbb_searchGN.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dưới 500.000đ", "500.000 - 1 triệu", "1 - 2 triệu ", "Giá trên 3 triệu " }));
+        cbb_searchGN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_searchGNActionPerformed(evt);
+            }
+        });
+
+        cbb_searchGB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dưới 500.000đ", "500.000 - 1 triệu", "1 - 2 triệu ", "Giá trên 3 triệu " }));
+        cbb_searchGB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_searchGBActionPerformed(evt);
+            }
+        });
+
+        cbb_TT_Fil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Còn hàng", "Hết hàng " }));
+        cbb_TT_Fil.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbb_TT_FilFocusGained(evt);
+            }
+        });
+        cbb_TT_Fil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbb_TT_FilMouseClicked(evt);
+            }
+        });
+        cbb_TT_Fil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_TT_FilActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelFilter1Layout = new javax.swing.GroupLayout(panelFilter1);
         panelFilter1.setLayout(panelFilter1Layout);
         panelFilter1Layout.setHorizontalGroup(
@@ -896,30 +910,34 @@ public class Form_Products extends javax.swing.JPanel {
             .addGroup(panelFilter1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
+                    .addGroup(panelFilter1Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelFilter1Layout.createSequentialGroup()
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbb_GiaNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbb_searchGN, 0, 201, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbb_GiaBan, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(cbb_searchGB, 0, 201, Short.MAX_VALUE)
                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbb_SP_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbb_SP_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbb_TT_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                            .addComponent(jLabel14))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel14)
+                            .addComponent(cbb_TT_Fil, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
                         .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
                             .addGroup(panelFilter1Layout.createSequentialGroup()
-                                .addComponent(txtSearchDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnClearFiltersDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtSearchDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                .addGap(28, 28, 28)
+                                .addComponent(btnClearFiltersDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelFilter1Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         panelFilter1Layout.setVerticalGroup(
@@ -929,29 +947,26 @@ public class Form_Products extends javax.swing.JPanel {
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFilter1Layout.createSequentialGroup()
-                        .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSearchDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbb_SP_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnClearFiltersDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14)
                     .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelFilter1Layout.createSequentialGroup()
                             .addComponent(jLabel18)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cbb_GiaNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(40, 40, 40))
                         .addGroup(panelFilter1Layout.createSequentialGroup()
-                            .addComponent(jLabel16)
+                            .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel15))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cbb_GiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelFilter1Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbb_TT_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                            .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cbb_searchGB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panelFilter1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cbb_SP_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtSearchDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbb_TT_Fil, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnClearFiltersDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbb_searchGN, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout detailsProductsLayout = new javax.swing.GroupLayout(detailsProducts);
@@ -970,7 +985,7 @@ public class Form_Products extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailsProductsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelFilter1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelDetailsProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -1556,7 +1571,7 @@ public class Form_Products extends javax.swing.JPanel {
             panelTblMauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTblMauLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollMau, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+                .addComponent(scrollMau, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTblMauLayout.setVerticalGroup(
@@ -1602,7 +1617,7 @@ public class Form_Products extends javax.swing.JPanel {
             panelTblDoDayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTblDoDayLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollDoDay, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+                .addComponent(scrollDoDay, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTblDoDayLayout.setVerticalGroup(
@@ -1638,7 +1653,7 @@ public class Form_Products extends javax.swing.JPanel {
             panelTblSizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTblSizeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollSize, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+                .addComponent(scrollSize, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTblSizeLayout.setVerticalGroup(
@@ -1674,7 +1689,7 @@ public class Form_Products extends javax.swing.JPanel {
             panelTblChatLieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTblChatLieuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollChatLieu, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+                .addComponent(scrollChatLieu, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTblChatLieuLayout.setVerticalGroup(
@@ -1710,7 +1725,7 @@ public class Form_Products extends javax.swing.JPanel {
             panelTblNhaCcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTblNhaCcLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollNhaCc, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+                .addComponent(scrollNhaCc, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTblNhaCcLayout.setVerticalGroup(
@@ -1817,7 +1832,6 @@ public class Form_Products extends javax.swing.JPanel {
     }
 
     public void initFormSPCT() {
-        loadCbbGia();
         loadDataCTSP();
         loadCbbSP();
         loadcombDD();
@@ -1825,7 +1839,6 @@ public class Form_Products extends javax.swing.JPanel {
         loadcombSize();
         loadcombbChatLieu();
         loadcombbNCC();
-        loadCbbTT();
     }
 
     public void initFormTTSP() {
@@ -1965,12 +1978,10 @@ public class Form_Products extends javax.swing.JPanel {
         Pattern pattern = Pattern.compile(patternString);
         Matcher matcher = pattern.matcher(text);
         if (matcher.matches()) {
-            System.out.println("SPCT");
             int id = 0;
             for (ChiTietSP sp : listCTSP) {
                 if (sp.getMaCTSP().equals(text)) {
                     selectedRow.put("SPCT", id);
-                    System.out.println(selectedRow.get("SPCT"));
                     showDetailsCTSP(selectedRow.get("SPCT"));
                     break;
                 }
@@ -1978,11 +1989,9 @@ public class Form_Products extends javax.swing.JPanel {
             }
         } else {
             int id = 0;
-            System.out.println("TenSP");
             for (ChiTietSP sp : listCTSP) {
-                if (sp.getTenSP().equals(text)) {
+                if (sp.getTenSPCT().equals(text)) {
                     selectedRow.put("SPCT", id);
-                    System.out.println(selectedRow.get("SPCT"));
                     showDetailsCTSP(selectedRow.get("SPCT"));
                     break;
                 }
@@ -1997,7 +2006,7 @@ public class Form_Products extends javax.swing.JPanel {
         List<DataSearch> list = new ArrayList<>();
         for (ChiTietSP sp : listCTSP) {
             if (sp.getTenSP().toLowerCase().contains(search)) {
-                list.add(new DataSearch(sp.getTenSP()));
+                list.add(new DataSearch(sp.getTenSPCT()));
                 if (list.size() == limitData) {
                     break;
                 }
@@ -2736,249 +2745,6 @@ public class Form_Products extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnThemMauActionPerformed
 
-    private void btnClearFiltersDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFiltersDetailsActionPerformed
-        cbb_SP_Filter.setSelectedIndex(-1);
-        cbb_TT_Filter.setSelectedIndex(-1);
-        txtSearchDetails.setText("");
-
-    }//GEN-LAST:event_btnClearFiltersDetailsActionPerformed
-
-    private void txtSearchDetailsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchDetailsKeyReleased
-        String text = txtSearchDetails.getText().trim().toLowerCase();
-        searchDetails.setData(rcdSearchDetails(text));
-        if (searchDetails.getItemSize() > 0) {
-            menuDetails.show(txtSearchDetails, 0, txtSearchDetails.getHeight());
-            menuDetails.setPopupSize(txtSearchDetails.getWidth(), (searchDetails.getItemSize() * 35) + 2);
-        } else {
-            menuDetails.setVisible(false);
-        }
-    }//GEN-LAST:event_txtSearchDetailsKeyReleased
-
-    private void txtSearchDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchDetailsMouseClicked
-        if (searchDetails.getItemSize() > 0) {
-            menuDetails.show(txtSearchDetails, 0, txtSearchDetails.getHeight());
-        }
-    }//GEN-LAST:event_txtSearchDetailsMouseClicked
-
-    private void cbb_SP_FilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_SP_FilterActionPerformed
-        // TODO add your handling code here:
-        String cbbTimKiem = String.valueOf(cbb_SP_Filter.getSelectedItem());
-        if (cbbTimKiem.isEmpty()) {
-            loadDataCTSP();
-        } else {
-            System.out.println("Lua chọn cua ban : " + cbbTimKiem);
-            ArrayList<ChiTietSP> listCTSP = (ArrayList<ChiTietSP>) chiTietSPService.timKiemSp(cbbTimKiem);
-            modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
-            modelCTSP.setRowCount(0);
-            for (ChiTietSP ctsp : listCTSP) {
-                System.out.println("NCC : " + ctsp.getTenNhaCungCap());
-                modelCTSP.addRow(new Object[]{
-                    ctsp.getId(),
-                    ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
-                    ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
-                });
-            }
-        }
-    }//GEN-LAST:event_cbb_SP_FilterActionPerformed
-
-    private void cbb_SP_FilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbb_SP_FilterMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbb_SP_FilterMouseClicked
-
-    private void cbb_SP_FilterFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbb_SP_FilterFocusGained
-        // TODO add your handling code here:
-        String spTimKiem = String.valueOf(cbb_SP_Filter.getSelectedIndex());
-        if (spTimKiem.equals("Tìm kiếm sản phẩm theo mã sản phẩm , tên ....")) {
-            cbb_SP_Filter.getSelectedIndex(null);
-            cbb_SP_Filter.requestFocus();
-            //Yêu cầu tập trung Focus vào 1 component nào đó.
-            //remove placeholder style
-            //            removePlaceholderStyle(cbb_SP);
-        }
-    }//GEN-LAST:event_cbb_SP_FilterFocusGained
-
-    private void btnExportDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportDetailsActionPerformed
-        exported = new Export();
-        final String[] fileType = new String[1];
-        final String[] filePath = new String[1];
-        String defaultFileName = "documentSPCT.";
-        chooserChoice = new Form_ChooserChoice(frame, true);
-        chooserChoice.setLocationRelativeTo(frame);
-        chooserChoice.setVisible(true);
-        fileType[0] = chooserChoice.getFileType();
-
-        if (fileType[0] != null) {
-            JnaFileChooser fileChooser = new JnaFileChooser();
-            fileChooser.setMode(JnaFileChooser.Mode.Files);
-            fileChooser.setMultiSelectionEnabled(false);
-            fileChooser.setDefaultFileName(defaultFileName + fileType[0]);
-            fileChooser.addFilter(fileType[0] + "File", fileType[0]);
-
-            if (fileChooser.showSaveDialog(frame)) {
-                filePath[0] = fileChooser.getSelectedFile().getAbsolutePath();
-            }
-            try {
-                File file = new File(filePath[0]);
-                if (file.exists()) {
-//                    MessageAlerts.getInstance().showMessage("File đã tồn tại", "Oops! Bạn có muốn ghi đè lên file hiện tại?", MessageAlerts.MessageType.ERROR, MessageAlerts.OK_OPTION, new PopupCallbackAction() {
-//                        @Override
-//                        public void action(PopupController pc, int i) {
-//                            if (i == MessageAlerts.OK_OPTION) {
-//                                if (isFileOpen(file)) {
-//                                    MessageAlerts.getInstance().showMessage("File đang được mở", "Vui lòng đóng file !!", MessageAlerts.MessageType.ERROR);
-//                                } else {
-//                                    exportedType(modelSPCT, filePath[0], fileType[0]);
-//                                    MessageAlerts.getInstance().showMessage("Export thành công", "", MessageAlerts.MessageType.SUCCESS);
-//                                }
-//                            }
-//                        }
-//                    });
-                    if(JOptionPane.showConfirmDialog(this, "File đã tồn tại !\nBạn có muốn ghi đè lên file hiện tại?", "",JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
-                        if (isFileOpen(file)) {
-                            JOptionPane.showMessageDialog(this, "File đang được mở\nVui lòng đóng file !!", "", JOptionPane.ERROR_MESSAGE);
-                        } else {
-                            exportedType(modelSPCT, filePath[0], fileType[0]);
-                            JOptionPane.showMessageDialog(this, "Export thành công", "",JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    }
-                    
-                } else {
-                    exportedType(modelSPCT, filePath[0], fileType[0]);
-                    JOptionPane.showMessageDialog(this, "Export thành công", "", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_btnExportDetailsActionPerformed
-
-    private void btnImportDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportDetailsActionPerformed
-        imported = new Import();
-        final String[] fileType = new String[1];
-        final String[] filePath = new String[1];
-
-        JnaFileChooser fileChooser = new JnaFileChooser();
-        fileChooser.setMode(JnaFileChooser.Mode.Files);
-        fileChooser.setMultiSelectionEnabled(false);
-        fileChooser.addFilter("Excel File", "xlsx", "xls");
-        File selectedFile = null;
-        if (fileChooser.showOpenDialog(frame)) {
-            selectedFile = fileChooser.getSelectedFile();
-            filePath[0] = fileChooser.getSelectedFile().getAbsolutePath();
-        }
-        try {
-            popupReviewDataImport = new Popup_ReviewDataImport(frame, true, imported.importData(filePath[0]));
-            popupReviewDataImport.setLocationRelativeTo(frame);
-            popupReviewDataImport.setVisible(true);
-            switch ((popupReviewDataImport.getUpdateTbl())) {
-                case ThanhCong:
-                    JOptionPane.showMessageDialog(this, "Thêm tất cả thành công",  "", JOptionPane.INFORMATION_MESSAGE);
-                    loadDataToTable(modelSPCT, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
-                    if (selectedRow.get("SP") >= 0) {
-                        showDetailsSP();
-                    }
-                    break;
-                case ThatBai:
-                    JOptionPane.showMessageDialog(this, "Thêm Thất Bại",  "", JOptionPane.ERROR_MESSAGE);
-                case DaTonTai:
-                    JOptionPane.showMessageDialog(this, "Thêm Thất Bại\nTrùng sản phẩm",  "", JOptionPane.ERROR_MESSAGE);
-                default:
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnImportDetailsActionPerformed
-
-    private void btnClearDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearDetailsActionPerformed
-        txt_MSPCT.setText("");
-        txt_Soluong.setText("");
-        txt_GiaBan.setText("");
-        txt_GiaNhap.setText("");
-        txt_TenSPCT.setText("");
-        cbb_ChatLieu.setSelectedIndex(-1);
-        cbb_DoDay.setSelectedIndex(-1);
-        cbb_MauSac.setSelectedIndex(-1);
-        cbb_NCC.setSelectedIndex(-1);
-        cbb_SP.setSelectedIndex(-1);
-        cbb_Size.setSelectedIndex(-1);
-    }//GEN-LAST:event_btnClearDetailsActionPerformed
-
-    private void btnSuaDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaDetailsActionPerformed
-        if (txt_MSPCT.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Dữ liệu không được bỏ trống",  "", JOptionPane.WARNING_MESSAGE);
-        } else {
-            Boolean check = checkCTSP();
-            if (check) {
-                int coHoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn Sửa không?", "", JOptionPane.YES_NO_OPTION);
-                if (coHoi == JOptionPane.YES_OPTION) {
-                    int row = tblDetailsProducts.getSelectedRow();
-                    String maCTSP = tblDetailsProducts.getValueAt(row, 0).toString();
-                    SPCT spct = getCTSP();
-                    chiTietSPService.Update(spct, maCTSP);
-                    txt_MSPCT.setText("");
-                    txt_Soluong.setText("");
-                    txt_GiaBan.setText("");
-                    txt_GiaNhap.setText("");
-                    txt_TenSPCT.setText("");
-                    loadDataCTSP();
-                    JOptionPane.showMessageDialog(this, "Sửa Thành Công",  "", JOptionPane.INFORMATION_MESSAGE);
-                } else if (coHoi == JOptionPane.NO_OPTION) {
-                    //                    MessageAlerts.getInstance().showMessage("Sửa Thất Bại", "", MessageAlerts.MessageType.ERROR);
-                }
-            } else {
-                //                MessageAlerts.getInstance().showMessage("Vui lòng xem lại đữ liệu", "", MessageAlerts.MessageType.WARNING);
-            }
-        }
-        initFormSPCT();
-    }//GEN-LAST:event_btnSuaDetailsActionPerformed
-
-    private void btnThemDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDetailsActionPerformed
-        if (txt_MSPCT.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Dữ liệu không được bỏ trống",  "", JOptionPane.WARNING_MESSAGE);
-        } else {
-            for (ChiTietSP chiTietSP : chiTietSPService.getAll()) {
-                if (txt_MSPCT.getText().trim().toLowerCase().equals(chiTietSP.getMaCTSP().toLowerCase())) {
-                    JOptionPane.showMessageDialog(this, "Trùng Mã Sản Phẩm Chi tiết Sản Phẩm",  "", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-            Boolean check = checkCTSP();
-            if (check) {
-
-                int coHoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?", "", JOptionPane.YES_NO_OPTION);
-                if (coHoi == JOptionPane.YES_OPTION) {
-                    SPCT spct = getCTSP();
-                    chiTietSPService.addCTSP1(spct);
-                    JOptionPane.showMessageDialog(this, "Thêm thành công",  "", JOptionPane.INFORMATION_MESSAGE);
-                    //MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.ERROR);
-                    loadDataCTSP();
-                    txt_MSPCT.setText("");
-                    txt_Soluong.setText("");
-                    txt_GiaBan.setText("");
-                    txt_GiaNhap.setText("");
-                    txt_TenSPCT.setText("");
-                } else if (coHoi == JOptionPane.NO_OPTION) {
-                    //                    MessageAlerts.getInstance().showMessage("Thêm thất bại", "", MessageAlerts.MessageType.ERROR);
-                }
-            } else {
-                //                MessageAlerts.getInstance().showMessage("Vui lòng xem lại dữ liệu", "", MessageAlerts.MessageType.WARNING);
-            }
-        }
-        initFormSPCT();
-
-    }//GEN-LAST:event_btnThemDetailsActionPerformed
-
-    private void scrollDetailsProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollDetailsProductsMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_scrollDetailsProductsMouseClicked
-
-    private void tblDetailsProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetailsProductsMouseClicked
-        // TODO add your handling code here:
-        int row = tblDetailsProducts.getSelectedRow();
-        showDetailsCTSP(row);
-    }//GEN-LAST:event_tblDetailsProductsMouseClicked
-
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         String text = txtSearch.getText().trim().toLowerCase();
         search.setData(rcdSearch(text));
@@ -3019,6 +2785,7 @@ public class Form_Products extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnXoaMemActionPerformed
 
+
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
         materialTabbed.setSelectedIndex(1);
         listCTSP = chiTietSPService.getSPCT(listSP.get(tblInfoProducts.getSelectedRow()).getId());
@@ -3032,6 +2799,7 @@ public class Form_Products extends javax.swing.JPanel {
             });
         }
     }//GEN-LAST:event_btnChiTietActionPerformed
+
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (checkNull(txtMaSP, txtTenSP)) {
@@ -3090,22 +2858,6 @@ public class Form_Products extends javax.swing.JPanel {
         selectedRow.put("SP", tblInfoProducts.getSelectedRow());
         showDetailsSP();
     }//GEN-LAST:event_tblInfoProductsMouseClicked
-
-    private void btnXoaDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaDetailsActionPerformed
-        if (JOptionPane.showConfirmDialog(null, "Xóa sản phẩm này ?", "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            int id = listCTSP.get(tblDetailsProducts.getSelectedRow()).getId();
-            TrangThaiCRUD status = QLSP.update("update SanPhamChiTiet set hienthi = ? where id = ?", HienThi.An.name(), id);
-
-            switch (status) {
-                case ThanhCong:
-                    loadDataCTSP();
-                    break;
-                case ThatBai:
-                    JOptionPane.showMessageDialog(this, "Xóa Thất Bại",  "", JOptionPane.ERROR_MESSAGE);
-                default:
-            }
-        }
-    }//GEN-LAST:event_btnXoaDetailsActionPerformed
 
     private void btnXoaMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaMauActionPerformed
         int row = this.tblMauSac.getSelectedRow();
@@ -3224,6 +2976,481 @@ public class Form_Products extends javax.swing.JPanel {
             }
     }//GEN-LAST:event_btnXoaNhaCungCapActionPerformed
 
+    private void tblDetailsProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetailsProductsMouseClicked
+        // TODO add your handling code here:
+        int row = tblDetailsProducts.getSelectedRow();
+        showDetailsCTSP(row);
+    }//GEN-LAST:event_tblDetailsProductsMouseClicked
+
+    private void scrollDetailsProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollDetailsProductsMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_scrollDetailsProductsMouseClicked
+
+    private void btnThemDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDetailsActionPerformed
+        {
+
+            Boolean check = checkCTSP();
+            if (check) {
+
+                int coHoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không?", "", JOptionPane.YES_NO_OPTION);
+                if (coHoi == JOptionPane.YES_OPTION) {
+                    SPCT spct = getCTSP();
+                    chiTietSPService.addCTSP1(spct);
+                    JOptionPane.showMessageDialog(this, "Thêm thành công", "", JOptionPane.INFORMATION_MESSAGE);
+                    //MessageAlerts.getInstance().showMessage("Dữ liệu không được bỏ trống", "", MessageAlerts.MessageType.ERROR);
+                    loadDataCTSP();
+                    txt_MSPCT.setText("");
+                    txt_Soluong.setText("");
+                    txt_GiaBan.setText("");
+                    txt_GiaNhap.setText("");
+                    txt_TenSPCT.setText("");
+                    cbb_searchGN.setSelectedIndex(-1);
+                    cbb_searchGB.setSelectedIndex(-1);
+                    cbb_TT_Fil.setSelectedIndex(-1);
+                } else if (coHoi == JOptionPane.NO_OPTION) {
+                    //                    MessageAlerts.getInstance().showMessage("Thêm thất bại", "", MessageAlerts.MessageType.ERROR);
+                    JOptionPane.showMessageDialog(this, "Thêm thất bại", "", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                //                MessageAlerts.getInstance().showMessage("Vui lòng xem lại dữ liệu", "", MessageAlerts.MessageType.WARNING);
+            }
+        }
+        initFormSPCT();
+    }//GEN-LAST:event_btnThemDetailsActionPerformed
+
+    private void btnSuaDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaDetailsActionPerformed
+        if (txt_MSPCT.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Dữ liệu không được bỏ trống", "", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Boolean check = checkCTSP();
+            if (check) {
+                int coHoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn Sửa không?", "", JOptionPane.YES_NO_OPTION);
+                if (coHoi == JOptionPane.YES_OPTION) {
+                    int row = tblDetailsProducts.getSelectedRow();
+                    String maCTSP = txt_MSPCT.getText();
+                    System.out.println("maSPCT Sua : " + maCTSP);
+                    SPCT spct = getCTSP();
+                    chiTietSPService.Update(spct, maCTSP);
+                    txt_MSPCT.setText("");
+                    txt_Soluong.setText("");
+                    txt_GiaBan.setText("");
+                    txt_GiaNhap.setText("");
+                    txt_TenSPCT.setText("");
+                    cbb_searchGN.setSelectedIndex(-1);
+                    cbb_searchGB.setSelectedIndex(-1);
+                    cbb_TT_Fil.setSelectedIndex(-1);
+                    loadDataCTSP();
+                    JOptionPane.showMessageDialog(this, "Sửa Thành Công", "", JOptionPane.INFORMATION_MESSAGE);
+                } else if (coHoi == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(this, "Sửa thất bại", "", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                //                MessageAlerts.getInstance().showMessage("Vui lòng xem lại đữ liệu", "", MessageAlerts.MessageType.WARNING);
+            }
+        }
+        initFormSPCT();
+    }//GEN-LAST:event_btnSuaDetailsActionPerformed
+
+    private void btnClearDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearDetailsActionPerformed
+        txt_MSPCT.setText("");
+        txt_Soluong.setText("");
+        txt_GiaBan.setText("");
+        txt_GiaNhap.setText("");
+        txt_TenSPCT.setText("");
+        cbb_ChatLieu.setSelectedIndex(-1);
+        cbb_DoDay.setSelectedIndex(-1);
+        cbb_MauSac.setSelectedIndex(-1);
+        cbb_NCC.setSelectedIndex(-1);
+        cbb_SP.setSelectedIndex(-1);
+        cbb_Size.setSelectedIndex(-1);
+        cbb_searchGN.setSelectedIndex(-1);
+        cbb_searchGB.setSelectedIndex(-1);
+        cbb_TT_Fil.setSelectedIndex(-1);
+    }//GEN-LAST:event_btnClearDetailsActionPerformed
+
+    private void btnImportDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportDetailsActionPerformed
+        imported = new Import();
+        final String[] fileType = new String[1];
+        final String[] filePath = new String[1];
+
+        JnaFileChooser fileChooser = new JnaFileChooser();
+        fileChooser.setMode(JnaFileChooser.Mode.Files);
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.addFilter("Excel File", "xlsx", "xls");
+        File selectedFile = null;
+        if (fileChooser.showOpenDialog(frame)) {
+            selectedFile = fileChooser.getSelectedFile();
+            filePath[0] = fileChooser.getSelectedFile().getAbsolutePath();
+        }
+        try {
+            popupReviewDataImport = new Popup_ReviewDataImport(frame, true, imported.importData(filePath[0]));
+            popupReviewDataImport.setLocationRelativeTo(frame);
+            popupReviewDataImport.setVisible(true);
+            switch ((popupReviewDataImport.getUpdateTbl())) {
+                case ThanhCong:
+                JOptionPane.showMessageDialog(this, "Thêm tất cả thành công", "", JOptionPane.INFORMATION_MESSAGE);
+                loadDataToTable(modelSPCT, listSP, "SP", QLSP, "select * from SanPham where hienthi = ?", HienThi.Hien.name());
+                if (selectedRow.get("SP") >= 0) {
+                    showDetailsSP();
+                }
+                break;
+                case ThatBai:
+                JOptionPane.showMessageDialog(this, "Thêm Thất Bại", "", JOptionPane.ERROR_MESSAGE);
+                case DaTonTai:
+                JOptionPane.showMessageDialog(this, "Thêm Thất Bại\nTrùng sản phẩm", "", JOptionPane.ERROR_MESSAGE);
+                default:
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnImportDetailsActionPerformed
+
+    private void btnExportDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportDetailsActionPerformed
+        exported = new Export();
+        final String[] fileType = new String[1];
+        final String[] filePath = new String[1];
+        String defaultFileName = "documentSPCT.";
+        chooserChoice = new Form_ChooserChoice(frame, true);
+        chooserChoice.setLocationRelativeTo(frame);
+        chooserChoice.setVisible(true);
+        fileType[0] = chooserChoice.getFileType();
+
+        if (fileType[0] != null) {
+            JnaFileChooser fileChooser = new JnaFileChooser();
+            fileChooser.setMode(JnaFileChooser.Mode.Files);
+            fileChooser.setMultiSelectionEnabled(false);
+            fileChooser.setDefaultFileName(defaultFileName + fileType[0]);
+            fileChooser.addFilter(fileType[0] + "File", fileType[0]);
+
+            if (fileChooser.showSaveDialog(frame)) {
+                filePath[0] = fileChooser.getSelectedFile().getAbsolutePath();
+            }
+            try {
+                File file = new File(filePath[0]);
+                if (file.exists()) {
+                    //                    MessageAlerts.getInstance().showMessage("File đã tồn tại", "Oops! Bạn có muốn ghi đè lên file hiện tại?", MessageAlerts.MessageType.ERROR, MessageAlerts.OK_OPTION, new PopupCallbackAction() {
+                        //                        @Override
+                        //                        public void action(PopupController pc, int i) {
+                            //                            if (i == MessageAlerts.OK_OPTION) {
+                                //                                if (isFileOpen(file)) {
+                                    //                                    MessageAlerts.getInstance().showMessage("File đang được mở", "Vui lòng đóng file !!", MessageAlerts.MessageType.ERROR);
+                                    //                                } else {
+                                    //                                    exportedType(modelSPCT, filePath[0], fileType[0]);
+                                    //                                    MessageAlerts.getInstance().showMessage("Export thành công", "", MessageAlerts.MessageType.SUCCESS);
+                                    //                                }
+                                //                            }
+                            //                        }
+                        //                    });
+                if (JOptionPane.showConfirmDialog(this, "File đã tồn tại !\nBạn có muốn ghi đè lên file hiện tại?", "", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
+                    if (isFileOpen(file)) {
+                        JOptionPane.showMessageDialog(this, "File đang được mở\nVui lòng đóng file !!", "", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        exportedType(modelSPCT, filePath[0], fileType[0]);
+                        JOptionPane.showMessageDialog(this, "Export thành công", "", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+
+            } else {
+                exportedType(modelSPCT, filePath[0], fileType[0]);
+                JOptionPane.showMessageDialog(this, "Export thành công", "", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        }
+    }//GEN-LAST:event_btnExportDetailsActionPerformed
+
+    private void btnXoaDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaDetailsActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Xóa sản phẩm này ?", "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            int id = listCTSP.get(tblDetailsProducts.getSelectedRow()).getId();
+            TrangThaiCRUD status = QLSP.update("update SanPhamChiTiet set hienthi = ? where id = ?", HienThi.An.name(), id);
+
+            switch (status) {
+                case ThanhCong:
+                loadDataCTSP();
+                cbb_searchGN.setSelectedIndex(-1);
+                cbb_searchGB.setSelectedIndex(-1);
+                cbb_TT_Fil.setSelectedIndex(-1);
+                break;
+                case ThatBai:
+                JOptionPane.showMessageDialog(this, "Xóa Thất Bại", "", JOptionPane.ERROR_MESSAGE);
+                cbb_searchGN.setSelectedIndex(-1);
+                cbb_searchGB.setSelectedIndex(-1);
+                cbb_TT_Fil.setSelectedIndex(-1);
+                default:
+            }
+        }
+    }//GEN-LAST:event_btnXoaDetailsActionPerformed
+
+    private void cbb_SP_FilterFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbb_SP_FilterFocusGained
+        // TODO add your handling code here:
+        String spTimKiem = String.valueOf(cbb_SP_Filter.getSelectedIndex());
+        if (spTimKiem.equals("Tìm kiếm sản phẩm theo mã sản phẩm , tên ....")) {
+            cbb_SP_Filter.getSelectedIndex(null);
+            cbb_SP_Filter.requestFocus();
+            //Yêu cầu tập trung Focus vào 1 component nào đó.
+            //remove placeholder style
+            //            removePlaceholderStyle(cbb_SP);
+        }
+    }//GEN-LAST:event_cbb_SP_FilterFocusGained
+
+    private void cbb_SP_FilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbb_SP_FilterMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbb_SP_FilterMouseClicked
+
+    private void cbb_SP_FilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_SP_FilterActionPerformed
+        // TODO add your handling code here:
+        String cbbTimKiem = String.valueOf(cbb_SP_Filter.getSelectedItem());
+        if (cbbTimKiem.isEmpty()) {
+            loadDataCTSP();
+        } else {
+            System.out.println("Lua chọn cua ban : " + cbbTimKiem);
+            ArrayList<ChiTietSP> listCTSP = (ArrayList<ChiTietSP>) chiTietSPService.timKiemSp(cbbTimKiem);
+            modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
+            modelCTSP.setRowCount(0);
+            for (ChiTietSP ctsp : listCTSP) {
+                System.out.println("NCC : " + ctsp.getTenNhaCungCap());
+                modelCTSP.addRow(new Object[]{
+                    ctsp.getId(),
+                    ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
+                    ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
+                });
+            }
+        }
+    }//GEN-LAST:event_cbb_SP_FilterActionPerformed
+
+    private void txtSearchDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchDetailsMouseClicked
+        if (searchDetails.getItemSize() > 0) {
+            menuDetails.show(txtSearchDetails, 0, txtSearchDetails.getHeight());
+        }
+    }//GEN-LAST:event_txtSearchDetailsMouseClicked
+
+    private void txtSearchDetailsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchDetailsKeyReleased
+        String text = txtSearchDetails.getText().trim().toLowerCase();
+        searchDetails.setData(rcdSearchDetails(text));
+        if (searchDetails.getItemSize() > 0) {
+            menuDetails.show(txtSearchDetails, 0, txtSearchDetails.getHeight());
+            menuDetails.setPopupSize(txtSearchDetails.getWidth(), (searchDetails.getItemSize() * 35) + 2);
+        } else {
+            menuDetails.setVisible(false);
+        }
+    }//GEN-LAST:event_txtSearchDetailsKeyReleased
+
+    private void btnClearFiltersDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFiltersDetailsActionPerformed
+        cbb_SP_Filter.setSelectedIndex(-1);
+        cbb_TT_Fil.setSelectedIndex(-1);
+        txtSearchDetails.setText("");
+        cbb_searchGN.setSelectedIndex(-1);
+        cbb_searchGB.setSelectedIndex(-1);
+        loadDataCTSP();
+    }//GEN-LAST:event_btnClearFiltersDetailsActionPerformed
+
+    private void cbb_searchGNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_searchGNActionPerformed
+        // TODO add your handling code here:
+        String cbbGiaNhap = String.valueOf(cbb_searchGN.getSelectedItem()).trim();
+        BigDecimal giaN = null;
+        List<ChiTietSP> chiTietList = chiTietSPService.Get_GiaNhap();
+        System.out.println("GiaNhapcbb" + cbbGiaNhap);
+        if (cbbGiaNhap == null || cbbGiaNhap.isEmpty()) {
+            loadDataCTSP();
+        } else {
+            // Find the maximum selling price
+            for (ChiTietSP chiTietSP : chiTietList) {
+                if (giaN == null || chiTietSP.getGiaNhap().compareTo(giaN) > 0) {
+                    giaN = chiTietSP.getGiaBan();
+                }
+            }
+
+            // Default price range
+            int GiaNhapMin = 1000;
+            int GiaNhapMax = 1000;
+            BigDecimal MinGN = new BigDecimal(GiaNhapMin);
+            BigDecimal MaxGN = new BigDecimal(GiaNhapMax);
+
+            // Print the selected combo box value for debugging
+            System.out.println("Selected combo box value: " + cbbGiaNhap);
+
+            switch (cbbGiaNhap) {
+                case "Dưới 500.000đ" -> {
+                    System.out.println("Gia Nhap Min Duoi 500: 0");
+                    GiaNhapMin = 0;
+                    GiaNhapMax = 500000;
+                }
+                case "500.000 - 1 triệu" -> {
+                    GiaNhapMin = 500000;
+                    GiaNhapMax = 1000000;
+                }
+                case "1 - 2 triệu" -> {
+                    GiaNhapMin = 1000000;
+                    GiaNhapMax = 2000000;
+                }
+                case "Giá trên 3 triệu" -> {
+                    GiaNhapMin = 3000000;
+                    GiaNhapMax = giaN != null ? giaN.intValue() : 3000000;
+                }
+                default -> {
+                    System.err.println("Unrecognized price range: " + cbbGiaNhap);
+                }
+            }
+
+            // Convert updated int values to BigDecimal
+            MinGN = BigDecimal.valueOf(GiaNhapMin);
+            MaxGN = BigDecimal.valueOf(GiaNhapMax);
+
+            // Print the results for verification
+            System.out.println("GiaNhapMin: " + GiaNhapMin);
+            System.out.println("GiaNhapMax: " + GiaNhapMax);
+            System.out.println("MinGN: " + MinGN);
+            System.out.println("MaxGN: " + MaxGN);
+            System.out.println("Gia Max: " + giaN);
+
+            List<ChiTietSP> list = chiTietSPService.timKiemGiaNhap(MinGN, MaxGN);
+
+            // Check the returned list for debugging
+            System.out.println("Returned list size: " + list.size());
+            for (ChiTietSP ctsp : list) {
+                System.out.println("Product ID: " + ctsp.getId() + ", GiaNhap: " + ctsp.getGiaNhap());
+            }
+
+            modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
+            modelCTSP.setRowCount(0);
+            for (ChiTietSP ctsp : list) {
+                modelCTSP.addRow(new Object[]{
+                    ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
+                    ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
+                });
+            }
+        }
+
+        //        Dưới 500.000đ
+        //500.0000 - 1 triệu
+        //1 - 2 triệu
+        //Giá trên 3 triệu
+    }//GEN-LAST:event_cbb_searchGNActionPerformed
+
+    private void cbb_searchGBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_searchGBActionPerformed
+        // TODO add your handling code here:
+
+        String cbbGiaNhap = String.valueOf(cbb_searchGB.getSelectedItem()).trim();
+        BigDecimal giaN = null;
+        List<ChiTietSP> chiTietList = chiTietSPService.Get_GiaBan();
+
+        if (cbbGiaNhap == null || cbbGiaNhap.isEmpty()) {
+            loadDataCTSP();
+        } else {
+            // Find the maximum selling price
+            for (ChiTietSP chiTietSP : chiTietList) {
+                if (giaN == null || chiTietSP.getGiaBan().compareTo(giaN) > 0) {
+                    giaN = chiTietSP.getGiaBan();
+                }
+            }
+
+            // Default price range
+            int GiaNhapMin = 1000;
+            int GiaNhapMax = 1000;
+            BigDecimal MinGN = new BigDecimal(GiaNhapMin);
+            BigDecimal MaxGN = new BigDecimal(GiaNhapMax);
+
+            // Print the selected combo box value for debugging
+            System.out.println("Selected combo box value: " + cbbGiaNhap);
+
+            switch (cbbGiaNhap) {
+                case "Dưới 500.000đ" -> {
+                    System.out.println("Gia Nhap Min Duoi 500: 0");
+                    GiaNhapMin = 0;
+                    GiaNhapMax = 500000;
+                }
+                case "500.000 - 1 triệu" -> {
+                    System.out.println("Gia Nhap Min  500 - 1000000: 1000000");
+                    GiaNhapMin = 500000;
+                    GiaNhapMax = 1000000;
+                }
+                case "1 - 2 triệu" -> {
+                    GiaNhapMin = 1000000;
+                    GiaNhapMax = 2000000;
+                }
+                case "Giá trên 3 triệu" -> {
+                    GiaNhapMin = 3000000;
+                    GiaNhapMax = giaN != null ? giaN.intValue() : 3000000;
+                }
+                default -> {
+                    System.err.println("Unrecognized price range: " + cbbGiaNhap);
+                }
+            }
+
+            // Convert updated int values to BigDecimal
+            MinGN = BigDecimal.valueOf(GiaNhapMin);
+            MaxGN = BigDecimal.valueOf(GiaNhapMax);
+
+            // Print the results for verification
+            System.out.println("GiaBanMin: " + GiaNhapMin);
+            System.out.println("GiaBanMax: " + GiaNhapMax);
+            System.out.println("MinGB: " + MinGN);
+            System.out.println("MaxGB: " + MaxGN);
+            System.out.println("Gia Max: " + giaN);
+
+            List<ChiTietSP> list = chiTietSPService.timKiemGiaBan(MinGN, MaxGN);
+
+            // Check the returned list for debugging
+            System.out.println("Returned list size: " + list.size());
+            for (ChiTietSP ctsp : list) {
+                System.out.println("Product ID: " + ctsp.getId() + ", GiaNhap: " + ctsp.getGiaNhap());
+            }
+
+            modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
+            modelCTSP.setRowCount(0);
+            for (ChiTietSP ctsp : list) {
+                modelCTSP.addRow(new Object[]{
+                    ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
+                    ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
+                });
+            }
+        }
+    }//GEN-LAST:event_cbb_searchGBActionPerformed
+
+    private void cbb_TT_FilFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbb_TT_FilFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbb_TT_FilFocusGained
+
+    private void cbb_TT_FilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbb_TT_FilMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbb_TT_FilMouseClicked
+
+    private void cbb_TT_FilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_TT_FilActionPerformed
+        // TODO add your handling code here:
+        String cbbTT = String.valueOf(cbb_TT_Fil.getSelectedItem());
+        // Kiểm tra mục được chọn
+        //String selectedItem = (String) comboBox.getSelectedItem();
+        if ("Chọn một mục".equals(cbbTT)) {
+            // Không làm gì cả hoặc thông báo người dùng chọn một mục khác
+        } else {
+            // Thực hiện hành động với mục đã chọn
+
+            //            if (cbbTT) {
+                //                loadDataCTSP();
+                //                loadDataCTSP();
+                //            } else
+            {
+                System.out.println("Lua chọn cua ban : " + cbbTT);
+                ArrayList<ChiTietSP> listCTSP = (ArrayList<ChiTietSP>) chiTietSPService.seachtTT(cbbTT);
+
+                modelCTSP = (DefaultTableModel) tblDetailsProducts.getModel();
+                modelCTSP.setRowCount(0);
+                for (ChiTietSP ctsp : listCTSP) {
+                    modelCTSP.addRow(new Object[]{
+                        ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
+                        ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
+                    });
+                }
+            }
+        }
+    }//GEN-LAST:event_cbb_TT_FilActionPerformed
+
+    private void txtSearchDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchDetailsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchDetailsActionPerformed
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void loadCbbSP() {
         List<SanPham> list = repository.getAll();
@@ -3244,7 +3471,6 @@ public class Form_Products extends javax.swing.JPanel {
         modelCTSP.setRowCount(0);
         for (ChiTietSP ctsp : listCTSP) {
             modelCTSP.addRow(new Object[]{
-                ctsp.getId(),
                 ctsp.getMaCTSP(), ctsp.getMaSP(), ctsp.getTenSP(), ctsp.getTenSPCT(), ctsp.getGiaBan(), ctsp.getGiaNhap(), ctsp.getSoLuong(), ctsp.getTenNhaCungCap(),
                 ctsp.getTenChatLieu(), ctsp.getTenMauSac(), ctsp.getTenSize(), ctsp.getTenDoDay(), ctsp.getTrangThai()
             });
@@ -3299,16 +3525,6 @@ public class Form_Products extends javax.swing.JPanel {
         for (DoDay s : listDD) {
             combobox.addElement(s.getTenDoDay());
         }
-    }
-
-    public void loadCbbTT() {
-        cbb_TT.removeAllItems();
-        cbb_TT_Filter.removeAllItems();
-        for (TrangThai tt : TrangThai.values()) {
-            cbb_TT.addItem(tt);
-            cbb_TT_Filter.addItem(tt);
-        }
-        cbb_TT_Filter.setSelectedIndex(-1);
     }
 
     private SPCT getCTSP() {
@@ -3410,24 +3626,24 @@ public class Form_Products extends javax.swing.JPanel {
     }
 
     private void showDetailsCTSP(int row) {
-        String maCTSP = tblDetailsProducts.getValueAt(row, 1).toString();
-        String MaSP = tblDetailsProducts.getValueAt(row, 2).toString();
-        String TenSp = tblDetailsProducts.getValueAt(row, 3).toString();
-        String MoTa = tblDetailsProducts.getValueAt(row, 4).toString();
-        String GiaBan = tblDetailsProducts.getValueAt(row, 5).toString();
-        String GiaNhap = tblDetailsProducts.getValueAt(row, 6).toString();
-        String SoLuong = tblDetailsProducts.getValueAt(row, 7).toString();
-        String tenDD = tblDetailsProducts.getValueAt(row, 12).toString();
-        String tenSize = tblDetailsProducts.getValueAt(row, 11).toString();
-        String CL = tblDetailsProducts.getValueAt(row, 9).toString();
-        String mauSac = tblDetailsProducts.getValueAt(row, 10).toString();
-        String NCC = tblDetailsProducts.getValueAt(row, 8).toString();
-        String trangThai = tblDetailsProducts.getValueAt(row, 13).toString();
+        String maCTSP = tblDetailsProducts.getValueAt(row, 0).toString();
+        String MaSP = tblDetailsProducts.getValueAt(row, 1).toString();
+        String TenSp = tblDetailsProducts.getValueAt(row, 2).toString();
+        String TenSPCT = tblDetailsProducts.getValueAt(row, 3).toString();
+        String GiaBan = tblDetailsProducts.getValueAt(row, 4).toString();
+        String GiaNhap = tblDetailsProducts.getValueAt(row, 5).toString();
+        String SoLuong = tblDetailsProducts.getValueAt(row, 6).toString();
+        String tenDD = tblDetailsProducts.getValueAt(row, 11).toString();
+        String tenSize = tblDetailsProducts.getValueAt(row, 10).toString();
+        String CL = tblDetailsProducts.getValueAt(row, 8).toString();
+        String mauSac = tblDetailsProducts.getValueAt(row, 9).toString();
+        String NCC = tblDetailsProducts.getValueAt(row, 7).toString();
+        String trangThai = tblDetailsProducts.getValueAt(row, 12).toString();
         txt_MSPCT.setText(maCTSP);
         txt_Soluong.setText(SoLuong);
         txt_GiaBan.setText(GiaBan);
         txt_GiaNhap.setText(GiaNhap);
-        txt_TenSPCT.setText(MoTa);
+        txt_TenSPCT.setText(TenSPCT);
 
         cbb_SP.setSelectedItem(TenSp);
         cbb_Size.setSelectedItem(tenSize);
@@ -3476,12 +3692,13 @@ public class Form_Products extends javax.swing.JPanel {
         }
         return true;
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.daipc.swing.Button ClearDoDay;
     private javax.swing.JPanel attributesProducts;
     private com.daipc.radiobutton.RadioButtonCustom btnChatLieu;
-    private com.daipc.swing.Button btnChiTiet;
     private com.daipc.swing.Button btnClear;
     private com.daipc.swing.Button btnClearChatLieu;
     private com.daipc.swing.Button btnClearDetails;
@@ -3519,15 +3736,15 @@ public class Form_Products extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_ChatLieu;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_DoDay;
-    private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_GiaBan;
-    private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_GiaNhap;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_MauSac;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_NCC;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_SP;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_SP_Filter;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_Size;
     private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_TT;
-    private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_TT_Filter;
+    private com.daipc.combo_suggestion.ComboBoxSuggestion cbb_TT_Fil;
+    private javax.swing.JComboBox<String> cbb_searchGB;
+    private javax.swing.JComboBox<String> cbb_searchGN;
     private javax.swing.JPanel detailsProducts;
     private javax.swing.JPanel infoProducts;
     private javax.swing.JLabel jLabel1;

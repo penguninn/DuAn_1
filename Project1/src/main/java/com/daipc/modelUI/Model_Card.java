@@ -8,18 +8,16 @@ public class Model_Card {
     private String icon;
     private String title;
     private String price;
-    private String description;
     private String color1;
     private String color2;
 
     public Model_Card() {
     }
 
-    public Model_Card(String icon, String title, String price, String description, String color1, String color2) {
+    public Model_Card(String icon, String title, String price, String color1, String color2) {
         this.icon = icon;
         this.title = title;
         this.price = price;
-        this.description = description;
         this.color1 = color1;
         this.color2 = color2;
     }
@@ -55,14 +53,6 @@ public class Model_Card {
 
     public void setPrice(String price) {
         this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getColor1() {

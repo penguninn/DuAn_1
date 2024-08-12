@@ -158,5 +158,18 @@ public class KhachHangRepo {
     }
     return listKH;
 }
-
+    public boolean checkMaTrung(String maKhachHang) {
+    String sql = "SELECT COUNT(*) FROM KhachHang WHERE MaKhachHang = ?";
+    try (Connection conn = dBHelper.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, maKhachHang);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
 }

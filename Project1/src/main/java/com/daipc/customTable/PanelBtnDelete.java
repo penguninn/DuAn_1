@@ -40,7 +40,7 @@ public class PanelBtnDelete extends javax.swing.JPanel {
 
         btnDelete = new com.daipc.customTable.MiniButton();
 
-        btnDelete.setIcon(new javax.swing.ImageIcon("C:\\Users\\acer\\Desktop\\DuAn_1-main\\Project1\\src\\main\\resources\\com\\daipc\\icon\\trash.png")); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon("C:\\Users\\acer\\Desktop\\DuAn_1-main-2\\Project1\\src\\main\\resources\\com\\daipc\\icon\\trash.png")); // NOI18N
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

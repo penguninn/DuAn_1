@@ -15,7 +15,7 @@ public class Chart extends javax.swing.JPanel {
 
     private List<ModelLegend> legends = new ArrayList<>();
     private List<ModelChart> model = new ArrayList<>();
-    private final int seriesSize = 12;
+    private final int seriesSize = 25;
     private final int seriesSpace = 6;
     private final Animator animator;
     private float animate;

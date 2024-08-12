@@ -48,7 +48,7 @@ public class PanelActionButton extends javax.swing.JPanel {
         btnUpdate = new com.daipc.customTable.MiniButton();
         btnDelete = new com.daipc.customTable.MiniButton();
 
-        btnUpdate.setIcon(new javax.swing.ImageIcon("C:\\Users\\acer\\Desktop\\DuAn_1-main\\Project1\\src\\main\\resources\\com\\daipc\\icon\\update.png")); // NOI18N
+        btnUpdate.setIcon(new javax.swing.ImageIcon("C:\\Users\\acer\\Desktop\\DuAn_1-main-2\\Project1\\src\\main\\resources\\com\\daipc\\icon\\update.png")); // NOI18N
         btnUpdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,7 +56,7 @@ public class PanelActionButton extends javax.swing.JPanel {
             }
         });
 
-        btnDelete.setIcon(new javax.swing.ImageIcon("C:\\Users\\acer\\Desktop\\DuAn_1-main\\Project1\\src\\main\\resources\\com\\daipc\\icon\\trash.png")); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon("C:\\Users\\acer\\Desktop\\DuAn_1-main-2\\Project1\\src\\main\\resources\\com\\daipc\\icon\\trash.png")); // NOI18N
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

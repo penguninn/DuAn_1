@@ -1,7 +1,7 @@
 package com.daipc.form;
+
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -34,7 +34,7 @@ public class Popup_Bill extends JDialog {
     }
 
     private String generateVietQRUrl(String bankId, String accountNo, String template,
-                                     double amount, String description, String accountName) {
+            double amount, String description, String accountName) {
         try {
             String encodedDescription = URLEncoder.encode(description, StandardCharsets.UTF_8.toString());
             String encodedAccountName = URLEncoder.encode(accountName, StandardCharsets.UTF_8.toString());
@@ -52,7 +52,7 @@ public class Popup_Bill extends JDialog {
     }
 
     public static void showQRCodeDialog(String bankId, String accountNo, String template,
-                                        double amount, String description, String accountName) {
+            double amount, String description, String accountName) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new Popup_Bill(bankId, accountNo, template, amount, description, accountName);
@@ -62,11 +62,11 @@ public class Popup_Bill extends JDialog {
 
     public static void main(String[] args) {
         // Các thông số cho mã QR
-        String bankId = "970407"; 
-        String accountNo = "19071676785014"; 
+        String bankId = "970407";
+        String accountNo = "19071676785014";
         String template = "compact";
-        double amount = 150000; // Số tiền
-        String description = "Thanh toán hóa đơn"; 
+        double amount = 15000; // Số tiền
+        String description = "Thanh toán hóa đơn";
         String accountName = "Cửa Hàng Quần Abidas";
 
         // Hiển thị hộp thoại mã QR

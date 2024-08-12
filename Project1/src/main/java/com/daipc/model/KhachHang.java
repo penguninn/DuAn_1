@@ -20,7 +20,9 @@ public class KhachHang {
     private String ngaySua;
     private String nguoiTao;
     private String nguoiSua;
+
     private Boolean trangThai;
+
 
     public KhachHang() {
     }
@@ -49,6 +51,7 @@ public class KhachHang {
         this.nguoiTao = nguoiTao;
     }
 
+
     public KhachHang(int id, String maKhachHang, String hoTen, boolean gioiTinh, String soDT, String diaChi, String ngayTao, Boolean trangThai) {
         this.id = id;
         this.maKhachHang = maKhachHang;
@@ -68,7 +71,7 @@ public class KhachHang {
     public void setTrangThai(Boolean trangThai) {
         this.trangThai = trangThai;
     }
-    
+
     public int getId() {
         return id;
     }

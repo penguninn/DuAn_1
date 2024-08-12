@@ -12,6 +12,9 @@ public class Card extends javax.swing.JPanel {
     private Color color1;
     private Color color2;
 
+    public Card() {
+    }
+
     public Card(Model_Card data) {
         initComponents();
         setOpaque(false);
@@ -22,7 +25,6 @@ public class Card extends javax.swing.JPanel {
         lblIcon.setIcon(data.toIcon());
         lblTitle.setText(data.getTitle());
         lblPrice.setText(data.getPrice());
-        lblDescription.setText(data.getDescription());
         color1 = Color.decode(data.getColor1());
         color2 = Color.decode(data.getColor2());
     }
@@ -34,23 +36,18 @@ public class Card extends javax.swing.JPanel {
         lblIcon = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         lblPrice = new javax.swing.JLabel();
-        lblDescription = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
 
         lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/daipc/icon/stock.png"))); // NOI18N
 
-        lblTitle.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setText("Title");
 
-        lblPrice.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        lblPrice.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         lblPrice.setForeground(new java.awt.Color(255, 255, 255));
         lblPrice.setText("Price");
-
-        lblDescription.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        lblDescription.setForeground(new java.awt.Color(255, 255, 255));
-        lblDescription.setText("Description");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -58,31 +55,24 @@ public class Card extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDescription)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPrice)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTitle)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
-                                .addComponent(lblIcon)))
-                        .addGap(20, 20, 20))))
+                        .addComponent(lblTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+                        .addComponent(lblIcon)))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                    .addComponent(lblIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(lblPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(lblDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                .addGap(29, 29, 29))
+                .addComponent(lblPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -98,7 +88,6 @@ public class Card extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblIcon;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblTitle;

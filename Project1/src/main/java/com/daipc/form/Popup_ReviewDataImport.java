@@ -15,7 +15,6 @@ import com.daipc.repo.Repository;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.table.DefaultTableColumnModelExt;
-import raven.alerts.MessageAlerts;
 
 /**
  *
