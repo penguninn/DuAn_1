@@ -58,6 +58,14 @@ public class ChiTietSP {
         this.tenChatLieu = tenChatLieu;
         this.tenDoDay = tenDoDay;
     }
+
+    public ChiTietSP(String tenSP, BigDecimal giaBan, int soLuong, String tenMauSac, String tenSize) {
+        this.tenSP = tenSP;
+        this.giaBan = giaBan;
+        this.soLuong = soLuong;
+        this.tenMauSac = tenMauSac;
+        this.tenSize = tenSize;
+    }
     
     public Object[] getSPCT() {
         return new Object[] {maCTSP, tenSPCT, giaBan, tenMauSac, tenSize, tenChatLieu, tenDoDay, soLuong};

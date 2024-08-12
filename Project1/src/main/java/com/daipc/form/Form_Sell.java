@@ -1102,8 +1102,9 @@ public class Form_Sell extends javax.swing.JPanel {
                                 IDPhuongThucTT = ?, 
                                 trangThai = ?, 
                                 GhiChu = ?, 
-                                TongGiaTriHoaDon = ?,
-                                idnhanvien = ?
+                                ThanhToan = ?,
+                                idnhanvien = ?,
+                                TongGiaTriHoaDon = ?
                             WHERE ID = ?;
                            """;
         if (validateForm()) {
@@ -1112,6 +1113,7 @@ public class Form_Sell extends javax.swing.JPanel {
                         listPTTT.get(cboHinhThucTT.getSelectedIndex()).getId(), 1, txtGhiChu.getText(),
                         BigDecimal.valueOf(Double.parseDouble(txtThanhToan.getText())),
                         nv.getId(),
+                        BigDecimal.valueOf(Double.parseDouble(txtTongTien.getText())),
                         listHDC.get(tblHoaDonCho.getSelectedRow()).getId()) == TrangThaiCRUD.ThanhCong) {
                     JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công !");
                     loadDataHDC();
@@ -1124,6 +1126,7 @@ public class Form_Sell extends javax.swing.JPanel {
                         listPTTT.get(cboHinhThucTT.getSelectedIndex()).getId(), 1, txtGhiChu.getText(),
                         BigDecimal.valueOf(Double.parseDouble(txtThanhToan.getText())),
                         nv.getId(),
+                        BigDecimal.valueOf(Double.parseDouble(txtTongTien.getText())),
                         listHDC.get(tblHoaDonCho.getSelectedRow()).getId()) == TrangThaiCRUD.ThanhCong) {
                     JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công !");
                     loadDataHDC();

@@ -10,6 +10,9 @@ import com.daipc.table.TableCustom;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -106,7 +109,6 @@ public class Form_Staffs extends javax.swing.JPanel {
         ArrayList<NhanVien> listNV = qltk.getAccount();
         NhanVien nv = listNV.get(listNV.size() - 1);
         getMaNVCuoi = nv.getMaNhanVien();
-        System.out.println("Get manv cuoi: " + getMaNVCuoi);
         String numberPart = getMaNVCuoi.substring(2);
         int number = Integer.parseInt(numberPart);
         number++;
@@ -168,6 +170,10 @@ public class Form_Staffs extends javax.swing.JPanel {
     }
 
     public boolean isEmpty() {
+        if(txt_tk.getText().isEmpty() && txt_mk.getText().isEmpty() && txt_hoTen.getText().isEmpty() && txt_ngaySinh.getDate() == null && txt_sdt.getText().isEmpty() && txt_cccd.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập dữ liệu!");
+            return false;
+        }
         if (txt_tk.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Trường Tài khoản không được trống!");
             return false;
@@ -183,6 +189,13 @@ public class Form_Staffs extends javax.swing.JPanel {
         if (txt_ngaySinh.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Trường Ngày sinh không được trống!");
             return false;
+        } else {
+            LocalDate ngaySinh = txt_ngaySinh.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate today = LocalDate.now();
+            if(today.isEqual(ngaySinh)) {
+                JOptionPane.showMessageDialog(this, "Ngày sinh không hợp lệ!");
+                return false;
+            }
         }
         if (txt_sdt.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Trường SĐT không được trống!");
@@ -234,15 +247,11 @@ public class Form_Staffs extends javax.swing.JPanel {
                 return false;
             }
         }
-        System.out.println("TK cu: " + tkCu + " tk moi: " + txt_tk.getText().trim());
-        System.out.println("cccd cu: " + cccdCu + " cccd moi: " + txt_cccd.getText().trim());
         return true;
     }
 
     public NhanVien readform() {
         String manv = handleMaMoi();
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        Date ngaySinh = txt_ngaySinh.getDate();
 
         String cv;
         if (rdo_ql.isSelected()) {

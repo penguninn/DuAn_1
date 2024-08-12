@@ -13,7 +13,6 @@ import java.util.Date;
  */
 public class HoaDonModel {
 
-    
     private int id;
     private String maHD;
     private String tenKH;
@@ -22,10 +21,10 @@ public class HoaDonModel {
     private String trangThai;
     private Date ngayTao;
     private String tenNguoiTao;
-    
+    private BigDecimal thanhToan;
+    private String pttt;
 
     // Getters và Setters
-
     public HoaDonModel() {
     }
 
@@ -38,6 +37,42 @@ public class HoaDonModel {
         this.trangThai = trangThai;
         this.ngayTao = ngayTao;
         this.tenNguoiTao = tenNguoiTao;
+    }
+
+    public HoaDonModel(String maHD, BigDecimal donGia, String trangThai, Date ngayTao, BigDecimal thanhToan) {
+        this.maHD = maHD;
+        this.donGia = donGia;
+        this.trangThai = trangThai;
+        this.ngayTao = ngayTao;
+        this.thanhToan = thanhToan;
+    }
+
+    public HoaDonModel(String maHD, String tenKH, String sdt, BigDecimal donGia, String trangThai, Date ngayTao, String tenNguoiTao, BigDecimal thanhToan, String pttt) {
+        this.maHD = maHD;
+        this.tenKH = tenKH;
+        this.sdt = sdt;
+        this.donGia = donGia;
+        this.trangThai = trangThai;
+        this.ngayTao = ngayTao;
+        this.tenNguoiTao = tenNguoiTao;
+        this.thanhToan = thanhToan;
+        this.pttt = pttt;
+    }
+
+    public String getPttt() {
+        return pttt;
+    }
+
+    public void setPttt(String pttt) {
+        this.pttt = pttt;
+    }
+
+    public BigDecimal getThanhToan() {
+        return thanhToan;
+    }
+
+    public void setThanhToan(BigDecimal thanhToan) {
+        this.thanhToan = thanhToan;
     }
 
     public int getId() {
@@ -104,21 +139,16 @@ public class HoaDonModel {
         this.tenNguoiTao = tenNguoiTao;
     }
 
-   
-
     @Override
     public String toString() {
-        return "HoaDonModel{" +
-                "maHD=" + maHD +
-                ", tenKH='" + tenKH + '\'' +
-                ", sdt='" + sdt + '\'' +
-                ", donGia=" + donGia +
-                ", trangThai='" + trangThai + '\'' +
-                ", ngayTao=" + ngayTao +
-                ", tenNguoiTao='" + tenNguoiTao + '\'' +
-                '}';
+        return "HoaDonModel{"
+                + "maHD=" + maHD
+                + ", tenKH='" + tenKH + '\''
+                + ", sdt='" + sdt + '\''
+                + ", donGia=" + donGia
+                + ", trangThai='" + trangThai + '\''
+                + ", ngayTao=" + ngayTao
+                + ", tenNguoiTao='" + tenNguoiTao + '\''
+                + '}';
     }
 }
-
-    
-
